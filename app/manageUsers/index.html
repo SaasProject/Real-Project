@@ -1,0 +1,259 @@
+<h2>Manage User Accounts</h2>
+
+<div style = "text-align:center" class = "spinner" ng-show = "loading"> 
+        <img src="loader.gif"/>
+</div>
+
+<div class="container">
+
+<div ng-show="showMainFlash" class="flash-message" ng-if="flash">
+    <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Users</h4>
+        </div>
+		        <div class="modal-body">
+		          <!--<form name = "userAddForm" novalidate>
+				    <label for="firstName">First Name: </label>
+				    <input id="firstName" type="text" ng-model="aUsers.firstName" class="form-control"><br>
+				    <label for="lastName">Last Name: </label>
+				    <input id="lastName" type="text" ng-model="aUsers.lastName" class="form-control"><br>
+				    <label for="email">Email: </label>
+				    <input id="email" type="email" ng-model="aUsers.email" class="form-control"><br>
+				    <label for="role">Role </label>
+				    <select id="role" type="text" ng-model="aUsers.role" class="form-control">
+				    	<option value="Admin">Admin</option>
+				    	<option value="User">User</option>
+				    </select><br>
+
+					<button class="btn btn-primary" ng-click="addUser(userAddForm.$valid)" data-dismiss = "modal">Add User</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		          </form>-->
+		          <div ng-show="showAddFlash" class="flash-message" ng-if="flash">
+        				<div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+					</div>
+		          <form name = "userAddForm">
+					<div ng-repeat="field in fields" ng-if="field.name != 'password'">
+			          	<label for="{{field.name}}" style="text-transform: capitalize;">{{field.name}}:</label>
+			          	<small ng-if="field.required"><i>*This field is required</i></small>
+
+			          	<!--show textbox-->
+			          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required>
+
+			          	<!-- show email -->
+			          	<input name="{{field.type}}" data="{{field.type}}" type="email" ng-show="showEmail(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required>
+
+			          	<!-- show number -->
+			          	<input name="{{field.type}}" data="{{field.type}}" type="text" ng-show="showNumber(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required>
+
+			          	<!-- show password -->
+			          	<input name="{{field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required>
+
+			          	<!-- show confirm password -->
+			          	<label ng-show="showPassword(field.type)" for=field.name>Confirm {{field.name}}: </label>
+			          	<input name="{{'confirm '+field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="confirmPassword[field.name]" class="form-control">
+
+			          	<!-- show text area -->
+  			          	<textarea data="{{field.type}}" ng-show="showTextArea(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required rows="4" cols="50"></textarea>
+
+			          	<!-- show checkbox -->
+			          	<div class="{{'checkBoxAdd '+field.name}}" name="checkBoxInput" ng-repeat="option in field.options" data="{{field.type}}" ng-show="showCheckBox(field.type)">
+			          		<input class="{{option}}" type="checkbox" name="{{option}}" ng-model="optionSelected" data="{{option}}" ng-click="pushToAUsers(field.name, option)">{{option}}<br>
+			          	</div>
+
+			          	<!-- show radio -->
+			          	<div ng-repeat="option in field.options" data="{{field.type}}" ng-show="showRadio(field.type)">
+			          		<input class="{{option}}" type="radio" name="userRadioButton" ng-model="radioSelected" ng-change="putToModel(option, field.name)" value="{{option}}">{{option}}<br>
+			          	</div>
+
+			          	<!-- show date -->
+			          	<input data="{{field.type}}" type="date" ng-show="showDate(field.type)" ng-model="tempDate" ng-change="pushDateToAUsers(field.name, this.tempDate)" class="form-control addTicketDateInput" ng-required=field.required>
+
+			          	<!-- show dropdown -->
+			          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aUsers[field.name]">
+							<option ng-repeat="option in field.options">{{option}}</option>
+						</select>
+		          	</div>
+		        	<br>
+		          </form>
+		        </div><!--modal body-->
+		        <div class="modal-footer" >
+		        	<button class="btn btn-primary" ng-click="addUser()">Add User</button>
+					<button type="button" class="btn btn-danger" ng-click="vm.restart()" data-dismiss="modal">Close</button>
+					<br>
+				</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+    <!-- Modal for Edit User -->
+  <div class="modal fade" id="editModal" role="dialog">
+		<div class="modal-dialog">
+		
+			<!-- Modal content-->
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title">Update User</h4>
+				</div>
+        
+				<div class="modal-body">
+					<!--<form name = "userEditForm" novalidate>
+					
+						<div class="form-group">
+							<label for="fname">Firstname</label>
+							<input type="text" class="form-control" id="fname" ng-model = "aUsers.firstName" >
+						</div>
+           
+						<div class="form-group">
+							<label for="lname">Lastname</label>
+							<input type="text" class="form-control" id="lname" ng-model = "aUsers.lastName">
+						</div>
+						
+												
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" id="email" ng-model = "aUsers.email">
+						</div>
+						
+						<div class="form-group">
+							<label for="role">Role</label>
+							<select id="role"  class="form-control" ng-model = "aUsers.role" required>
+								<option value="Admin">Admin</option>
+								<option value="User">User</option>
+							</select>
+						</div>
+						
+						<button class = "btn btn-primary" ng-click = "vm.updateUser(userEditForm.$valid)" data-dismiss = "modal">Save</button>
+						<button class= "btn btn-danger" ng-click = "vm.cancelEdit()" data-dismiss="modal">Cancel</button>
+					</form>-->
+					<div id="EditModalFlash" ng-show="showEditFlash" class="flash-message" ng-if="flash">
+    					<div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+					</div>
+					<form name = "userEditForm" novalidate>
+						<div ng-repeat="field in fields" ng-if="field.name !='password'">
+	          				<label for="{{field.name}}" style="text-transform: capitalize;">{{field.name}}:</label>
+	          				<small ng-if="field.required"><i>*This field is required</i></small><br>
+	          				<!--<div ng-show="showCheckBox(field.type)" ng-repeat="options in aUsers[field.name] track by $index" style="float:left">
+	          					{{options}}.&nbsp;
+	          				</div><br ng-show="showCheckBox(field.type)">
+	          				<p ng-show="showCheckBox(field.type)" ng-model="aUsers[field.name]">{{aUsers[field.name]}}</p>
+	          				<p ng-show="showRadio(field.type)" ng-model="aUsers[field.name]">{{aUsers[field.name]}}</p>-->
+	          				<p ng-show="showDate(field.type) && !shw" ng-model="aUsers[field.name]">{{aUsers[field.name]}}</p>
+	          				<!--<input id="{{field.name}}" type="text" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>-->
+
+	          				<!--show textbox-->
+				          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>
+
+				          	<!-- show email -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="email" pattern="[^ @]*@[^ @]*" ng-show="showEmail(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>
+
+				          	<!-- show number -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="text" ng-show="showNumber(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>
+
+				          	<!-- show password -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>
+
+				          	<!-- show confirm password -->
+				          	<label ng-show="showPassword(field.type)" for=field.name>Confirm {{field.name}}: </label>
+				          	<input name="{{'confirm '+field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="confirmPassword[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'">
+
+				          	<!-- show text area -->
+	  			          	<textarea data="{{field.type}}" ng-show="showTextArea(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required rows="4" cols="50"></textarea>
+
+				          	<!-- show checkbox -->
+				          	<div class="{{'checkBoxAdd '+field.name}}" name="checkBoxInput" ng-repeat="option in field.options" data="{{field.type}}" ng-show="showCheckBox(field.type)">
+				          		<div ng-hide="field.name == 'email'">
+				          			<input class="{{'edit '+option}}" type="checkbox" name="{{'edit '+option}}" ng-model="optionSelected" ng-disabled="!shw" ng-checked="isChecked(field.name, option, field.type)" data="{{option}}" ng-click="pushEditToAUsers(field.name, option, data)">{{option}}<br>
+				          		</div>
+				          	</div>
+
+				          	<!-- show radio -->
+				          	<div ng-repeat="option in field.options" data="{{field.type}}" ng-show="showRadio(field.type)">
+				          		<div ng-hide="field.name == 'email'">
+				          			<input class="{{option}}" type="radio" name="options" ng-model="radioSelected" ng-change="putToModel(option, field.name)" ng-disabled="!shw" value="{{option}}" ng-hide="field.name == 'email'" ng-checked="isRadioSelected(field.name, option, field.type)">{{option}}<br>
+				          		</div>
+				          	</div>
+
+				          	<!-- show date -->
+				          	<input data="{{field.type}}" type="date" ng-show="showDate(field.type) && shw==true" ng-model="tempDate" ng-change="pushDateToAUsers(field.name, this.tempDate)" class="form-control addTicketDateInput" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>
+
+				          	<!-- show dropdown -->
+				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aUsers[field.name]" ng-disabled="shw==false || field.name == 'email'">
+								<option ng-repeat="option in field.options">{{option}}</option>
+							</select>
+          				</div>
+        				<br>
+          			</form>
+				</div>
+				<div class="modal-footer"> 
+					<button class = "btn btn-primary" ng-click="vm.enableEditing()" ng-hide="shw">Edit</button>
+					<button class = "btn btn-primary" ng-click="vm.updateUser()" ng-show="shw">Save</button>
+					<button type="button" class="btn btn-danger" ng-click="vm.restart()" data-dismiss="modal">Close</button>
+					<br>
+				</div>
+			</div>
+      
+		</div>
+  </div>
+</div>
+
+<div class="panel" ng-hide = "loading">
+	<div class="row">
+		<div class="col-sm-3">
+    		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="declareSelected()">Create new user</button>		      
+		</div>
+	</div>
+	<div class="row">
+		<br/>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+            <label for="search">Search</label>
+            <input id="search" type="text" ng-model="search" class="form-control">           
+		</div>
+		<div class="col-sm-3">
+		    <label for="pageSize">Items per page</label>
+			<input id="pageSize" type="number" ng-model="pageSize" class="form-control" min="1" max={{vm.user.length}}> 
+		</div> 
+	</div>
+</div>
+<div class="panel" ng-hide = "loading">
+	<table class="table table-striped table-condensed table-hover">
+		<thread>
+			<tr>
+				<th ng-click='sortColumn("role")' ng-class='setWidth("role") + " " + sortClass("role")'>Role</th>
+				<th ng-click='sortColumn("firstName")' ng-class='setWidth("firstName") + " " + sortClass("firstName")'>First Name</th>
+				<th ng-click='sortColumn("lastName")' ng-class='setWidth("lastName") + " " + sortClass("lastName")'>Last Name</th>
+				<th ng-click='sortColumn("email")' ng-class='setWidth("email") + " " + sortClass("email")'>Email Address</th>
+			</tr>
+		</thread>
+		<tbody>
+			<tr ng-repeat="u in vm.user | orderObjectBy : column : reverse | filter : search | pagination: (currentPage - 1) * pageSize | limitTo: pageSize ">
+				<td class="cutOverflow">{{u.role}}</td>
+				<td class="cutOverflow">{{u.firstName}}</td>
+				<td class="cutOverflow">{{u.lastName}}</td>
+				<td class="cutOverflow">{{u.email}}</td>
+				<td>
+					<a><i class="fa fa-list-alt" aria-hidden="true" data-toggle = "modal" data-target = "#editModal" ng-click="editUser(u._id); declareSelected()" data-toggle="tooltip" title="View Details"></i><a>
+					|
+					<a><i class="fa fa-trash" aria-hidden="true" ng-click="vm.deleteUser(u._id)" data-toggle="tooltip" title="Delete"></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ul uib-pagination total-items="userLength" ng-model="currentPage" items-per-page="pageSize" boundary-links="true" max-size="4" force-ellipses="true"></ul>
+</div>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>-->

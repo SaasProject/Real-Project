@@ -1,0 +1,88 @@
+<div class="col-sm-6">
+	<div class="panel panel-primary">
+        <div class="panel-heading"><h4>Customize Fields</h4></div>
+        <div class="panel-body">
+			<div class="form-inline">
+				<select id = "name" ng-model="name" class="form-control" ng-click="getAllFields()">
+					<option value="user">User</option>
+					<option value="asset">Asset</option>
+					<option value="rfid_scanner">RFID Scanner</option>
+					<option value="warehouse">Warehouse</option>
+				</select>
+			</div>
+			<br>
+			<form ng-submit="addUpdateField()">
+				<input type="text" class="form-control" placeholder="Add field here" ng-model="newField.name" ng-required="true"><br>
+				<input type="checkbox" class="form-check-input" id="exampleCheck1" ng-model="newField.required">
+				<label class="form-check-label" for="exampleCheck1">Required</label><br><br>
+				<label class="form-check-label" for="typeDropdown">Select type of field</label>
+				<select id="inputType" class="form-control" ng-model="newField.type" ng-change="enableTextArea()" id="typeDropdown">
+					<option>text</option>
+					<option>number</option>
+					<option>email</option>
+					<option>password</option>
+					<option>textarea</option>
+					<option>checkbox</option>
+					<option>dropdown</option>
+					<option>radio</option>
+					<option>date</option>
+				</select><br>
+				<div id="textAreaField" ng-show="editable">
+					Enter option values separated by comma ','<br>
+			    	<textarea id="fieldValues" rows="4" cols="50" ng-model="fieldOptions"></textarea>
+				</div>
+				<br>
+				<button class="btn btn-success" type="submit">Save</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-6">
+
+	<div class="panel panel-success">
+        <div class="panel-heading"><h4>{{name}}</h4></div>
+        <div class="panel-body">
+			<div class="flash-message" ng-if="flash">
+		        <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+			</div>
+			<br>
+			<div id="Fields">
+				<table class="table table-borderless">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					
+					<tbody ui-sortable = "sortableOptions" ng-model = "fields">
+						<tr ng-repeat="field in fields" style="cursor:move">
+							<td class="col-sm-3">
+								{{field.name}}
+							</td>
+							<td class="col-sm-3">
+								{{field.type}}
+							</td>
+							<td class="col-sm-3">
+								{{field.required == true? "required" : "not required"}}
+							</td>
+							<td class="col-sm-3">
+								<div class="pull-right" ng-if="isRemovable(field.name)">
+									<a style = "cursor:pointer"><i class="fa fa-list-alt" aria-hidden="true" ng-click="editField($index)" data-toggle="tooltip" title="Edit"></i><a>
+										|
+									<a style = "cursor:pointer"><i class="fa fa-trash" aria-hidden="true" ng-click="removeField($index)" data-toggle="tooltip" title="Delete"></i></a>
+								</div>
+								<div class="pull-right" ng-if="!isRemovable(field.name)">
+									DEFAULT	
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,195 @@
+<h2>Manage Warehouse Devices</h2>
+
+<div style = "text-align:center" class = "spinner" ng-show = "loading"> 
+        <img src="loader.gif"/>
+</div>
+
+<div ng-show="showMainFlash" class="flash-message" ng-if="flash">
+    <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Device</h4>
+        </div>
+        <div class="modal-body">
+        	<div id="addModalFlash" ng-show="showAddFlash" class="flash-message" ng-if="flash">
+				<div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+			</div>
+          	<form name = "deviceAddForm" novalidate>
+						<div ng-repeat="field in fields">
+							<label  for=field.name>{{field.name}}: </label>
+							<small ng-if="field.required"><i>*This field is required</i></small>
+							<!--show textbox-->
+				          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-required=field.required>
+
+				          	<!-- show email -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="email" ng-show="showEmail(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-required=field.required>
+
+				          	<!-- show number -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="text" ng-show="showNumber(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-required=field.required>
+
+				          	<!-- show password -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-required=field.required>
+
+				          	<!-- show confirm password -->
+				          	<label ng-show="showPassword(field.type)" for=field.name>Confirm {{field.name}}: </label>
+				          	<input name="{{'confirm '+field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="confirmPassword[field.name]" class="form-control">
+
+				          	<!-- show text area -->
+	  			          	<textarea data="{{field.type}}" ng-show="showTextArea(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-required=field.required rows="4" cols="50"></textarea>
+
+				          	<!-- show checkbox -->
+				          	<div class="{{'checkBoxAdd '+field.name}}" name="checkBoxInput" ng-repeat="option in field.options" data="{{field.type}}" ng-show="showCheckBox(field.type)">
+				          		<input class="{{option}}" type="checkbox" name="{{option}}" ng-model="optionSelected" data="{{option}}" ng-click="pushToADevices(field.name, option)">{{option}}<br>
+				          	</div>
+
+				          	<!-- show radio -->
+				          	<div ng-repeat="option in field.options" data="{{field.type}}" ng-show="showRadio(field.type)">
+				          		<input class="{{option}}" type="radio" name="options" ng-model="radioSelected" ng-change="putToModel(option, field.name)" value="{{option}}">{{option}}<br>
+				          	</div>
+
+				          	<!-- show date -->
+				          	<input data="{{field.type}}" type="date" ng-show="showDate(field.type)" ng-model="tempDate" ng-change="pushDateToADevices(field.name, this.tempDate)" class="form-control addTicketDateInput" ng-required=field.required>
+
+				          	<!-- show dropdown -->
+				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aDevices[field.name]">
+								<option ng-repeat="option in field.options">{{option}}</option>
+							</select>		
+						</div>
+			</form>
+			</div>
+          	
+          	<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" ng-click="addDevice(deviceAddForm.$valid)">Add Device</button>
+				<button type="button" class="btn btn-danger" ng-click="vm.cancelEdit()" data-dismiss="modal">Close</button>
+			</div>
+      	</div>
+      
+    </div>
+  </div>
+  
+  
+    <!-- Modal for Edit Device -->
+  <div class="modal fade" id="editModal" role="dialog">
+		<div class="modal-dialog">
+		
+			<!-- Modal content-->
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update Device</h4>
+				</div>
+        
+				<div class="modal-body">
+					<div id="addModalFlash" ng-show="showEditFlash" class="flash-message" ng-if="flash">
+        				<div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+					</div>
+					<form name = "deviceEditForm" novalidate>
+						<div class="form-group" ng-repeat="field in fields">
+							<label  for=field.name>{{field.name}}: </label>
+							<small ng-if="field.required"><i>*This field is required</i></small><br>
+							<!--<input id=field.name type=field.type ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'"><br>-->
+							<!--<div ng-show="showCheckBox(field.type)" ng-repeat="options in aDevices[field.name] track by $index" style="float:left">
+          					{{options}}.&nbsp;
+	          				</div><br ng-show="showCheckBox(field.type)">
+	          				<p ng-show="showRadio(field.type)" ng-model="aDevices[field.name]">{{aDevices[field.name]}}</p>-->
+	          				<p ng-show="showDate(field.type) && unEditAble" ng-model="aDevices[field.name]">{{aDevices[field.name]}}</p>
+
+	          				<!--show textbox-->
+				          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'" ng-required=field.required>
+
+				          	<!-- show email -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="email" ng-show="showEmail(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'" ng-required=field.required>
+
+				          	<!-- show number -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="text" ng-show="showNumber(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'" ng-required=field.required>
+
+				          	<!-- show password -->
+				          	<input name="{{field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'" ng-required=field.required>
+
+				          	<!-- show confirm password -->
+				          	<label ng-show="showPassword(field.type)" for=field.name>Confirm {{field.name}}: </label>
+				          	<input name="{{'confirm '+field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="confirmPassword[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'">
+
+				          	<!-- show text area -->
+	  			          	<textarea data="{{field.type}}" ng-show="showTextArea(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'" ng-required=field.required rows="4" cols="50"></textarea>
+
+				          	<!-- show checkbox -->
+				          	<div class="{{'checkBoxAdd '+field.name}}" name="checkBoxInput" ng-repeat="option in field.options" data="{{field.type}}" ng-show="showCheckBox(field.type)">
+				          		<div ng-hide="field.name == 'device_id'">
+				          			<input class="{{'edit '+option}}" type="checkbox" name="{{'edit '+option}}" ng-model="optionSelected" ng-checked="isChecked(field.name, option, field.type)" data="{{option}}" ng-disabled="unEditAble" ng-click="pushEditToADevices(field.name, option, data)">{{option}}<br>
+				          		</div>
+				          	</div>
+
+				          	<!-- show radio -->
+				          	<div ng-repeat="option in field.options" data="{{field.type}}" ng-show="showRadio(field.type)">
+				          		<div ng-hide="field.name == 'device_id'">
+				          			<input class="{{option}}" type="radio" name="options" ng-model="radioSelected" ng-change="putToModel(option, field.name)" ng-disabled="unEditAble" value="{{option}}" ng-checked="isRadioSelected(field.name, option, field.type)">{{option}}<br>
+				          		</div>
+				          	</div>
+
+				          	<!-- show date -->
+				          	<input data="{{field.type}}" type="date" ng-show="showDate(field.type) && !unEditAble" ng-model="tempDate" ng-change="pushDateToADevices(field.name, field.type, this.tempDate)" class="form-control addTicketDateInput" ng-readonly="unEditAble || field.name == 'device_id'" ng-required=field.required>
+
+				          	<!-- show dropdown -->
+				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aDevices[field.name]" ng-disabled="unEditAble || field.name == 'device_id'">
+								<option ng-repeat="option in field.options">{{option}}</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="editDeviceButton" class = "btn btn-primary" ng-click="vm.editAbleDevice()" ng-show="unEditAble">Edit</button>
+					<button class = "btn btn-primary" ng-click="vm.updateDevice(deviceEditForm.$valid)" ng-hide="unEditAble">Save</button>
+					<button class= "btn btn-danger" ng-click="vm.cancelEdit()" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+  		</div>
+	</div>
+
+<div class="panel" ng-hide = "loading">
+	<div class="row">
+		<div class="col-sm-3">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="declareSelected()">Create new device</button>
+		</div>
+	</div>
+	<div class="row">
+		<br/>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+            <label for="search">Search</label>
+            <input id="search" type="text" ng-model="search" class="form-control">           
+		</div>
+		<div class="col-sm-3">
+		    <label for="pageSize">Items per page</label>
+			<input id="pageSize" type="number" ng-model="pageSize" class="form-control" min="1" max={{vm.user.length}}> 
+		</div> 
+	</div>
+</div>
+<div class="panel" ng-hide = "loading">
+	<table class="table table-striped table-condensed table-hover">
+		<thread>
+			<tr>
+				<th ng-repeat="field in fields" ng-click='sortColumn(field.name)' ng-class='setWidth(field.name) + " " + sortClass(field.name)'>{{field.name}}</th>
+			</tr>
+		</thread>
+		<tbody>
+			<tr ng-repeat="u in vm.device | orderObjectBy : column : reverse | filter : search | pagination: (currentPage - 1) * pageSize | limitTo: pageSize ">
+				<td class="cutOverflow" ng-repeat="field in fields">{{u[field.name]}}</td>
+				<td>
+					<a><i class="fa fa-list-alt" aria-hidden="true" data-toggle = "modal" data-target = "#editModal" ng-click="editDevice(u._id); declareSelected()" data-toggle="tooltip" title="View Details"></i><a>
+					|
+					<a><i class="fa fa-trash" aria-hidden="true" ng-click="vm.deleteDevice(u._id)" data-toggle="tooltip" title="Delete"></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ul uib-pagination total-items="deviceLength" ng-model="currentPage" items-per-page="pageSize" boundary-links="true" max-size="4" force-ellipses="true"></ul>

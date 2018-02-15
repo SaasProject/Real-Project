@@ -1,0 +1,77 @@
+
+<div style = "text-align:center" class = "spinner" ng-show = "loading"> 
+        <img src="loader.gif"/>
+</div>
+
+<div style="width:90%; margin-left: auto; margin-right: auto;" ng-hide = "loading">
+    <div class="container">
+        <div class="row">
+            <div class="panel-group col-sm-7" style="table-layout: fixed;">
+                <div class="panel panel-primary">
+                <div class="panel-heading"><h4>Warehouses</h4></div>
+                <div class="panel-body" style="max-height: 70vh; overflow-y: scroll;">
+                    <table class="table table-striped">
+                        <thead></thead>
+                        <tbody>
+                            <tr ng-repeat="warehouse in warehouses | orderBy:'name':false" data-toggle="modal" data-target="#warehouseModal" ng-click="openModal(warehouse)" style = "cursor:pointer">
+                                <td>{{warehouse.name}}</td>
+                                <td style="text-align: right;">{{warehouse.quantity}} / {{warehouse.capacity}} <span class="glyphicon {{warehouse.icon}}" style="color: {{warehouse.color}};"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jeremy">
+    <div class="modal fade" id="warehouseModal" role="dialog">
+        <div class="modal-dialog">
+                    
+                <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align: center">{{current_warehouse.name}} <span class="glyphicon {{current_warehouse.icon}}" style="color: {{current_warehouse.color}};"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <big>
+                        <tbody>
+                            <tr>
+                                <td><b>Total Warehouse Capacity</b></td>
+                                <td>{{current_warehouse.capacity}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Total Assets Stored</b></td>
+                                <td>{{current_warehouse.quantity}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Asset Types</b></td>
+                                <td>{{current_warehouse.asset_types}}</td>
+                            </tr>
+                        </tbody>
+                        </big>
+                    </table>
+                    <big><b>Latest Assets </b></big>
+                    <table class="table table-striped">
+                        <thead>
+                            <th style="text-align: center">Asset Tag</th>
+                            <th style="text-align: center">Date</th>
+                        </thead>
+                        <tbody style="text-align: center"> 
+                            <tr ng-repeat="asset in latest_assets">
+                                <td>{{asset.asset_tag}}</td>
+                                <td>{{asset.updated_date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

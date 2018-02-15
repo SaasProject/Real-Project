@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SaaS Project</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="app-content/app.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a ui-sref = "home" class="navbar-brand">SaaS App</a>
+                    
+                    <button class="navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>  
+                        <span class="icon-bar"></span>
+                    </button>
+                    <p ng-show="greet" style="border-color: #f8f8f8;" class="noselect navbar-toggle hidden-sm hidden-md hidden-lg">Hi {{fName}}!</p>
+                </div>
+                <div class="collapse navbar-collapse navHeaderCollapse">
+                    <ul class="nav navbar-nav">
+                    <!--    <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home"><span class="glyphicon glyphicon-home"></span> Home</a></li> -->
+                        <!--added by jeremy -->
+                        <li ng-class="{active: activeTab === 'asset'}"><a ui-sref="asset"><span class="glyphicon glyphicon-list-alt"></span> Assets</a></li>  
+                        <li ng-class="{active: activeTab === 'manageUsers'}" ng-show="isAdmin"><a ui-sref="manageUsers"><span class="glyphicon glyphicon-tasks"></span> Manage Accounts</a></li>    
+                        <li ng-class="{active: activeTab === 'manageDevices'}" ng-show="isAdmin"><a ui-sref="manageDevices"><span class="glyphicon glyphicon-hdd"></span> Manage Devices</a></li>
+                        <li ng-class="{active: activeTab === 'manageWarehouses'}" ng-show="isAdmin"><a ui-sref="manageWarehouses"><span class="glyphicon glyphicon-home"></span> Manage Warehouses</a></li>
+						<li ng-class="{active: activeTab === 'fields'}" ng-show="isAdmin"><a ui-sref="fields"><span class="glyphicon glyphicon-th-list"></span> Manage Fields</a></li>                       
+                    </ul>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-show="greet" class="noselect navbar-text hidden-xs">Hi {{fName}}!</li>
+                        <li ng-class="{active: activeTab === 'account'}"><a style="padding-top: 10px;" class="a50px" ui-sref="account"><div class="avatar-circle" ng-style="bgColor"><span class="initials noselect" data-toggle="tooltip" title="View Account">{{initials}}</div></a></li>
+                        <li><a href="/login"><span class="glyphicon glyphicon-log-out" ng-click="logout()" data-toggle="tooltip" title="Log Out"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+ 
+    <!-- main -->
+    
+    <main class="container-fluid" ui-view></main>
+    
+    <!-- footer -->
+    <footer></footer>
+
+
+    <!-- modal serbisyo -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+    <!-- external scripts -->
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.15.0/sortable.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+
+    <!-- added by jeremy to implement ng-csv (angular included above) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-csv/0.3.6/ng-csv.min.js"></script>    
+    
+    <!-- added by jeremy for ui-bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+ 
+    <!-- application scripts -->
+    <script src="app.js"></script>
+    <script src="app-services/user.service.js"></script>
+    <script src="app-services/flash.service.js"></script>
+    <script src="home/index.controller.js"></script>
+    <script src="account/index.controller.js"></script>
+	
+	<!-- added by glenn -->
+	<script src="manageUsers/index.controller.js"></script>
+    <script src="manageDevices/index.controller.js"></script>
+    <script src="app-services/device.service.js"></script> 
+
+    <!-- added by jeremy -->
+    <script src="app-services/asset.service.js"></script>
+    <script src="app-services/fields.service.js"></script>      
+    <script src="asset/index.controller.js"></script>
+    <script src="fields/index.controller.js"></script>
+
+    <!-- added by dyan0 socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app-services/socket.service.js"></script>
+    <script src="socket.js"></script>
+	
+	<script src = "warehouse/index.controller.js"></script>
+	<script src = "app-services/warehouse.service.js"></script>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>	
+    
+</body>
+</html>
