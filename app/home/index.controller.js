@@ -54,8 +54,9 @@
                     
                         //loop warehouse
                         for (var warehouseQnty = 0; warehouseQnty<$scope.warehouseLength; warehouseQnty++){
-                                var quantity = 0;
-                                $scope.warehouses[warehouseQnty].color = "green";
+                            var quantity = 0;
+                            var color = "green";
+                            var icon = "glyphicon-ok-sign";
 
                             //NOTE: can use $filter to search assets on a specific warehouse 
 
@@ -65,21 +66,23 @@
                                     quantity++;
                                 }
                             }
+                            //check percentage
+                            if (quantity > ($scope.warehouses[warehouseQnty].capacity)){
+                                color = "red";
+                                icon = "glyphicon-remove-sign";
+                            }
+                            else if (quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.90)){
+                                color = "orangered";
+                                icon = "glyphicon-exclamation-sign";
+                            }
+                            else if (quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.80)){
+                                color = "orange";
+                                icon = "glyphicon-exclamation-sign";
+                            }
                             //assign new value
                             $scope.warehouses[warehouseQnty].quantity = quantity;
-                            //check percentage
-                            if ($scope.warehouses[warehouseQnty].quantity > ($scope.warehouses[warehouseQnty].capacity)){
-                                $scope.warehouses[warehouseQnty].color = "red";
-                                $scope.warehouses[warehouseQnty].icon = "glyphicon-remove-sign";
-                            }
-                            else if ($scope.warehouses[warehouseQnty].quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.90)){
-                                $scope.warehouses[warehouseQnty].color = "orangered";
-                                $scope.warehouses[warehouseQnty].icon = "glyphicon-exclamation-sign";
-                            }
-                            else if ($scope.warehouses[warehouseQnty].quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.80)){
-                                $scope.warehouses[warehouseQnty].color = "orange";
-                                $scope.warehouses[warehouseQnty].icon = "glyphicon-exclamation-sign";
-                            }
+                            $scope.warehouses[warehouseQnty].color = color;
+                            $scope.warehouses[warehouseQnty].icon = icon;
                         }
 
                         if(isModalOpened){
@@ -108,8 +111,9 @@
 
                     //loop warehouse
                     for (var warehouseQnty = 0; warehouseQnty<$scope.warehouseLength; warehouseQnty++){
-                            var quantity = 0;
-                            $scope.warehouses[warehouseQnty].color = "green";
+                        var quantity = 0;
+                        var color = "green";
+                        var icon = "glyphicon-ok-sign";
 
                         //NOTE: can use $filter to search assets on a specific warehouse 
 
@@ -119,21 +123,23 @@
                                 quantity++;
                             }
                         }
+                        //check percentage
+                        if (quantity > ($scope.warehouses[warehouseQnty].capacity)){
+                            color = "red";
+                            icon = "glyphicon-remove-sign";
+                        }
+                        else if (quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.90)){
+                            color = "orangered";
+                            icon = "glyphicon-exclamation-sign";
+                        }
+                        else if (quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.80)){
+                            color = "orange";
+                            icon = "glyphicon-exclamation-sign";
+                        }
                         //assign new value
                         $scope.warehouses[warehouseQnty].quantity = quantity;
-                        //check percentage
-                        if ($scope.warehouses[warehouseQnty].quantity > ($scope.warehouses[warehouseQnty].capacity)){
-                            $scope.warehouses[warehouseQnty].color = "red";
-                            $scope.warehouses[warehouseQnty].icon = "glyphicon-remove-sign";
-                        }
-                        else if ($scope.warehouses[warehouseQnty].quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.90)){
-                            $scope.warehouses[warehouseQnty].color = "orangered";
-                            $scope.warehouses[warehouseQnty].icon = "glyphicon-exclamation-sign";
-                        }
-                        else if ($scope.warehouses[warehouseQnty].quantity >= ($scope.warehouses[warehouseQnty].capacity * 0.80)){
-                            $scope.warehouses[warehouseQnty].color = "orange";
-                            $scope.warehouses[warehouseQnty].icon = "glyphicon-exclamation-sign";
-                        }
+                        $scope.warehouses[warehouseQnty].color = color;
+                        $scope.warehouses[warehouseQnty].icon = icon;
                     }
 
                     if(isModalOpened){
