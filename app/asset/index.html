@@ -160,7 +160,6 @@
     </div>
     <div class="row" ng-hide = "loading">
         <div class="col-sm-12">
-            <i class="pull-right">{{filtered_assets.length}} asset/s found</i>
             <table class="table table-hover">
                 <thead>
                     <tr>  
@@ -179,7 +178,7 @@
                         <td ng-repeat="field in fields" ng-if="field.name != '_id'" class="cutOverflow">{{(!$parent.asset[field.name]) ? ($parent.asset[field.name] = '') : $parent.asset[field.name]}}</td>                        
                          <td>{{asset['updated_date']}}</td>
                         <td>
-                            <a><i class="fa fa-list-alt" aria-hidden="true" ng-click="editModal(asset); declareSelected()" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="Edit"></i><a>
+                            <a><i class="fa fa-list-alt" aria-hidden="true" ng-click="editModal(asset); declareSelected()" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="View Details"></i><a>
                             |
                             <a><i class="fa fa-trash" aria-hidden="true" ng-click="deleteAsset(asset)" data-toggle="tooltip" title="Delete"></i></a>                           
                         </td>

@@ -62,7 +62,7 @@
                         </thead>
                         <tbody style="text-align: center"> 
                             <tr ng-repeat="asset in latest_assets">
-                                <td>{{asset.asset_tag}}</td>
+                                <td><a ui-sref="asset({asset_tag: asset.asset_tag})">{{asset.asset_tag}}</a></td>
                                 <td>{{asset.updated_date}}</td>
                             </tr>
                         </tbody>

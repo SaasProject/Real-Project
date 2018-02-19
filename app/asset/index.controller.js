@@ -2,6 +2,7 @@
     Name: Asset Controller
     Date Created: 01/03/2018
     Author(s): Ayala, Jenny
+               Flamiano, Glenn
                Omugtong, Jano
                Reccion, Jeremy
     
@@ -28,7 +29,7 @@
             };
         });
  
-    function Controller($window, AssetService, FlashService, $scope, $interval, $filter, DeviceService, socket, FieldsService, WarehouseService) {
+    function Controller($window, AssetService, FlashService, $scope, $interval, $filter, DeviceService, socket, FieldsService, WarehouseService, $stateParams) {
  
         /* Initialization of scope variables */
 		
@@ -64,6 +65,7 @@
 
         //confirm passwords all inputs
         $scope.confirmPassword = {};
+
 
         // initialize modal flash message display
         function resetModalFlash(){
@@ -105,7 +107,17 @@
 
         //call this function to get all fields when Assets page is loaded
         getAllFields();
-		
+        
+        //check if the url has asset_tag parameter. this is executed upon loading of asset page
+        if($stateParams.asset_tag){
+            //console.log('asset_tag query', $stateParams.asset_tag)
+            $scope.searchColumn = 'asset_tag';
+            $scope.search['asset_tag'] = $stateParams.asset_tag;
+
+            //forcibly remove modal backdrop when moving from warehouse modal to asset page via link
+            //since there is no flag to determine if a modal is open, this will always execute
+            $('.modal-backdrop').hide();
+        }
 		
 		
         /*
@@ -249,8 +261,8 @@
                 delete $scope.search['updated_date'];
             }
         });
-        $scope.$watchGroup(['sortColumn', 'reverse'], function(){evalAssets()});
-        $scope.$watchCollection('assets', function(){evalAssets()});
+        $scope.$watchGroup(['sortColumn', 'reverse'], function(){evalAssets();});
+        $scope.$watchCollection('assets', function(){evalAssets();});
         $scope.$watchCollection('search', function(){evalAssets();});
 
         function evalAssets(){

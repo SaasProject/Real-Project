@@ -47,6 +47,10 @@
             //added by jeremy
             .state('asset', {
                 url: '/asset',
+                //asset_tag parameter is optional and will not show in the url
+                params: { 
+                    asset_tag: null
+                },
                 templateUrl: 'asset/index.html',
                 controller: 'Asset.IndexController',
                 //not yet used

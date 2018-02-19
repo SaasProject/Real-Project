@@ -190,10 +190,10 @@
                 return x['type'];
             });
 
-            //remove duplicates, convert to string, and append spaces after commas
+            //remove duplicates and null values, convert array to string, and append spaces after commas
             $scope.current_warehouse.asset_types = $scope.current_warehouse.asset_types.filter(function(value, index, self){
-                return self.indexOf(value) == index;
-            }).toString().replace(/,/g, ', ');
+                return (self.indexOf(value) == index && value != null);
+            }).sort().toString().replace(/,/g, ', ');
 
 
             //display only the first 5 elements
