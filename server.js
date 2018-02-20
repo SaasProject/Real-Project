@@ -76,74 +76,110 @@ app.get('/', function (req, res) {
 
  
 // start server --edited by dyan0 from app.listen to http.listen
-var server = http.listen(3000, function () {
+var server = http.listen(3000, function (sock) {
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
-
 
     /* Author: Macku I. Sanchez
        Date: 01/23/2018
        Purpose: Recieves the Data that is sent by the Dummy Program.
     */
-    server.on('connection', function(socket) { //This is a standard net.Socket
-        socket = new JsonSocket(socket); //Now we've decorated the net.Socket to be a JsonSocket
+    server.on('connection', function(socket) { 
+        socket = new JsonSocket(socket); 
         socket.on('message', function(message) {
 
-     
+            
+
+
+            var displayDate;
+            var start = new Date();
+            var year = start.getFullYear();
+            var month = ''+(start.getMonth()+1);
+            var date = ''+start.getDate();
+            var hour = ''+start.getHours();
+            var minutes = ''+start.getMinutes();
+            var seconds = ''+start.getSeconds();
+
+            if (month.length < 2) month = '0' + month;
+            if (date.length < 2) date = '0' + date;
+            if (hour.length < 2) hour = '0' + hour;
+            if (minutes.length < 2) minutes = '0' + minutes;
+            if (seconds.length < 2) seconds = '0' + seconds;
+
+            displayDate = year+"-"+month+"-"+date+" "+hour+":"+minutes+":"+seconds;
+       
+            message.created_date=displayDate;
+            message.updated_date=displayDate;
+            
             var assetParam = message;
             var set;
             var assettg;
             //console.log(assetParam);
 
 
-
             MongoClient.connect(url, function(err, db) {
-                if (err) throw err;
-                var dbo = db.db("SaasDatabaseRealProj");
-                dbo.collection("assets").findOne({asset_tag: assetParam.asset_tag}, 
-                    function(err, result) {
-                        if (err) throw err;
-                        if(result===null){
-                            checkAssetforAdd(); 
-                        }else{
-                            assettg = result.location;
-                            checkAssetforUpdate();
-                        }   
-                        //console.log(result);
-                        db.close();
-                      });
-            });
+                    if (err) throw err;
+                    var dbo = db.db("SaasDatabaseRealProj");
+                    dbo.collection("devices").findOne({device_id: assetParam.device_id}, 
+                        function(err, result) {
+                            if (err) throw err;
+                            if(result===null){
+                                
+                                console.log(assetParam.device_id+" isn't registered") 
+                            }else{
+                                searchForAssets();
+                                
+                            }   
+                            
+                            db.close();
+                          });
+                });
+            
+
+
+            function searchForAssets(){
+                MongoClient.connect(url, function(err, db) {
+                    if (err) throw err;
+                    var dbo = db.db("SaasDatabaseRealProj");
+                    dbo.collection("assets").findOne({asset_tag: assetParam.asset_tag}, 
+                        function(err, result) {
+                            if (err) throw err;
+                            if(result===null){
+                                checkAssetforAdd(); 
+                            }else{
+                                assettg = result.location;
+                                checkAssetforUpdate();
+                            }   
+                            
+                            db.close();
+                          });
+                });
+            }
 
 
             function checkAssetforAdd(){
                 MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
                     var dbo = db.db("SaasDatabaseRealProj");
-                    dbo.collection("assets").find({location: assetParam.location}).toArray(function(err, assetResult) {
-                        if (err) throw err;
-                        dbo.collection("warehouses").findOne({name: assetParam.location}, 
-                            function(err, warehouseResult) {
+
+                    dbo.collection("devices").findOne({device_id: assetParam.device_id}, 
+                            function(err, deviceResult) {
                                 if (err) throw err;
-                                var wQ = assetResult.length;
-                                var wC = parseInt(warehouseResult.capacity);
-                                if(wQ>=wC){
-                                    /*if(wQ>wC){
-                                        fs.appendFile('Logs.txt',assettg+" "+warehouseResult.name+" "+wQ+" "+wC+"\n", function (err) {
+                                dbo.collection("assets").find({location: deviceResult.location}).toArray(function(err, assetResult) {
+                                    if (err) throw err;
+                                    dbo.collection("warehouses").findOne({name: deviceResult.location}, 
+                                        function(err, warehouseResult) {
                                             if (err) throw err;
-                                        });
-                                    }*/
-                                    console.log(assetParam.location+" is full");
-                                    createDB();
-                                }else{
-                                    /*if(wQ>wC){
-                                        fs.appendFile('Logs.txt',assettg+" "+warehouseResult.name+" "+wQ+" "+wC+"\n", function (err) {
-                                            if (err) throw err;
-                                        });
-                                    }*/
-                                    createDB();
-                                }
-                        });
-                        
-                    });
+                                            var wQ = assetResult.length;
+                                            var wC = parseInt(warehouseResult.capacity);
+                                            if(wQ>=wC){
+                                                console.log(assetParam.location+" is full");
+                                                createDB();
+                                            }else{
+                                                createDB();
+                                            }
+                                    });
+                                });
+                            });
                 });
             }
 
@@ -151,55 +187,49 @@ var server = http.listen(3000, function () {
                 MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
                     var dbo = db.db("SaasDatabaseRealProj");
-                    dbo.collection("assets").find({location: assetParam.location}).toArray(function(err,  assetResult) {
-                        if (err) throw err;
-                        dbo.collection("warehouses").findOne({name: assetParam.location}, 
-                            function(err, warehouseResult) {
+                    dbo.collection("devices").findOne({device_id: assetParam.device_id}, 
+                            function(err, deviceResult) {
                                 if (err) throw err;
-                                var wQ = assetResult.length;
-                                var wC = parseInt(warehouseResult.capacity);
+                                dbo.collection("assets").find({location: deviceResult.location}).toArray(function(err, assetResult) {
+                                    if (err) throw err;
+                                    dbo.collection("warehouses").findOne({name: deviceResult.location}, 
+                                        function(err, warehouseResult) {
+                                        if (err) throw err;
+                                        var wQ = assetResult.length;
+                                        var wC = parseInt(warehouseResult.capacity);
 
-                                if(assetParam.location===assettg){
-                                    /*if(wQ>wC){
-                                        fs.appendFile('Logs.txt',assettg+" "+warehouseResult.name+" "+wQ+" "+wC+"\n", function (err) {
-                                            if (err) throw err;
-                                        });
-                                    }*/
-                                    set={location: "",
-                                        Status:  assetParam.status,
-                                        updated_date: assetParam.updated_date
-                                        };
-                                        updateDB();
-                                         
-                                }else{
-                                    if(wQ>=wC){
-                                        /*if(wQ>wC){
-                                            fs.appendFile('Logs.txt',assettg+" "+warehouseResult.name+" "+wQ+" "+wC+"\n", function (err) {
-                                                if (err) throw err;
-                                            });
-                                        }*/
-                                        set={location: assetParam.location,
-                                             Status:  assetParam.status,
-                                             updated_date: assetParam.updated_date
-                                        };
-                                        console.log(assetParam.location+" is full");
-                                        updateDB();
-                                    }else{
-                                       /*if(wQ>wC){
-                                            fs.appendFile('Logs.txt',assettg+" "+warehouseResult.name+" "+wQ+" "+wC+"\n", function (err) {
-                                                if (err) throw err;
-                                            });
-                                        }*/
-                                        set={location: assetParam.location,
-                                             Status:  assetParam.status,
-                                             updated_date: assetParam.updated_date
-                                        };
-                                        updateDB();
-                                         
-                                    }
-                                }
-                                db.close();
+                                        if(deviceResult.location===assettg){
+                                            
+                                            set={location: "",
+                                                Status:  assetParam.status,
+                                                updated_date: assetParam.updated_date
+                                                };
+                                                updateDB();
+                                                 
+                                        }else{
+                                            if(wQ>=wC){
+                                                
+                                                set={location: deviceResult.location,
+                                                     //Status:  assetParam.status,
+                                                     updated_date: assetParam.updated_date
+                                                };
+                                                console.log(assetParam.location+" is full");
+                                                updateDB();
+                                            }else{
+                                               
+                                                set={location: deviceResult.location,
+                                                    // Status:  assetParam.status,
+                                                     updated_date: assetParam.updated_date
+                                                };
+                                                updateDB();
+                                                 
+                                            }
+                                        }
+                                        db.close();
+                                });
+
                         });
+
                         
                     });
                 });
@@ -207,19 +237,26 @@ var server = http.listen(3000, function () {
 
 
             function createDB(){
+
                 MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
                     var dbo = db.db("SaasDatabaseRealProj");
-                    dbo.collection("assets").insertOne(assetParam, function(err, res) {
-                        if (err) throw err;
-                        io.emit('assetChange');
-                        db.close();
-                      });
+                    dbo.collection("devices").findOne({device_id: assetParam.device_id}, 
+                            function(err, deviceResult) {
+                                if (err) throw err;
+                                assetParam.location=deviceResult.location;
+                                delete assetParam.device_id;
+                                dbo.collection("assets").insertOne(assetParam, function(err, res) {
+                                    if (err) throw err;
+                                    io.emit('assetChange');
+                                    db.close();
+                                  });
+                    });
                 });
 
             }
             function updateDB(){
-                //console.log(set);
+                
                 MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
                     var dbo = db.db("SaasDatabaseRealProj");
