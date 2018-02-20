@@ -561,12 +561,13 @@
                         $('#myModal').modal('hide');
                         FlashService.Success('Device Added');
                         socket.emit('deviceChange');
+
+                        resetADevices();
+                        resetModalFlash();
                     })
                     .catch(function (error) {
                         errorFunction(error);
                     });
-                    resetADevices();
-                    resetModalFlash();
                 }  
             }
         };
@@ -633,13 +634,14 @@
                             $('#editModal').modal('hide');
                             FlashService.Success('Device Updated');
                             socket.emit('deviceChange');
+
+                        resetADevices();
+                        resetModalFlash();
                     })
                     
                     .catch(function (error) {
                         errorFunction(error);
                     });
-                    resetADevices();
-                    resetModalFlash();
                 }  
             }
         }		

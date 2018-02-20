@@ -581,17 +581,20 @@
                 FlashService.Error("Confirm password/s does not match");
             }else{
                 if(forDataBase===requiredTextField){
+                    $scope.showAddFlash = false;
                     UserService.Insert($scope.aUsers)
                         .then(function () {
                                 initController();
                                 $('#myModal').modal('hide');
                                 FlashService.Success('User Added');
+                                resetModalFlash();
+                                resetAUsers();
                             }).catch(function (error) {
+                                $scope.showAddFlash = true;
                                 FlashService.Error(error);
                             });
                             initController();
-                            resetAUsers(); 
-                            resetModalFlash();
+                             
                             
                 }
             }

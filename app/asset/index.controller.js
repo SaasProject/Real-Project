@@ -696,11 +696,12 @@
                         FlashService.Success('Asset Added');
                         $scope.newAsset = {};
                         socket.emit('assetChange');
+                        
+                        resetModalFlash();
                         })
                         .catch(function(error){
                             errorFunction(error);
                         });
-                        resetModalFlash();
                     }
                     $scope.confirmPassword = {};
 				}
@@ -748,12 +749,13 @@
                             $('#myModal').modal('hide');
                             FlashService.Success('Asset Updated');
                             $scope.newAsset = {};
-                        socket.emit('assetChange');
+                            socket.emit('assetChange');
+                            
+                            resetModalFlash();
                         })
                         .catch(function(error){
                             errorFunction(error);
                         });
-                        resetModalFlash();
                     }
                     $scope.confirmPassword = {};
 			} 
