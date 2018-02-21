@@ -104,20 +104,16 @@
         });
     }
  
-    function run($http, $rootScope, $window, UserService) {
+    function run($http, $rootScope, $window, UserService, $state) {
         $rootScope.greet = false;
 
         // add JWT token as default auth header
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
- 
-        // update active tab on state change
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $rootScope.activeTab = toState.data.activeTab;
-        });
 
         //get current user and set details to rootScope
         $http.get('/api/users/isAdmin').success(function(response){
             //response is true if user is admin from api/users.controller.js
+            //console.log(response);
             if(response){
 
                 // Determine if user is admin
@@ -133,9 +129,36 @@
             else{
                 return false;
             }
-        });    
+        });
+ 
+        // update active tab on state change
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            //console.log($rootScope.isAdmin);
+            //console.log(toState);
+            if(!$rootScope.isAdmin && (toState.name != 'asset' && toState.name != 'home' && toState.name != 'account')){
+                event.preventDefault();
+                alert('Unauthorized');
+                $state.transitionTo('home');
+            }
 
-        
+            //get token from server
+            $http.get('/app/token').then(function(res){
+
+                //if server restarts while app is in browser, clicking links will render the login page
+                //inside the index.html
+                //so check the res.data for '<html>'. if found, load whole login page
+                if(res.data.indexOf('<html>') != -1){
+                        var fullpath = $window.location.href;
+                        var returnUrl = fullpath.substring(fullpath.indexOf($window.location.pathname));
+
+                        //add expired query to explicitly state that the session has expired and not just trying to access via typing the address
+                        $window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
+                }
+            });
+            
+            $rootScope.activeTab = toState.data.activeTab;
+        });
+      
  
         getUserInfos();
   
