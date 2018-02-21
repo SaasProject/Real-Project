@@ -59,7 +59,9 @@
 
 				          	<!-- show dropdown -->
 				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aDevices[field.name]">
-								<option ng-repeat="option in field.options">{{option}}</option>
+								<option ng-repeat="option in field.options" ng-if="field.name != 'location'">{{option}}</option>
+								<!-- added by jano (from jeremy's implementation) - warehouses as locations -->
+								<option ng-repeat="warehouse in warehouses" ng-if="field.name =='location'">{{warehouse.name}}</option>
 							</select>		
 						</div>
 			</form>
@@ -140,7 +142,9 @@
 
 				          	<!-- show dropdown -->
 				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aDevices[field.name]" ng-disabled="unEditAble || field.name == 'device_id'">
-								<option ng-repeat="option in field.options">{{option}}</option>
+								<option ng-repeat="option in field.options" ng-if="field.name != 'location'">{{option}}</option>
+								<!-- added by jano (from jeremy's implementation) - warehouses as locations -->
+								<option ng-repeat="warehouse in warehouses" ng-if="field.name =='location'">{{warehouse.name}}</option>
 							</select>
 						</div>
 					</form>

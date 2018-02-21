@@ -49,7 +49,7 @@
             };
         });
  
-    function Controller(DeviceService, $scope, FlashService, FieldsService, socket) {
+    function Controller(DeviceService, $scope, FlashService, FieldsService, socket, WarehouseService) {
         var vm = this;
  
         vm.device = [];
@@ -173,6 +173,23 @@
                 alert(err.msg_error);
             });
         }
+
+        /*
+            Function name: getAllWH
+            Author(s): Ayala, Jenny
+			Date modified: 2-6-2018
+			Description: get all data for warehouse
+		*/
+		function getAllWH() {
+            WarehouseService.getAllWarehouse().then(function (warehouse) {
+                $scope.warehouses = warehouse;
+                $scope.warehouseLength = Object.size(warehouse);
+            }).finally(function() {
+				$scope.loading = false;
+			});
+        }
+        getAllWH();
+
 
         /*
             Function name: Show different field types
