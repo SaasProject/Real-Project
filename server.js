@@ -76,7 +76,7 @@ app.get('/', function (req, res) {
 
  
 // start server --edited by dyan0 from app.listen to http.listen
-var server = http.listen(3000, function (sock) {
+var server = http.listen(3000, function () {
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
 
     /* Author: Macku I. Sanchez
@@ -86,8 +86,6 @@ var server = http.listen(3000, function (sock) {
     server.on('connection', function(socket) { 
         socket = new JsonSocket(socket); 
         socket.on('message', function(message) {
-
-            
 
 
             var displayDate;
@@ -126,7 +124,7 @@ var server = http.listen(3000, function (sock) {
                                 
                                 console.log(assetParam.device_id+" isn't registered") 
                             }else{
-                                searchForAssets();
+                                //searchForAssets();
                                 
                             }   
                             
