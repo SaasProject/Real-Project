@@ -186,7 +186,7 @@
                     return (field != 'asset_tag' && field != 'location' && field != 'type') ? true : false;
                 }break;
                 case 'rfid_scanner': {
-                    return (field != 'device_id') ? true : false;
+                    return (field != 'device_id' && field != 'location') ? true : false;
                 }break;
                 case 'warehouse': {
                     return (field != 'name' && field != 'capacity') ? true : false;
