@@ -108,7 +108,12 @@ function getAll() {
     
     return deferred.promise;
 }
-//Macku
+/*
+    Function name: Add User Function
+    Author(s): Sanchez, Macku
+    Date Modified: January 2018
+    Description: Adds new user to the database and checks for duplicate data
+*/
 function insert(userParam){
     var deferred = Q.defer();
     db.users.findOne(
@@ -169,6 +174,13 @@ function update(_id, userParam) {
 					}
                 });
     });
+
+    /*
+        Function name: Update User Function
+        Author(s): Sanchez, Macku
+        Date Modified: January 2018
+        Description: Updates Data,Checks for old password and checks for duplicate data
+    */
  
     function updateUser() {
         // fields to update

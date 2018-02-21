@@ -378,6 +378,13 @@
         
         getAllFields();
         initController();
+
+        /*
+            Function name: Update User Function
+            Author(s): Sanchez, Macku
+            Date Modified: January 2018
+            Description:  Update User
+        */
  
         function saveUser() {
             if(vm.user.password===undefined){

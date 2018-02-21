@@ -79,9 +79,11 @@ app.get('/', function (req, res) {
 var server = http.listen(3000, function () {
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
 
-    /* Author: Macku I. Sanchez
-       Date: 01/23/2018
-       Purpose: Recieves the Data that is sent by the Dummy Program.
+    /*
+        Function name: Data Receiver From Dummy/RFID Function
+        Author(s): Sanchez, Macku
+        Date Modified: February 2018
+        Description: Receives Data Through network
     */
     server.on('connection', function(socket) { 
         socket = new JsonSocket(socket); 
@@ -113,7 +115,12 @@ var server = http.listen(3000, function () {
             var assettg;
             //console.log(assetParam);
 
-
+            /*
+                Function name: Device Check Function
+                Author(s): Sanchez, Macku
+                Date Modified: January 2018
+                Description: Checks for Registered Devices
+            */
             MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
                     var dbo = db.db("SaasDatabaseRealProj");
@@ -132,7 +139,12 @@ var server = http.listen(3000, function () {
                           });
                 });
             
-
+            /*
+                Function name: Asset Check Function
+                Author(s): Sanchez, Macku
+                Date Modified: January 2018
+                Description: Checks for existing Assets
+            */
 
             function searchForAssets(){
                 MongoClient.connect(url, function(err, db) {
@@ -153,7 +165,12 @@ var server = http.listen(3000, function () {
                 });
             }
 
-
+            /*
+                Function name: Warehouse Limit Check Function for Adding Assets
+                Author(s): Sanchez, Macku
+                Date Modified: January 2018
+                Description: Checks If the Assets inside the Warehouse are over the Warhouse's capacity
+            */
             function checkAssetforAdd(){
                 MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
@@ -180,7 +197,12 @@ var server = http.listen(3000, function () {
                             });
                 });
             }
-
+            /*
+                Function name: Warehouse Limit Check Function for Updating Assets
+                Author(s): Sanchez, Macku
+                Date Modified: January 2018
+                Description: Checks If the Assets inside the Warehouse are over the Warhouse's capacity
+            */
             function checkAssetforUpdate(){
                 MongoClient.connect(url, function(err, db) {
                     if (err) throw err;
@@ -233,7 +255,12 @@ var server = http.listen(3000, function () {
                 });
             }
 
-
+            /*
+                Function name: Add Asset Function
+                Author(s): Sanchez, Macku
+                Date Modified: January 2018
+                Description: Adds New Assets in the Database
+            */
             function createDB(){
 
                 MongoClient.connect(url, function(err, db) {
@@ -253,6 +280,12 @@ var server = http.listen(3000, function () {
                 });
 
             }
+            /*
+                Function name: Update Asset Function
+                Author(s): Sanchez, Macku
+                Date Modified: January 2018
+                Description: Updates Assets in the Database
+            */
             function updateDB(){
                 
                 MongoClient.connect(url, function(err, db) {

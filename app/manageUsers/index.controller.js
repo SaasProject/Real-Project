@@ -547,7 +547,12 @@
         };
 
 
-        // added adduser function
+        /*
+            Function name: Add User Function
+            Author(s): Sanchez, Macku
+            Date Modified: January 2018
+            Description: Adds New User and Assigns a Temporary Password to the New User
+        */
         $scope.addUser = function(){
             
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -683,7 +688,12 @@
 			initController();
 		}
 		
-		
+		/*
+            Function name: Update User Function
+            Author(s): Sanchez, Macku
+            Date Modified: January 2018
+            Description: Update User
+        */
 		vm.updateUser = function() {
             $scope.aUsers.password="qwe";
             var requiredTextField=0;
@@ -769,7 +779,12 @@
             }*/
         }		
 		
-		//deleteUser function
+		/*
+            Function name: Delete User Function
+            Author(s): Sanchez, Macku
+            Date Modified: January 2018
+            Description: Delet eUser
+        */
 		vm.deleteUser = function(index) {
 			
 			
