@@ -83,7 +83,7 @@
                     var defer = $q.defer();
 
                     //401 is unauthorized error, meaning token has expired 
-                    //if(rejection.status == 401){
+                    if(rejection.status == 401){
                         //this is done to imitate the returnUrl in app.controller.js 
                         //when accessing pages that requires login
 
@@ -94,7 +94,7 @@
 
                         //add expired query to explicitly state that the session has expired and not just trying to access via typing the address
                         $window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
-                    //}
+                    }
 
                     defer.reject(rejection);
 
@@ -106,6 +106,7 @@
  
     function run($http, $rootScope, $window, UserService, $state) {
         $rootScope.greet = false;
+		$rootScope.changePasswordModal = false;
 
         // add JWT token as default auth header
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;

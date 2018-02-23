@@ -5,11 +5,12 @@
         .module('app')
         .controller('Account.IndexController', Controller);
  
-    function Controller($window, UserService, FlashService, $scope, FieldsService) {
+    function Controller($window, UserService, FlashService, $scope, FieldsService, $rootScope) {
         var vm = this;
  
         vm.user = null;
         vm.saveUser = saveUser;
+		vm.saveUserPassword = saveUserPassword;
         vm.deleteUser = deleteUser;
         $scope.aUsers = {};
         $scope.confirmPassword = {};
@@ -46,11 +47,11 @@
 
                 //in order to restart initcontroller to make sure selected checkboxes are declared
                 //by restarting init controller if NodeList has no length.
-                if(selectedLength == 0){
-                    initController();
-                } else {
-                    //Nodelist has length
-                }
+                // if(selectedLength == 0){
+                    // initController();
+                // } else {
+                 //   Nodelist has length
+                // }
             });
         }
 
@@ -386,14 +387,7 @@
             Description:  Update User
         */
  
-        function saveUser() {
-            if(vm.user.password===undefined){
-                FlashService.Error("Enter New Password");
-            }else{
-                if(vm.user.password != vm.user.confirmPassword){
-                    
-                    FlashService.Error("Password doesn't match");
-                }else{
+         function saveUser() {
                     var requiredTextField=0;
                     var forDataBase=0;
                     for(var h in $scope.fields){
@@ -427,9 +421,51 @@
                                 });
                         }
                     }
-                }
-            }
+                
+            
         }
+		
+		function saveUserPassword() {
+			$rootScope.changePasswordModal = true;
+			
+			if(vm.user.oldPassword === undefined) {
+				FlashService.Error("Enter Old Password");
+			} else { 
+				if(vm.user.password===undefined){
+					FlashService.Error("Enter New Password");
+				} else {
+					if(!checkPasswordChars(vm.user.password)) {
+						FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+					} else {
+						if(vm.user.password != vm.user.confirmPassword) {
+							FlashService.Error("Confirm Password doesn't match");
+						} else {
+                            UserService.Update(vm.user)
+                                .then(function () {
+								//	$('#pwModal').modal('hide');
+									FlashService.Success("Password Changed");
+									initController();
+							
+                                })
+                                .catch(function (error) {
+                                    FlashService.Error(error);
+                                });
+                        
+						}
+						
+						
+					}
+			
+				}
+				
+			}
+			
+        }
+		
+		$scope.closeModal = function() {
+			$rootScope.changePasswordModal = false;
+			delete $rootScope.flash;
+		}
  
         function deleteUser() {
 
