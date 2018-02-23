@@ -83,7 +83,7 @@
                     var defer = $q.defer();
 
                     //401 is unauthorized error, meaning token has expired 
-                    if(rejection.status == 401){
+                    //if(rejection.status == 401){
                         //this is done to imitate the returnUrl in app.controller.js 
                         //when accessing pages that requires login
 
@@ -94,7 +94,7 @@
 
                         //add expired query to explicitly state that the session has expired and not just trying to access via typing the address
                         $window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
-                    }
+                    //}
 
                     defer.reject(rejection);
 
@@ -143,7 +143,7 @@
 
             //get token from server
             $http.get('/app/token').then(function(res){
-
+                console.log(res);
                 //if server restarts while app is in browser, clicking links will render the login page
                 //inside the index.html
                 //so check the res.data for '<html>'. if found, load whole login page
