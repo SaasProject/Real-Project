@@ -301,7 +301,7 @@
                 }
             })
             .catch(function(error){
-                errorFunction(error);
+                FlashService.Error(error);
             }).finally(function() {
 				$scope.loading = false;
 			});
@@ -700,7 +700,7 @@
                         resetModalFlash();
                         })
                         .catch(function(error){
-                            errorFunction(error);
+                            FlashService.Error(error);
                         });
                     }
                     $scope.confirmPassword = {};
@@ -754,7 +754,7 @@
                             resetModalFlash();
                         })
                         .catch(function(error){
-                            errorFunction(error);
+                            FlashService.Error(error);
                         });
                     }
                     $scope.confirmPassword = {};
@@ -808,7 +808,7 @@
                     socket.emit('assetChange');
                 })
                 .catch(function(error){
-                    errorFunction(error);
+                    FlashService.Error(error);
                 });
             }
         };
@@ -818,17 +818,7 @@
             $scope.showMainFlash = false;
         }
 
-        function errorFunction(error){
-            if(error.code == 11000){
-                FlashService.Error('Tag already exists');
-            }
-            else if(error.name == 'ValidationError'){
-                FlashService.Error(error.message);
-            }
-            else{
-                FlashService.Error(error);
-            }
-        }
+        
     };
 
     

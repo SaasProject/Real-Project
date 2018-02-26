@@ -1,3 +1,12 @@
+/*
+    Name: Home Controller
+    Date Created: ??/??/2018
+    Author(s):
+               Omugtong, Jano
+               Reccion, Jeremy
+    
+ */
+
 (function () {
     'use strict';
  
@@ -85,6 +94,7 @@
                             $scope.warehouses[warehouseQnty].icon = icon;
                         }
 
+                        //perform these only when a modal is opened
                         if(isModalOpened){
                             //update the warehouse for the icon change. since $eval returns an array, and it is assumed that there are no duplicates, get the first element
                             $scope.current_warehouse = $scope.$eval('warehouses | filter: current_warehouse.name')[0];
@@ -94,13 +104,23 @@
                     }
                 })
             }).catch(function(error){
-                errorFunction(error);
+                FlashService.Error(error);
             }).finally(function() {
 				$scope.loading = false;
 			});
         }
         getAllWHInfo();
 
+        /*
+            Function name: Get all assets
+            Author(s): 
+                        Omugtong, Jano
+                        Reccion, Jeremy
+            Date Modified: 02/26/2018
+            Description: Gets all asset whenever an asset is updated
+            Parameter(s): none
+            Return: none
+        */
         function getAssetUpdate(){
             //get all assets
             AssetService.GetAll().then(function(assets){
@@ -142,6 +162,7 @@
                         $scope.warehouses[warehouseQnty].icon = icon;
                     }
 
+                    //perform this only when a modal is opened
                     if(isModalOpened){
                         //update the warehouse for the icon change. since $eval returns an array, and it is assumed that there are no duplicates, get the first element
                         $scope.current_warehouse = $scope.$eval('warehouses | filter: current_warehouse.name')[0];
@@ -149,7 +170,7 @@
                     }
                 }
             }).catch(function(error){
-            errorFunction(error);
+                FlashService.Error(error);
             })
         };
 
@@ -162,6 +183,14 @@
             getAllWHInfo();
         });
 
+        /*
+            Function name: Open Modal
+            Author(s): Reccion, Jeremy
+            Date Modified: 02/26/2018
+            Description: prepare parameters for information in modal
+            Parameter(s): none
+            Return: none
+        */
         //set variables globally in order to be used in 'assetChange' event
         $scope.openModal = function(warehouse){
             $scope.current_warehouse = warehouse;
@@ -175,6 +204,15 @@
             $scope.current_warehouse = {};
             isModalOpened = false;
         };
+
+        /*
+            Function name: Warehouse Modal information
+            Author(s): Reccion, Jeremy
+            Date Modified: 02/26/2018
+            Description: Gets assets per warehouse then determine other information
+            Parameter(s): none
+            Return: none
+        */
 
         //run this ALSO inside 'assetChange' event for real time update
         function getAssetsByWarehouse(){
