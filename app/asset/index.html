@@ -2,8 +2,8 @@
         <img src="loader.gif"/>
 </div>
 
-<div class="flash-message" ng-if="flash.show">
-    <div ng-show="showMainFlash" class="{{'alert alert-' + flash.type}}">
+<div class="flash-message" ng-if="flash.show" ng-show="showMainFlash && !changePasswordModal">
+    <div class="{{'alert alert-' + flash.type}}">
         {{flash.message}}
         <a href="" ng-click="flash.show = !flash.show"><span class="glyphicon glyphicon-remove pull-right"></span></a> 
     </div>

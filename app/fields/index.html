@@ -43,7 +43,7 @@
 	<div class="panel panel-success">
         <div class="panel-heading"><h4>{{name}}</h4></div>
         <div class="panel-body">
-			<div class="flash-message" ng-if="flash">
+			<div class="flash-message" ng-if="flash" ng-show = "!changePasswordModal">
 		        <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
 			</div>
 			<br>

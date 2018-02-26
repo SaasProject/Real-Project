@@ -6,7 +6,7 @@
 
 <div class="container">
 
-<div ng-show="showMainFlash" class="flash-message" ng-if="flash">
+<div ng-show="showMainFlash && !changePasswordModal" class="flash-message" ng-if="flash">
     <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
 </div>
 
