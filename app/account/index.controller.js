@@ -14,6 +14,7 @@
         vm.deleteUser = deleteUser;
         $scope.aUsers = {};
         $scope.confirmPassword = {};
+		$scope.isUser = false;
 
           /*
         Function name: Get all checkbox elements
@@ -44,7 +45,16 @@
                 vm.user = user;
                 $scope.aUsers = user;
                 declareSelected();
-
+				
+				
+				if(vm.user.role != 'Admin') {
+					$scope.isUser = true;			
+				}
+				else {
+					$scope.isUser = false;
+				}	
+				
+				
                 //in order to restart initcontroller to make sure selected checkboxes are declared
                 //by restarting init controller if NodeList has no length.
                 // if(selectedLength == 0){
@@ -379,6 +389,13 @@
         
         getAllFields();
         initController();
+		
+		
+		
+		$scope.readOnly = function(field) {
+			if(field == 'email' || field == 'firstName' || field == 'lastName' || field == 'role')
+				return true;
+		}
 
         /*
             Function name: Update User Function
@@ -415,6 +432,7 @@
                             UserService.Update(vm.user)
                                 .then(function () {
                                     FlashService.Success('User updated');
+									initController();
                                 })
                                 .catch(function (error) {
                                     FlashService.Error(error);
@@ -465,6 +483,7 @@
 		$scope.closeModal = function() {
 			$rootScope.changePasswordModal = false;
 			delete $rootScope.flash;
+			initController();
 		}
  
         function deleteUser() {
