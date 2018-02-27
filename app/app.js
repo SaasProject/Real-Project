@@ -1,3 +1,9 @@
+/*
+    Name: Home Controller
+    Date Created: ??/??/2018
+    Author(s):
+    
+ */
 (function () {
     'use strict';
  
@@ -6,6 +12,14 @@
         .config(config)
         .run(run);
  
+    /*
+        Function name: config function
+        Author(s): Reccion, Jeremy
+        Date Modified: 02/27/2018
+        Description: Declare the angular configuration (routes, injectors, etc)
+        Parameter(s): $stateProvider, $urlRouteProvider, $httpProvider (dependencies)
+        Return: none
+    */
     function config($stateProvider, $urlRouterProvider, $httpProvider) {
         // default route
         $urlRouterProvider.otherwise("/");
@@ -57,7 +71,7 @@
                 controllerAs: 'vm',
                 data: {activeTab: 'asset'}
             })
-            
+            //parameter is always required
             .state('fields' ,{
                 url: '/fields?name',
                 templateUrl: 'fields/index.html',
@@ -104,13 +118,23 @@
         });
     }
  
+    /*
+        Function name: run function
+        Author(s): Reccion, Jeremy
+        Date Modified: 02/27/2018
+        Description: Executes when angular page is first loaded
+        Parameter(s): $http, $rootScope, $window, UserService, $state (dependencies)
+        Return: none
+    */
     function run($http, $rootScope, $window, UserService, $state) {
+        //initialize
         $rootScope.greet = false;
 		$rootScope.changePasswordModal = false;
 
         // add JWT token as default auth header
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
 
+        //added by glenn
         //get current user and set details to rootScope
         $http.get('/api/users/isAdmin').success(function(response){
             //response is true if user is admin from api/users.controller.js
@@ -132,19 +156,21 @@
             }
         });
  
+        //added by jeremy
         // update active tab on state change
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             //console.log($rootScope.isAdmin);
             //console.log(toState);
+            //restrict 'Users' when accessing states other than the specified and redirect to login page
             if(!$rootScope.isAdmin && (toState.name != 'asset' && toState.name != 'home' && toState.name != 'account')){
                 event.preventDefault();
                 alert('Unauthorized');
                 $state.transitionTo('home');
             }
 
-            //get token from server
+            //get token from server every route change to determine if session in server is still alive
             $http.get('/app/token').then(function(res){
-                console.log(res);
+                //console.log(res);
                 //if server restarts while app is in browser, clicking links will render the login page
                 //inside the index.html
                 //so check the res.data for '<html>'. if found, load whole login page
@@ -157,10 +183,11 @@
                 }
             });
             
+            //change active tab for the nav bar
             $rootScope.activeTab = toState.data.activeTab;
         });
       
- 
+        //execute when loaded
         getUserInfos();
   
 
