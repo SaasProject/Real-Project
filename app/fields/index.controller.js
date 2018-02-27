@@ -42,6 +42,14 @@
 
         var textAreaValues = document.getElementById("fieldValues").value;
 
+        /*
+            Function name: Enable Text Area
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: Show text area when dropdown, checkbox, or radio field type is selected
+            Parameter(s): none
+            Return: none
+        */
         $scope.enableTextArea = function(){
             selected = e.options[e.selectedIndex].text;
             
@@ -186,7 +194,7 @@
                         Reccion, Jeremy
             Date Modified: 02/26/2018
             Description: prepares the selected field to be edited
-            Parameter(s): none
+            Parameter(s): index
             Return: Array
         */
         $scope.editField = function(index){

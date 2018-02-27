@@ -15,7 +15,7 @@
         /*
             Function name: Object filter
             Author(s): Flamiano, Glenn
-            Date Modified:
+            Date Modified: December 2017
             Description: to order the rows of the table
             Parameter(s): none
             Return: Array
@@ -37,7 +37,7 @@
         /*
             Function name: Pagination filter
             Author(s): Flamiano, Glenn
-            Date Modified:
+            Date Modified: December 2017
             Description: to slice table per page based on number of items
             Parameter(s): none
             Return: Array
@@ -60,7 +60,7 @@
         /*
             Function name: Calculate Object size
             Author(s): Flamiano, Glenn
-            Date Modified:
+            Date Modified: January 2018
             Description: to compute the size of an object
             Parameter(s): none
             Return: size
@@ -84,15 +84,20 @@
         $scope.btnchc = "Edit";
         $scope.shw = false;
 
-        // initialize modal flash message display
+        /*
+            Function name: Reset Flash Messages
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: Hide flash messages of every modal
+            Parameter(s): none
+            Return: none
+        */
         function resetModalFlash(){
             $scope.showMainFlash = true;
             $scope.showAddFlash = false;
             $scope.showEditFlash = false;
         }
         resetModalFlash();
-        
-        //$scope.fntcn = "enableEditing()";
 
         // Table sort functions
         // column to sort
@@ -101,7 +106,14 @@
         // sort ordering (Ascending or Descending). Set true for desending
         $scope.reverse = false; 
 
-        // called on header click
+        /*
+            Function name: Sort Table Columns
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To sort the table by ascending/desending order by clicking the column header
+            Parameter(s): column
+            Return: none
+        */
         $scope.sortColumn = function(col){
             $scope.column = col;
             if($scope.reverse){
@@ -113,7 +125,14 @@
             }
         };
 
-        // remove and change class
+        /*
+            Function name: Sort Class
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To change column sort arrow UI when user clicks the column
+            Parameter(s): column
+            Return: none
+        */
         $scope.sortClass = function(col){
             if($scope.column == col ){
                 if($scope.reverse){
@@ -127,8 +146,14 @@
         } 
         // End of Table Functions
 
-        //added by Glenn to set the width of each column
-        //arbitrary only
+        /*
+            Function name: Set column width
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To set the fixed with of the specific columns in the table
+            Parameter(s): none
+            Return: none
+        */
         $scope.setWidth = function(column){
             switch(column){
                 case "role": return 'col-sm-1'; break;
@@ -139,7 +164,14 @@
             }
         };
 
-        //Clear $scope.aUsers
+        /*
+            Function name: Reset user scope
+            Author(s): Flamiano, Glenn
+            Date Modified: January 2018
+            Description: To reinitialize the $scope.AUsers variable used for CRUD
+            Parameter(s): none
+            Return: none
+        */
         function resetAUsers () {
             $scope.aUsers = {};
             $scope.aUsers.email = "";
@@ -162,7 +194,15 @@
         });
 
         initController();
- 
+        
+        /*
+            Function name: Initialize Controller
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: Retrieves all user data from users collection in mongoDB
+            Parameter(s): none
+            Return: none
+        */
         function initController() {
             // get current user
             UserService.GetAll().then(function (user) {
@@ -178,6 +218,14 @@
         $scope.fields = [];
         $scope.name = 'user';
 		
+        /*
+            Function name: Get all user fields 
+            Author(s):
+            Date Modified: January 2018
+            Description: Retrieves fields array from user document from fields collection in mongoDB
+            Parameter(s): none
+            Return: none
+        */
         function getAllFields(){
 			
             FieldsService.GetAll($scope.name).then(function(response){
@@ -317,7 +365,7 @@
             Function name: Insert formatted date to $scope.aUsers
             Author(s): Flamiano, Glenn
             Date Modified: 2018/01/25
-            Description: To iformat a date and to be inserted to $scope.aUsers
+            Description: To format a date and to be inserted to $scope.aUsers
             Parameter(s): none
             Return: none
         */
@@ -454,6 +502,15 @@
             }
         };
 
+        /*
+            Function name: Insert radio button value to $scope.aUsers
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: To insert radio button value to $scope.aUsers, it is called
+                when radio button is checked
+            Parameter(s): option, fieldName
+            Return: none
+        */
         $scope.putToModel = function(option, fieldName){
             //console.log(option);
             $scope.aUsers[fieldName] = option;
@@ -488,7 +545,7 @@
             Author(s): Reccion, Jeremy
             Date Modified: 2018/01/31
             Description: Check an option of the checkbox if checked
-            Parameter(s): field.name, checkbox element
+            Parameter(s): field.name, html input type
             Return: none
         */
         $scope.isChecked = function(field_name, option, type){
@@ -499,6 +556,14 @@
             }
         };
 
+        /*
+            Function name: isRadioSelected
+            Author(s): Reccion, Jeremy
+            Date Modified: 2018/01/31
+            Description: Check an option of the radio button if checked
+            Parameter(s): field.name, html input type
+            Return: none
+        */
         $scope.isRadioSelected = function(field_name, option, type){
             if(type == 'radio'){
                 if($scope.aUsers[field_name] == undefined) $scope.aUsers[field_name] = [];
@@ -603,70 +668,16 @@
                             
                 }
             }
-
-            // Clear $scope.aUsers
-
-            /* 
-            var checkEmpField=0;
-            var tempArray=[];
-            var indexNum=0;
-            var checkField=0;
-            for(var b in $scope.aUsers){
-                checkEmpField++;
-            }
-               
-            if(checkEmpField<$scope.fields.length){
-                FlashService.Error("Please Input all the fields");
-            }else{
-                for(var x in $scope.aUsers){
-                    tempArray=Object.entries(Object.entries($scope.aUsers)[indexNum])[1];
-                    if(tempArray[1]===""){
-                        indexNum++;
-                        checkField++;
-                    }else{
-                        indexNum++;
-                    }
-                }
-                if(checkField>0){
-                    FlashService.Error("Please Input all the textfields");
-                }else{
-                    UserService.Insert($scope.aUsers)
-                    .then(function () {
-                            initController();
-                            resetAUsers();
-                            FlashService.Success('User Added');
-                        }).catch(function (error) {
-                            FlashService.Error(error);
-                        });
-                        resetAUsers();
-                        initController(); 
-
-                }
-            }
-           
-
-
-                /*var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                for (var i = 0; i < 10; i++){
-                    $scope.aUsers.password += possible.charAt(Math.floor(Math.random() * possible.length));
-                }*/
-                /*UserService.Insert($scope.aUsers)
-                    .then(function () {
-                            initController();
-                            FlashService.Success('User Added');
-                        }).catch(function (error) {
-                            FlashService.Error(error);
-                        });
-                        initController();*/ 
-
-                //}
         };
 
-        $scope.clearField = function(){
-            resetAUsers();
-        }
-
-        //filter function for pagination indexes
+        /*
+            Function name: Filter Table Row by Index
+            Author(s): Flamiano, Glenn
+            Date Modified: January 2018
+            Description: Retrieve specific table row by index
+            Parameter(s): all table rows, index
+            Return: none
+        */
         function filterIndexById(input, id) {
             var i=0, len=Object.size(input);
             for (i=0; i<len; i++) {
@@ -676,6 +687,14 @@
             }
         }
 
+        /*
+            Function name: edit User
+            Author(s):
+            Date Modified: January 2018
+            Description: When user clicks edit on the table, the selected row $scope is copied to $scope.aUsers
+            Parameter(s): index
+            Return: none
+        */
         $scope.editUser = function(index){
             $scope.btnchc = "Edit";
             $scope.shw = false;
@@ -738,45 +757,6 @@
                         resetModalFlash();
                 }
             }
-
-            /*var checkEmpField=0;
-            var tempArray=[];
-            var indexNum=0;
-            var checkField=0;
-            for(var b in $scope.aUsers){
-                checkEmpField++;
-            }   
-            if(checkEmpField<$scope.fields.length){
-                FlashService.Error("Please Input all the fields");
-            }else{
-                for(var x in $scope.aUsers){                   
-                    tempArray=Object.entries(Object.entries($scope.aUsers)[indexNum])[1];
-                    if(tempArray[1]===""){
-                        indexNum++;
-                        checkField++;
-                    }else{
-                        indexNum++;
-                    }
-                }
-                if(checkField>0){
-                    FlashService.Error("Please Input all the textfields");
-                }else{
-                    UserService.Update($scope.aUsers)
-                        .then(function () {
-                            initController();
-                            resetAUsers();
-                            $scope.btnchc = "Edit";
-                            $scope.shw = false;
-                            FlashService.Success('User updated');
-                        }).catch(function (error) {
-                            FlashService.Error(error);
-                        });
-                        resetAUsers(); 
-                        $scope.btnchc = "Edit";
-                        $scope.shw = false;
-
-                }
-            }*/
         }		
 		
 		/*

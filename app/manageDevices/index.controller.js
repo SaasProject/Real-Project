@@ -81,7 +81,14 @@
         // Scope for data
         $scope.aDevices = {};
 
-        // initialize modal flash message display
+        /*
+            Function name: Reset Flash Messages
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: Hide flash messages of every modal
+            Parameter(s): none
+            Return: none
+        */
         function resetModalFlash(){
             $scope.showMainFlash = true;
             $scope.showAddFlash = false;
@@ -97,7 +104,14 @@
         // sort ordering (Ascending or Descending). Set true for desending
         $scope.reverse = false; 
 
-        // called on header click
+        /*
+            Function name: Sort Table Columns
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To sort the table by ascending/desending order by clicking the column header
+            Parameter(s): column
+            Return: none
+        */
         $scope.sortColumn = function(col){
             $scope.column = col;
             if($scope.reverse){
@@ -109,7 +123,14 @@
             }
         };
 
-        // remove and change class
+        /*
+            Function name: Sort Class
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To change column sort arrow UI when user clicks the column
+            Parameter(s): column
+            Return: none
+        */
         $scope.sortClass = function(col){
             if($scope.column == col ){
                 if($scope.reverse){
@@ -123,8 +144,14 @@
         } 
         // End of Table Functions
 
-        //added by Glenn to set the width of each column
-        //arbitrary only
+        /*
+            Function name: Set column width
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To set the fixed with of the specific columns in the table
+            Parameter(s): none
+            Return: none
+        */
         $scope.setWidth = function(column){
             switch(column){
                 case "device_id": return 'col-sm-2'; break;
@@ -134,7 +161,14 @@
             }
         };
 
-        //Clear $scope.aDevice variable
+        /*
+            Function name: Reset device scope
+            Author(s): Flamiano, Glenn
+            Date Modified: January 2018
+            Description: To reinitialize the $scope.ADevices variable used for CRUD
+            Parameter(s): none
+            Return: none
+        */
         function resetADevices() {
             $scope.aDevices = {};
             $scope.confirmPassword = {};
@@ -154,7 +188,15 @@
         });
 
         initController();
- 
+        
+        /*
+            Function name: Initialize Controller
+            Author(s): Flamiano, Glenn
+            Date Modified: January 2018
+            Description: Retrieves all user data from users collection in mongoDB
+            Parameter(s): none
+            Return: none
+        */
         function initController() {
             DeviceService.getAllDevices().then(function (device) {
 				vm.device = device;
@@ -456,6 +498,15 @@
             }
         };
 
+        /*
+            Function name: Insert radio button value to $scope.aUsers
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: To insert radio button value to $scope.aUsers, it is called
+                when radio button is checked
+            Parameter(s): option, fieldName
+            Return: none
+        */
         $scope.putToModel = function(option, fieldName){
             //console.log(option);
             $scope.aDevices[fieldName] = option;
@@ -502,6 +553,14 @@
             }
         };
 
+        /*
+            Function name: isRadioSelected
+            Author(s): Reccion, Jeremy
+            Date Modified: 2018/01/31
+            Description: Check an option of the radio button if checked
+            Parameter(s): field.name, html input type
+            Return: none
+        */
         $scope.isRadioSelected = function(field_name, option, type){
             if(type == 'radio'){
                 if($scope.aDevices[field_name] == undefined) $scope.aDevices[field_name] = [];
@@ -589,8 +648,14 @@
             }
         };
 
-      
-        //filter function for pagination indexes
+        /*
+            Function name: Filter Table Row by Index
+            Author(s): Flamiano, Glenn
+            Date Modified: January 2018
+            Description: Retrieve specific table row by index
+            Parameter(s): all table rows, index
+            Return: none
+        */
         function filterIndexById(input, id) {
             var i=0, len=Object.size(input);
             for (i=0; i<len; i++) {
