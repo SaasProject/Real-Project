@@ -16,15 +16,14 @@
         $scope.confirmPassword = {};
 		$scope.isUser = false;
 
-          /*
-        Function name: Get all checkbox elements
-        Author(s): Flamiano, Glenn
-        Date Modified: 2018/01/31
-        Description: Get all checkbox elements and set dynamic temporary variables for checked items
-        Parameter(s): none
-        Return: none
+        /*
+            Function name: Get all checkbox elements
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/31
+            Description: Get all checkbox elements and set dynamic temporary variables for checked items
+            Parameter(s): none
+            Return: none
         */
-        
         var selected = [];
         var selectedLength = 0;
         var checkboxFields = [];
@@ -38,7 +37,7 @@
             }
         }
         
- 
+        
         function initController() {
             // get current user
             UserService.GetCurrent().then(function (user) {
@@ -145,6 +144,14 @@
             }
         };
 
+        /*
+            Function name: Array remove element function
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/24
+            Description: Remove and element in an array
+            Parameter(s): none
+            Return: size
+        */
         Array.prototype.remove = function() {
             var what, a = arguments, L = a.length, ax;
             while (L && this.length) {
@@ -160,7 +167,7 @@
             Function name: Format date
             Author(s): Flamiano, Glenn
             Date Modified: 2018/01/25
-            Description: To iformat a date and to be inserted to $scope.aUsers
+            Description: To format a date and to be inserted to $scope.aUsers
             Parameter(s): none
             Return: formatted date
         */
@@ -298,6 +305,15 @@
             return allValid;
         };
 
+        /*
+            Function name: Insert radio button value to $scope.aUsers
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: To insert radio button value to $scope.aUsers, it is called
+                when radio button is checked
+            Parameter(s): option, fieldName
+            Return: none
+        */
         $scope.putToModel = function(option, fieldName){
             //console.log(option);
             $scope.aUsers[fieldName] = option;
@@ -344,6 +360,14 @@
             }
         };
 
+        /*
+            Function name: isRadioSelected
+            Author(s): Reccion, Jeremy
+            Date Modified: 2018/01/31
+            Description: Check an option of the radio button if checked
+            Parameter(s): field.name, html input type
+            Return: none
+        */
         $scope.isRadioSelected = function(field_name, option, type){
             if(type == 'radio'){
                 if($scope.aUsers[field_name] == undefined) $scope.aUsers[field_name] = [];

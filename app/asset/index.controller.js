@@ -67,14 +67,28 @@
         $scope.confirmPassword = {};
 
 
-        // initialize modal flash message display
+        /*
+            Function name: Reset Flash Messages
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: Hide flash messages of every modal
+            Parameter(s): none
+            Return: none
+        */
         function resetModalFlash(){
             $scope.showMainFlash = true;
             $scope.showAddFlash = false;
         }
         resetModalFlash();
 		
-		// function to convert object to array
+		/*
+            Function name: Calculate Object size
+            Author(s): Flamiano, Glenn
+            Date Modified: January 2018
+            Description: to compute the size of an object
+            Parameter(s): none
+            Return: size
+        */
         Object.size = function(obj) {
             var size = 0, key;
             for (key in obj) {
@@ -229,7 +243,14 @@
             $scope.sortColumn = column;  
         };
 
-        //added by Glenn Add Arrow sort in table column
+        /*
+            Function name: Sort Class
+            Author(s): Flamiano, Glenn
+            Date Modified: December 2018
+            Description: To change column sort arrow UI when user clicks the column
+            Parameter(s): column
+            Return: none
+        */
         $scope.sortClass = function(column){
             if($scope.sortColumn == column){
                 if($scope.reverse){
@@ -326,7 +347,14 @@
         getAllAssets();
         getAllWH();
 
-        
+        /*
+            Function name: Show different field types
+            Author(s): Flamiano, Glenn
+            Date Modified: 01/26/2018
+            Description: To hide/show different input types
+            Parameter(s): none
+            Return: boolean
+        */
         $scope.showTextBox = function(data){
             if(data == 'text'){
                 return true;
@@ -399,10 +427,13 @@
             }
         };
 
-        /*Function name: Array remove element function
-        / author: glenn.flamiano
-        / date created: 2018/01/24
-        / date modified: 2018/01/24
+        /*
+            Function name: Array remove element function
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/24
+            Description: Remove and element in an array
+            Parameter(s): none
+            Return: size
         */
         Array.prototype.remove = function() {
             var what, a = arguments, L = a.length, ax;
@@ -415,10 +446,13 @@
             return this;
         };
 
-        /*Function name: Insert date to $scope.newAsset
-        / author: glenn.flamiano
-        / date created: 2018/01/25
-        / date modified: 2018/01/25
+        /*
+            Function name: Format date
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/25
+            Description: To iformat a date and to be inserted to Asset scope
+            Parameter(s): none
+            Return: formatted date
         */
         function formatDate(date) {
             var d = new Date(date),
@@ -432,15 +466,25 @@
             return [year, month, day].join('-');
         }
 
+        /*
+            Function name: Insert formatted date to Selected scope
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/25
+            Description: To iformat a date and to be inserted to Asset scope
+            Parameter(s): none
+            Return: none
+        */
         $scope.pushDateToAAssets = function(fieldName, inputDate) {
             $scope.newAsset[fieldName] = formatDate(inputDate);
         };
 
-        /*Function name: Check all email inputs
-        / author: glenn.flamiano
-        / date created: 2018/01/25
-        / date modified: 2018/01/25
-        / return: boolean
+        /*
+            Function name: Validate email inputs
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/25
+            Description: Check all email inputs in add/edit modal
+            Parameter(s): none
+            Return: boolean
         */
         function checkEmails(){
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -456,11 +500,13 @@
             return allValid;
         };
 
-        /*Function name: Check all number inputs
-        / author: glenn.flamiano
-        / date created: 2018/01/26
-        / date modified: 2018/01/26
-        / return: boolean
+        /*
+            Function name: Validate number inputs
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/26
+            Description: Check all number inputs in add/edit modal
+            Parameter(s): none
+            Return: boolean
         */
         function checkNumbers(){
             var myRows = document.getElementsByName('number');
@@ -475,11 +521,13 @@
             return allValid;
         };
 
-        /*Function name: Check password characters
-        / author: glenn.flamiano
-        / date created: 2018/01/26
-        / date modified: 2018/01/26
-        / return: number
+        /*
+            Function name: Validate password strength
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/26
+            Description: Check password if it contains a lowercase, uppercase, number, and is 8 characters
+            Parameter(s): none
+            Return: boolean
         */
         function checkPasswordChars(password){
             var points = 0;
@@ -516,11 +564,13 @@
             return valid;
         }
 
-        /*Function name: Check all password inputs
-        / author: glenn.flamiano
-        / date created: 2018/01/26
-        / date modified: 2018/01/26
-        / return: boolean
+        /*
+            Function name: Validate password inputs
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/26
+            Description: Check all password inputs in add/edit modal
+            Parameter(s): none
+            Return: boolean
         */
         function checkPasswords(){
             var myRows = document.getElementsByName('password');
@@ -556,6 +606,15 @@
             }
         };
 
+        /*
+            Function name: Insert radio button value to $scope.aUsers
+            Author(s): Flamiano, Glenn
+            Date Modified: February 2018
+            Description: To insert radio button value to $scope.aUsers, it is called
+                when radio button is checked
+            Parameter(s): option, fieldName
+            Return: none
+        */
         $scope.putToModel = function(option, fieldName){
             //console.log(option);
             $scope.newAsset[fieldName] = option;
@@ -605,6 +664,14 @@
             }
         };
 
+        /*
+            Function name: isRadioSelected
+            Author(s): Reccion, Jeremy
+            Date Modified: 2018/01/31
+            Description: Check an option of the radio button if checked
+            Parameter(s): field.name, html input type
+            Return: none
+        */
         $scope.isRadioSelected = function(field_name, option, type){
             if(type == 'radio'){
                 //console.log(type);
