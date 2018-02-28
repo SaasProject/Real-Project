@@ -189,7 +189,7 @@ var server = http.listen(3000, function () {
                                             var wQ = assetResult.length;
                                             var wC = parseInt(warehouseResult.capacity);
                                             if(wQ>=wC){
-                                                console.log(assetParam.location+" is full");
+                                                console.log(deviceResult.location+" is full");
                                                 createDB();
                                             }else{
                                                 createDB();
@@ -235,7 +235,7 @@ var server = http.listen(3000, function () {
                                                      //Status:  assetParam.status,
                                                      updated_date: assetParam.updated_date
                                                 };
-                                                console.log(assetParam.location+" is full");
+                                                console.log(deviceResult.location+" is full");
                                                 updateDB();
                                             }else{
                                                
