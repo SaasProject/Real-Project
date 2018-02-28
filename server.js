@@ -18,7 +18,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 //macku
-var server = net.createServer();
+//var server = net.createServer();
 var fs = require('fs');
 
 app.set('view engine', 'ejs');
@@ -77,18 +77,20 @@ app.get('/', function (req, res) {
  
 // start server --edited by dyan0 from app.listen to http.listen
 var server = http.listen(3000, function () {
-    console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
+    console.log('HTTP PORT listening at ' + server.address().port);
 
+    var server1 = net.createServer();
+    server1.listen(3001);
+    console.log('TCP PORT listening at ' + server1.address().port);
     /*
         Function name: Data Receiver From Dummy/RFID Function
         Author(s): Sanchez, Macku
         Date Modified: February 2018
         Description: Receives Data Through network
     */
-    server.on('connection', function(socket) { 
+    server1.on('connection', function(socket) { 
         socket = new JsonSocket(socket); 
         socket.on('message', function(message) {
-
 
             var displayDate;
             var start = new Date();
@@ -129,9 +131,9 @@ var server = http.listen(3000, function () {
                             if (err) throw err;
                             if(result===null){
                                 
-                                console.log(assetParam.device_id+" isn't registered") 
+                                //console.log(assetParam.device_id+" isn't registered") 
                             }else{
-                                //searchForAssets();
+                                searchForAssets();
                                 
                             }   
                             
