@@ -23,6 +23,7 @@ var fs = require('fs');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/profile_pictures'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
@@ -189,7 +190,7 @@ var server = http.listen(3000, function () {
                                             var wQ = assetResult.length;
                                             var wC = parseInt(warehouseResult.capacity);
                                             if(wQ>=wC){
-                                                console.log(deviceResult.location+" is full");
+                                                console.log(assetParam.location+" is full");
                                                 createDB();
                                             }else{
                                                 createDB();
@@ -235,7 +236,7 @@ var server = http.listen(3000, function () {
                                                      //Status:  assetParam.status,
                                                      updated_date: assetParam.updated_date
                                                 };
-                                                console.log(deviceResult.location+" is full");
+                                                console.log(assetParam.location+" is full");
                                                 updateDB();
                                             }else{
                                                

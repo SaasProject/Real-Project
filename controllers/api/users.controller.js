@@ -14,8 +14,19 @@ router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
+router.post('/upload', uploadPic);
  
 module.exports = router;
+
+function uploadPic(req, res) {
+    userService.uploadPic(req, res)
+       .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
 
 function getAllUsers(req, res) {
     userService.getAll(req.user.sub)

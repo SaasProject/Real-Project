@@ -213,6 +213,12 @@
                 else{
                     var initials = user.firstName.charAt(0) + user.lastName.charAt(0);
                     $rootScope.initials = initials.toUpperCase();
+
+                    //get user profile pic
+                    $rootScope.profilePic = 'http://localhost:3000/'+ user.profilePicUrl;
+                    if(user.profilePicUrl == undefined){
+                        $rootScope.profilePic = '';
+                    }
                 }
 
                 $rootScope.bgColor = {"background" : stringToColour(str)} ;

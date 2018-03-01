@@ -17,8 +17,19 @@
         service.Update = Update;
         service.Delete = Delete;
         service.Insert = Insert;
+        service.UploadFile = UploadFile;
  
         return service;
+
+        function UploadFile(file, user) {
+            var fd = new FormData();
+            fd.append('id', user._id);
+            fd.append('email', user.email);
+            fd.append('myfile', file.upload);
+            return $http.post('/api/users/upload', fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined}}).then(handleSuccess, handleError);
+        }
  
         function GetCurrent() {
             return $http.get('/api/users/current').then(handleSuccess, handleError);

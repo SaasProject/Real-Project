@@ -108,3 +108,33 @@ p:hover {
     overflow-y:auto;
     height:100%;
 } */
+
+.avatar-image {
+	object-fit: cover;
+	width: 30px;
+	height: 30px;
+    text-align: center;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+}
+
+.avatar-image-big {
+	object-fit: cover;
+	width: 200px;
+	height: 200px;
+    text-align: center;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+}
+
+#profilepicture {
+    margin: auto;
+    padding: 10px;
+    position: relative;
+}
+
+#parentProfileDiv {
+	text-align:center;
+}

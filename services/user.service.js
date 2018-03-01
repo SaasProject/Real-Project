@@ -5,7 +5,24 @@ var bcrypt = require('bcryptjs');
 var Q = require('q');
 var mongo = require('mongoskin');
 var db = mongo.db(config.connectionString, { native_parser: true });
+var multer = require('multer');
 db.bind('users');
+
+//Multer implementation for upload profile picture
+var storage = multer.diskStorage({
+    destination: './profile_pictures',
+    filename: function(req, file, cb) {
+        if (!file.originalname.match(/\.(png|jpeg|jpg)$/)) {
+            var err = new Error();
+            err.code = 'filetype';
+            return cb(err);
+        } else {
+            return cb(null, req.body.email +'.'+ file.mimetype.toString().slice(6));
+        }
+    }
+});
+
+var upload = multer({storage: storage}).single("myfile");
  
 var service = {};
 
@@ -18,8 +35,41 @@ service.getById = getById;
 service.insert = insert;    // macku
 service.update = update;
 service.delete = _delete;
+service.uploadPic = uploadPic; //glenn
  
 module.exports = service;
+
+function uploadPic(req, res){
+    var deferred = Q.defer();
+    upload(req, res, function (err) {
+        if (err) {
+            deferred.reject(err)
+        } else {
+            if (!req.file) {
+                deferred.reject(err)
+            } else {
+                //update db
+                db.users.findOne({ email: req.body.email }, function (err, user) {
+                    if (err) deferred.reject(err);
+             
+                    if (user) {
+                        db.users.update({email: req.body.email}, {$set: { profilePicUrl: req.file.filename}}, function(err){
+                            if(err) deferred.reject(err);
+                            //If no errors, send it back to the client
+                            deferred.resolve();
+                        });
+                    } else {
+                        // authentication failed
+                        deferred.resolve();
+                    }
+                });
+                deferred.resolve();
+            }
+        }
+        deferred.resolve();
+    });
+    return deferred.promise;
+}
  
 function authenticate(email, password) {
     var deferred = Q.defer();

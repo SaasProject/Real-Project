@@ -3,9 +3,24 @@
  
     angular
         .module('app')
-        .controller('Account.IndexController', Controller);
+        .controller('Account.IndexController', Controller)
+        .directive('fileModel', ['$parse', function($parse) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    var parsedFile = $parse(attrs.fileModel);
+                    var parsedFileSetter = parsedFile.assign;
+
+                    element.bind('change', function() {
+                        scope.$apply(function() {
+                            parsedFileSetter(scope, element[0].files[0]);
+                        });
+                    });
+                }
+            };
+        }]);
  
-    function Controller($window, UserService, FlashService, $scope, FieldsService, $rootScope) {
+    function Controller($window, UserService, FlashService, $scope, FieldsService, $rootScope, $timeout) {
         var vm = this;
  
         vm.user = null;
@@ -15,6 +30,20 @@
         $scope.aUsers = {};
         $scope.confirmPassword = {};
 		$scope.isUser = false;
+
+
+        $scope.modalPic = 'http://localhost:3000/nullPic.jpg';
+        if($rootScope.profilePic !== ''){
+            $scope.modalPic = $rootScope.profilePic;
+        }
+        $scope.tempPic = '';
+        $scope.profilePicUrl = $rootScope.profilePic;
+
+        $scope.isSave = false;
+
+        $scope.resetModalButtons = function(){
+            $scope.isSave = false;
+        }
 
         /*
             Function name: Get all checkbox elements
@@ -43,6 +72,7 @@
             UserService.GetCurrent().then(function (user) {
                 vm.user = user;
                 $scope.aUsers = user;
+                //$scope.profilePicUrl = $rootScope.profilePic;
                 declareSelected();
 				
 				
@@ -523,6 +553,50 @@
                 .catch(function (error) {
                     FlashService.Error(error);
                 });
+            }
+        }
+
+        $scope.Submit = function() {
+            UserService.UploadFile($scope.file, vm.user)
+            .then(function(res) {
+                $scope.uploading = false;
+                $scope.file = {};
+                FlashService.Success('Profile Picture Updated');
+                //$scope.modalPic = $scope.tempPic;
+                $scope.profilePicUrl = $scope.tempPic;
+                $rootScope.profilePic = $scope.profilePicUrl;
+                $scope.tempPic = '';
+            })
+            .catch(function (error) {
+                FlashService.Error(error);
+            });
+            $('#myModal').modal('hide');
+        }
+
+        $scope.photoChanged = function(files) {
+            if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/)) {
+                $scope.uploading = true;
+                var file = files[0];
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = function(e) {
+                    $timeout(function() {
+                        $scope.modalPic = e.target.result;
+                        $scope.tempPic = e.target.result;
+                        $scope.uploading = false;
+                    });
+                };
+                $scope.isSave = true;
+            } else {
+                $scope.tempPic = '';
+                $scope.modalPic = '';
+            }
+        }
+
+        $scope.resetModalPic = function() {
+            $scope.modalPic = 'http://localhost:3000/nullPic.jpg';
+            if($rootScope.profilePic !== ''){
+                $scope.modalPic = $rootScope.profilePic;
             }
         }
     }

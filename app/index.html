@@ -38,7 +38,14 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-show="greet" class="noselect navbar-text hidden-xs">Hi {{fName}}!</li>
                     <!--    <li ng-class="{active: activeTab === 'account'}"><a style="padding-top: 10px;" class="a50px" ui-sref="account"><div class="avatar-circle" ng-style="bgColor"><span class="initials noselect" data-toggle="tooltip" title="View Account">{{initials}}</div></a></li> -->
-						<li class = "dropdown"><a style="padding-top: 10px; padding-right:25px" class="a50px dropdown-toggle" data-toggle = "dropdown" href = "#"><div class="avatar-circle" ng-style="bgColor"><span class="initials noselect">{{initials}}</span></div><span class = "caret" style="position:absolute; margin-top:-15px; margin-left:35px;"></span></a>
+						<li class = "dropdown"><a style="padding-top: 10px; padding-right:25px" class="a50px dropdown-toggle" data-toggle = "dropdown" href = "#">
+
+                            <div class="avatar-circle" ng-style="bgColor" ng-show="profilePic == ''">
+                            <span class="initials noselect" data-toggle="tooltip" title="View Account">{{initials}}
+                            </div>
+                            <img class="avatar-image" ng-src="{{profilePic}}" ng-show="profilePic !== ''" class="initials noselect" data-toggle="tooltip" title="View Account">
+
+                            <span class = "caret" style="position:absolute; margin-top:-15px; margin-left:35px;"></span></a>
 							<ul class = "dropdown-menu">
 								<li><a ui-sref="account">Account Settings</a></li>
 								<li><a href = "#" data-toggle = "modal" data-target = "#pwModal">Change Password</a></li>
