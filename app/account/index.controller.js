@@ -31,7 +31,14 @@
         $scope.confirmPassword = {};
 		$scope.isUser = false;
 
-
+        /*
+            Function name: Initialize Profile Picture
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/03/01
+            Description: Initialization for User Profile Picture Display
+            Parameter(s): none
+            Return: none
+        */
         $scope.modalPic = 'http://localhost:3000/nullPic.jpg';
         if($rootScope.profilePic !== ''){
             $scope.modalPic = $rootScope.profilePic;
@@ -556,6 +563,15 @@
             }
         }
 
+        /*
+            Function name: Submit Profile Picture
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/03/01
+            Description: Sends the input file to the app-services/user.service.js when exported
+                UploadFile service is called.
+            Parameter(s): none
+            Return: none
+        */
         $scope.Submit = function() {
             UserService.UploadFile($scope.file, vm.user)
             .then(function(res) {
@@ -573,6 +589,14 @@
             $('#myModal').modal('hide');
         }
 
+        /*
+            Function name: Browse Photo
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/01/31
+            Description: Retrieves input file from browse button to be submitted
+            Parameter(s): input file
+            Return: none
+        */
         $scope.photoChanged = function(files) {
             if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/)) {
                 $scope.uploading = true;
@@ -593,6 +617,14 @@
             }
         }
 
+        /*
+            Function name: Reset Modal Picture
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/03/01
+            Description: Resets Modal Picture Elements After Modal Close
+            Parameter(s): none
+            Return: none
+        */
         $scope.resetModalPic = function() {
             $scope.modalPic = 'http://localhost:3000/nullPic.jpg';
             if($rootScope.profilePic !== ''){

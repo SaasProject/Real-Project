@@ -8,7 +8,14 @@ var db = mongo.db(config.connectionString, { native_parser: true });
 var multer = require('multer');
 db.bind('users');
 
-//Multer implementation for upload profile picture
+/*
+    Function name: User Service Multer Storage
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/01
+    Description: Configuration for saving uploaded image file
+    Parameter(s): request, file, cb
+    Return: cb
+*/
 var storage = multer.diskStorage({
     destination: './profile_pictures',
     filename: function(req, file, cb) {
@@ -39,6 +46,15 @@ service.uploadPic = uploadPic; //glenn
  
 module.exports = service;
 
+/*
+    Function name: User Service Upload Profile Picture
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/01
+    Description: Updates profile picture url in user collection and saves image request to profile pictures folder
+        within the workspace
+    Parameter(s): none
+    Return: none
+*/
 function uploadPic(req, res){
     var deferred = Q.defer();
     upload(req, res, function (err) {
@@ -139,7 +155,14 @@ function getById(_id) {
     return deferred.promise;
 }
 
-//Glenn added this
+/*
+    Function name: User Service Get All Users
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/01
+    Description: Retrieves all the users from user collection
+    Parameter(s): none
+    Return: none
+*/
 function getAll() {
     var deferred = Q.defer();
  

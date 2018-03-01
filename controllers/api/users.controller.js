@@ -18,6 +18,15 @@ router.post('/upload', uploadPic);
  
 module.exports = router;
 
+/*
+    Function name: User Controller Upload Picture
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/01
+    Description: input file is received as req and uploadPic function from services/user.service.js
+        is called to begin the upload using multer
+    Parameter(s): request, response
+    Return: response.status
+*/
 function uploadPic(req, res) {
     userService.uploadPic(req, res)
        .then(function () {
@@ -148,8 +157,14 @@ function getCurrentUser(req, res) {
         });
 }
 
-// Added by Glenn
-// This is to determine if user is admin or not.
+/*
+    Function name: User Controller Get Admin User
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/01
+    Description: Determines if user is admin or not
+    Parameter(s): none
+    Return: none
+*/
 function getAdminUser(req, res) {
     userService.getById(req.user.sub)
         .then(function (user) {
