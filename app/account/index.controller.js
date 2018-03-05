@@ -39,7 +39,7 @@
             Parameter(s): none
             Return: none
         */
-        $scope.modalPic = 'http://localhost:3000/nullPic.jpg';
+        $scope.modalPic = '/nullPic.jpg';
         if($rootScope.profilePic !== ''){
             $scope.modalPic = $rootScope.profilePic;
         }
@@ -626,7 +626,7 @@
             Return: none
         */
         $scope.resetModalPic = function() {
-            $scope.modalPic = 'http://localhost:3000/nullPic.jpg';
+            $scope.modalPic = '/nullPic.jpg';
             if($rootScope.profilePic !== ''){
                 $scope.modalPic = $rootScope.profilePic;
             }
