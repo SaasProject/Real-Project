@@ -8,6 +8,8 @@ var db = mongo.db(config.connectionString, { native_parser: true });
 var multer = require('multer');
 db.bind('users');
 
+var fs = require('fs');
+
 /*
     Function name: User Service Multer Storage
     Author(s): Flamiano, Glenn
@@ -281,14 +283,25 @@ function update(_id, userParam) {
 // prefixed function name with underscore because 'delete' is a reserved word in javascript
 function _delete(_id) {
     var deferred = Q.defer();
- 
-    db.users.remove(
+
+    db.users.findById(_id, function (err, user) {
+        if (err) deferred.reject(err);
+
+        //console.log(user.profilePicUrl);
+
+        fs.unlink('profile_pictures/'+user.profilePicUrl, function (err) {
+          if (err) deferred.reject(err);
+        });
+
+        db.users.remove(
         { _id: mongo.helper.toObjectID(_id) },
         function (err) {
             if (err) deferred.reject(err);
  
             deferred.resolve();
         });
+
+    });
  
     return deferred.promise;
 }
