@@ -215,7 +215,7 @@
                     $rootScope.initials = initials.toUpperCase();
 
                     //get user profile pic
-                    $rootScope.profilePic = 'http://localhost:3000/'+ user.profilePicUrl;
+                    $rootScope.profilePic = '/' + user.profilePicUrl;
                     if(user.profilePicUrl == undefined){
                         $rootScope.profilePic = '';
                     }
