@@ -164,7 +164,7 @@
             //restrict 'Users' when accessing states other than the specified and redirect to login page
             if(!$rootScope.isAdmin && (toState.name != 'asset' && toState.name != 'home' && toState.name != 'account')){
                 event.preventDefault();
-                alert('Unauthorized');
+                //alert('Unauthorized');
                 $state.transitionTo('home');
             }
 
