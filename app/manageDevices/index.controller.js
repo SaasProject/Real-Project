@@ -684,7 +684,12 @@
             angular.forEach($scope.fields, function(value, key){
                 //initialize if the dropdown is required
                 if(value.type == 'dropdown' && value.required){
-                    $scope.aDevices[value.name] = value.options[0];
+                    if(value.name == 'location'){
+                        $scope.aDevices['location'] = $scope.warehouses[0].name;
+                    }
+                    else{
+                        $scope.aDevices[value.name] = value.options[0];
+                    }
                 }
             });
         };
