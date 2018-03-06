@@ -138,3 +138,7 @@ p:hover {
 #parentProfileDiv {
 	text-align:center;
 }
+
+#imgFileModal {
+	margin: 20px;
+}

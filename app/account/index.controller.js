@@ -30,6 +30,7 @@
         $scope.aUsers = {};
         $scope.confirmPassword = {};
 		$scope.isUser = false;
+        $scope.showPicFlash = false;
 
         /*
             Function name: Initialize Profile Picture
@@ -473,7 +474,6 @@
                             requiredTextField++;
                             if($scope.aUsers[$scope.fields[h].name]===undefined){
                                 FlashService.Error("Please input all the required the fields");
-                                $scope.aUsers = tempUsers;
                             }else{
                                 forDataBase++;
                             }
@@ -587,6 +587,21 @@
                 FlashService.Error(error);
             });
             $('#myModal').modal('hide');
+            $scope.showPicFlash = false;
+        }
+
+        /*
+            Function name: Split by last dot
+            Author(s): Flamiano, Glenn
+            Date Created: 2018/03/05
+            Date Updated: 2018/03/05
+            Description: Gets file name and extension and returns the file extension by last dot
+            Parameter(s): text
+            Return: text after last dot
+        */
+        function splitByLastDot(text) {
+            var index = text.lastIndexOf('.');
+            return [text.slice(0, index), text.slice(index + 1)]
         }
 
         /*
@@ -598,23 +613,35 @@
             Return: none
         */
         $scope.photoChanged = function(files) {
-            if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/)) {
-                $scope.uploading = true;
-                var file = files[0];
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                fileReader.onload = function(e) {
-                    $timeout(function() {
-                        $scope.modalPic = e.target.result;
-                        $scope.tempPic = e.target.result;
-                        $scope.uploading = false;
-                    });
-                };
-                $scope.isSave = true;
-            } else {
-                $scope.tempPic = '';
-                $scope.modalPic = '';
+            var fileName = document.getElementById("profileImg").value;
+            if (splitByLastDot(fileName)[1] == "jpeg" || splitByLastDot(fileName)[1] == "JPEG" 
+                || splitByLastDot(fileName)[1] == "jpg" || splitByLastDot(fileName)[1] == "JPG"
+                || splitByLastDot(fileName)[1] == "png" || splitByLastDot(fileName)[1] == "PNG") {  
+                $scope.showPicFlash = false;
+                if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg|PNG|JPEG|JPG)$/)) {
+                    $scope.uploading = true;
+                    var file = files[0];
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function(e) {
+                        $timeout(function() {
+                            $scope.modalPic = e.target.result;
+                            $scope.tempPic = e.target.result;
+                            $scope.uploading = false;
+                        });
+                    };
+                    $scope.isSave = true;
+                } else {
+                    $scope.tempPic = '';
+                    $scope.modalPic = '';
+                }
+            } else if(fileName == ''){
+                //do nothing
+            } else {  
+                //show flash message
+                $scope.showPicFlash = true;
             }
+            
         }
 
         /*
@@ -630,6 +657,7 @@
             if($rootScope.profilePic !== ''){
                 $scope.modalPic = $rootScope.profilePic;
             }
+            $scope.showPicFlash = false;
         }
     }
  

@@ -21,7 +21,7 @@ var fs = require('fs');
 var storage = multer.diskStorage({
     destination: './profile_pictures',
     filename: function(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpeg|jpg)$/)) {
+        if (!file.originalname.match(/\.(png|jpeg|jpg|PNG|JPEG|JPG)$/)) {
             var err = new Error();
             err.code = 'filetype';
             return cb(err);

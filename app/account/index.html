@@ -13,7 +13,9 @@
     <div class="modal-header">
       <h4 class="modal-title">Update Profile Picture<h4>
     </div>
-
+    <div id="imgFileModal" class="alert alert-danger" ng-show="showPicFlash">
+      Only PNG and JPG/JPEG files are allowed.
+    </div>
     <div class="modal-body">
         <div class="cropTableRow">
             <div id="parentProfileDiv" class="cropTableCell box">
@@ -33,7 +35,7 @@
         <!--<form action="/upload" method="POST" enctype="multipart/form-data">-->
             <label id="uploadFile" class="btn btn-success">
                 <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Browse
-                <input type="file" ng-disabled="uploading" file-model="file.upload" name="myfile" style="display: none;" onchange="angular.element(this).scope().photoChanged(this.files)">
+                <input id="profileImg" type="file" accept="image/x-png,image/jpeg" ng-disabled="uploading" file-model="file.upload" name="myfile" style="display: none;" onchange="angular.element(this).scope().photoChanged(this.files)">
             </label>
             <button class="btn btn-primary" ng-click="Submit(); resetModalButtons()" ng-disabled="!isSave">
                 <span class="glyphicon glyphicon-floppy-disk"></span> Save Changes</button>
