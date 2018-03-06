@@ -59,6 +59,7 @@
 
 				          	<!-- show dropdown -->
 				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="whouse[field.name]">
+								<option value="" ng-if="!field.required"></option>
 								<option ng-repeat="option in field.options">{{option}}</option>
 							</select>		
 						</div>
@@ -136,6 +137,7 @@
 
 				          	<!-- show dropdown -->
 				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="whouse[field.name]" ng-disabled="unEditAble || field.name == 'name'">
+								<option value="" ng-if="!field.required"></option>
 								<option ng-repeat="option in field.options">{{option}}</option>
 							</select>
 						</div>
@@ -157,7 +159,7 @@
 <div class="panel" ng-hide = "loading">
 	<div class="row">
 		<div class="col-sm-3">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="declareSelected()">New Warehouse</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="modifyDropdown(); declareSelected()">New Warehouse</button>
 		</div>
 	</div>
 	<div class="row">

@@ -59,6 +59,7 @@
 
 				          	<!-- show dropdown -->
 				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aDevices[field.name]">
+								<option value="" ng-if="!field.required"></option>
 								<option ng-repeat="option in field.options" ng-if="field.name != 'location'">{{option}}</option>
 								<!-- added by jano (from jeremy's implementation) - warehouses as locations -->
 								<option ng-repeat="warehouse in warehouses" ng-if="field.name =='location'">{{warehouse.name}}</option>
@@ -142,6 +143,7 @@
 
 				          	<!-- show dropdown -->
 				          	<select class="form-control" data="{{field.type}}" ng-show="showDropDown(field.type)" ng-model="aDevices[field.name]" ng-disabled="unEditAble || field.name == 'device_id'">
+								<option value="" ng-if="!field.required"></option>
 								<option ng-repeat="option in field.options" ng-if="field.name != 'location'">{{option}}</option>
 								<!-- added by jano (from jeremy's implementation) - warehouses as locations -->
 								<option ng-repeat="warehouse in warehouses" ng-if="field.name =='location'">{{warehouse.name}}</option>
@@ -161,7 +163,7 @@
 <div class="panel" ng-hide = "loading">
 	<div class="row">
 		<div class="col-sm-3">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="declareSelected()">Create new device</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="modifyDropdown(); declareSelected()">Create new device</button>
 		</div>
 	</div>
 	<div class="row">

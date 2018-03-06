@@ -671,9 +671,42 @@
             //console.log('edit ', $scope.aDevices);
         };
 
+        /*
+            Name: modify dropdown 
+            Author(s):
+                    Reccion, Jeremy
+            Date modified: 2018/03/06
+            Descrption: initialize dropdown values if they are required
+        */
+        $scope.modifyDropdown = function(){
+            //this is to initialize dropdowns that were added after adding assets
+            //loop the fields to initialize value of a dropdown to the first item of its options if it is undefined
+            angular.forEach($scope.fields, function(value, key){
+                //initialize if the dropdown is required
+                if(value.type == 'dropdown' && value.required){
+                    $scope.aDevices[value.name] = value.options[0];
+                }
+            });
+        };
+
         vm.editAbleDevice = function(){
             //console.log('save ', $scope.aDevices);
             $scope.unEditAble = false;
+            //this is to initialize dropdowns that were added after adding devices
+            //loop the fields to initialize value of a dropdown to the first item of its options if it is undefined
+            angular.forEach($scope.fields, function(value, key){
+                //initialize if the dropdown is required
+                //when editing, non existing property may be undefined or ''
+                if(value.type == 'dropdown' && value.required && ($scope.aDevices[value.name] == undefined || $scope.aDevices[value.name] == '')){
+                    //for location, the options are warehouse names
+                    if(value.name == 'location'){
+                        $scope.aDevices['location'] = $scope.warehouses[0].name;
+                    }
+                    else{
+                        $scope.aDevices[value.name] = value.options[0];
+                    }
+                }
+            });
         };
 		
 		vm.cancelEdit = function() {

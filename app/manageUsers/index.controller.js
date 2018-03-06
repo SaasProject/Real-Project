@@ -503,6 +503,24 @@
         };
 
         /*
+            Name: modify dropdown 
+            Author(s):
+                    Reccion, Jeremy
+            Date modified: 2018/03/06
+            Descrption: initialize dropdown values if they are required
+        */
+        $scope.modifyDropdown = function(){
+            //this is to initialize dropdowns that were added after adding users
+            //loop the fields to initialize value of a dropdown to the first item of its options if it is undefined
+            angular.forEach($scope.fields, function(value, key){
+                //initialize if the dropdown is required
+                if(value.type == 'dropdown' && value.required){
+                    $scope.aUsers[value.name] = value.options[0];
+                }
+            });
+        };
+
+        /*
             Function name: Insert radio button value to $scope.aUsers
             Author(s): Flamiano, Glenn
             Date Modified: February 2018
@@ -787,10 +805,25 @@
         }
 
 
+        /*
+            Name: enable edit
+            Author(s):
+                    Flamiano, Glenn
+                    Reccion, Jeremy
+            Date modified: 2018/03/06
+            Descrption: set the values of certain scope variables. also initialize dropdown values if they are required
+        */
         vm.enableEditing = function() {
             $scope.btnchc = "Save";
             $scope.shw = true;
-            
+            angular.forEach($scope.fields, function(value, key){
+                //initialize if the dropdown is required
+                console.log($scope.aUsers[value.name])
+                //when editing, non existing property may be undefined or ''
+                if(value.type == 'dropdown' && value.required && ($scope.aUsers[value.name] == undefined || $scope.aUsers[value.name] == '')){
+                    $scope.aUsers[value.name] = value.options[0];
+                }
+            });
         }
 
          vm.restart = function() {

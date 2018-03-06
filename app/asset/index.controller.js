@@ -720,7 +720,7 @@
             Function name: Asset - add
             Author(s):  Flamiano, Glenn
                         Reccion, Jeremy
-            Date Modified: 2018/02/08
+            Date Modified: 2018/03/06
             Description: performs validation when adding an asset. Serves also has function to toggle readonly property
             Paramter(s): none
             Return: none
@@ -773,7 +773,23 @@
                     $scope.confirmPassword = {};
 				}
 			} else {
-				$scope.readOnly = false;					
+                $scope.readOnly = false;					
+                //this is to initialize dropdowns that were added after adding assets
+                //loop the fields to initialize value of a dropdown to the first item of its options if it is undefined
+                angular.forEach($scope.fields, function(value, key){
+                    //initialize if the dropdown is required
+                    //console.log($scope.newAsset[value.name]);
+                    //when editing, non existing property may be undefined or ''
+                    if(value.type == 'dropdown' && value.required && ($scope.newAsset[value.name] == ''|| $scope.newAsset[value.name] == undefined)){
+                        //for location, the options are warehouse names
+                        if(value.name == 'location'){
+                            $scope.newAsset['location'] = $scope.warehouses[0].name;
+                        }
+                        else{
+                            $scope.newAsset[value.name] = value.options[0];
+                        }
+                    }
+                });
 			}
           
         };
@@ -841,14 +857,14 @@
             $scope.type = "edit";
 
             //copy instead of assigning to new asset to avoid binding (changes text as you type)
-            angular.copy($scope.assets[$scope.assets.indexOf(asset)], $scope.newAsset);
+            angular.copy(asset, $scope.newAsset);
         };
 
         /*
             Function name: Modal - reset scope variables
             Author(s): Reccion, Jeremy
-            Date Modified: 01/29/2018
-            Description: Since 1 modal is used in adding or updating, reset them when 'Add New' button is clicked
+            Date Modified: 03/06/2018
+            Description: initialize scope variables when adding a new asset
             Paramter(s): none
             Return: none
         */
@@ -856,6 +872,20 @@
             $scope.type = "add";
             $scope.newAsset = {};
             selected = [];
+
+            //loop the fields to initialize value of a dropdown to the first item of its options
+            angular.forEach($scope.fields, function(value, key){
+                //initialize if the dropdown is required
+                if(value.type == 'dropdown' && value.required){
+                    //for location, the options are warehouse names
+                    if(value.name == 'location'){
+                        $scope.newAsset['location'] = $scope.warehouses[0].name;
+                    }
+                    else{
+                        $scope.newAsset[value.name] = value.options[0];
+                    }
+                }
+            });
         };		
 
         /*
