@@ -61,40 +61,10 @@
     <div class="col-md-1"></div>
     <div class="col-md-1 hidden-md hidden-s hidden-lg"><hr class="hr"></div>
     <div class="form-container col-md-6">
-            <!--<div class="form-group">
-                <label for="role">Role</label>
-                <input type="text" id="role" class="form-control" ng-model="vm.user.role" required readonly />
-            </div>
-            <div class="form-group">
-                <label for="firstName">First name</label>
-                <input type="text" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last name</label>
-                <input type="text" id="lastName" class="form-control" ng-model="vm.user.lastName" required />
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" class="form-control" ng-model="vm.user.email" required />
-            </div>
-            <div class="form-group">
-                <label for="oldPassword">Old Password</label>
-                <input type="password" id="oldPassword" class="form-control" ng-model="vm.user.oldPassword" required/>
-            </div>
-            <div class="form-group">
-                <label for="password">New Password</label>
-                <input type="password" id="password" class="form-control" ng-model="vm.user.password" required/>
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" class="form-control" ng-model="vm.user.confirmPassword" required/>
-            </div>
-            <div class="form-group" >
-                <button class="btn btn-primary" ng-click="vm.saveUser()" style="float:right">Save</button>
-            </div>-->
+            
             <div ng-repeat="field in fields" ng-if="field.name !='password'">
                 <label for="{{field.name}}" style="text-transform: capitalize;">{{field.name}}:</label>
-                <small ng-if="field.required"><i>*This field is required</i></small>
+                <span style = "color:red" ng-if="field.required">*</span>
 
                 <!--show date as label-->
                 <p ng-show="showDate(field.type)" ng-model="aUsers[field.name]">{{aUsers[field.name]}}</p>
@@ -137,6 +107,8 @@
                     <option ng-repeat="option in field.options">{{option}}</option>
                 </select>
             </div>
+			
+			<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
            
 		   <br>
             <div class="form-group" >
