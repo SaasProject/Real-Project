@@ -818,7 +818,7 @@
             $scope.shw = true;
             angular.forEach($scope.fields, function(value, key){
                 //initialize if the dropdown is required
-                console.log($scope.aUsers[value.name])
+                //console.log($scope.aUsers[value.name])
                 //when editing, non existing property may be undefined or ''
                 if(value.type == 'dropdown' && value.required && ($scope.aUsers[value.name] == undefined || $scope.aUsers[value.name] == '')){
                     $scope.aUsers[value.name] = value.options[0];
