@@ -24,7 +24,7 @@
           	<form name = "AddForm" novalidate>
 						<div ng-repeat="field in fields">
 							<label  for=field.name>{{field.name}}: </label>
-							<small ng-if="field.required"><i>*This field is required</i></small>
+							<span style = "color:red" ng-if="field.required">*</span>
 							<!--show textbox-->
 				          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="whouse[field.name]" class="form-control" ng-required=field.required>
 
@@ -63,6 +63,7 @@
 								<option ng-repeat="option in field.options">{{option}}</option>
 							</select>		
 						</div>
+						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
 			</form>
 			</div>
           	
@@ -95,7 +96,7 @@
 					<form name = "EditForm" novalidate>
 						<div class="form-group" ng-repeat="field in fields">
 							<label  for=field.name>{{field.name}}: </label>
-							<small ng-if="field.required"><i>*This field is required</i></small><br>
+							<span style = "color:red" ng-if="field.required">*</span>
 							
 	          				<p ng-show="showDate(field.type) && unEditAble" ng-model="whouse[field.name]">{{whouse[field.name]}}</p>
 
@@ -145,8 +146,11 @@
 							<label for = "quantity">Quantity</label>
 							<p class = "form-control" ng-bind = "whouse['quantity']" readonly>
 						</div>
+						
+						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
 					</form>
 				</div>
+		
 				<div class="modal-footer">
 					<button id="editDeviceButton" class = "btn btn-primary" ng-click="vm.editAble()" ng-show="unEditAble">Edit</button>
 					<button class = "btn btn-primary" ng-click="vm.updateWH(EditForm.$valid)" ng-hide="unEditAble">Save</button>

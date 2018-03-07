@@ -42,7 +42,7 @@
 		          <form name = "userAddForm">
 					<div ng-repeat="field in fields" ng-if="field.name != 'password'">
 			          	<label for="{{field.name}}" style="text-transform: capitalize;">{{field.name}}:</label>
-			          	<small ng-if="field.required"><i>*This field is required</i></small>
+			          	<span style = "color:red" ng-if="field.required">*</span>
 
 			          	<!--show textbox-->
 			          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required>
@@ -82,6 +82,7 @@
 							<option ng-repeat="option in field.options">{{option}}</option>
 						</select>
 		          	</div>
+					<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
 		        	<br>
 		          </form>
 		        </div><!--modal body-->
@@ -143,7 +144,7 @@
 					<form name = "userEditForm" novalidate>
 						<div ng-repeat="field in fields" ng-if="field.name !='password'">
 	          				<label for="{{field.name}}" style="text-transform: capitalize;">{{field.name}}:</label>
-	          				<small ng-if="field.required"><i>*This field is required</i></small><br>
+	          				<span style = "color:red" ng-if="field.required">*</span>
 	          				<!--<div ng-show="showCheckBox(field.type)" ng-repeat="options in aUsers[field.name] track by $index" style="float:left">
 	          					{{options}}.&nbsp;
 	          				</div><br ng-show="showCheckBox(field.type)">
@@ -194,6 +195,7 @@
 								<option ng-repeat="option in field.options">{{option}}</option>
 							</select>
           				</div>
+						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
         				<br>
           			</form>
 				</div>

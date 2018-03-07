@@ -24,7 +24,7 @@
                 <form>
 					<div ng-repeat = "field in fields">
                         <label for = "{{field.name}}"> {{field.name}} </label>
-                        <small ng-if="field.required"><i>*This field is required</i></small><br>
+                        <span style = "color:red" ng-if="field.required">*</span>
 						<!--<input type = "{{field.type}}" id = "{{field.name}}" ng-model = "newAsset[field.name]" class = "form-control" ng-readOnly = "type != 'add' && (readOnly || field.name == 'asset_tag')" required="{{field.required}}"><br>-->
                         <!--<div ng-show="showCheckBox(field.type) && type != 'add'" ng-repeat="options in newAsset[field.name] track by $index" style="float:left">
                             {{options}}.&nbsp;
@@ -75,6 +75,8 @@
 
                         
 					</div>
+					
+					<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
                 
 			</div>
 					<div class = "modal-footer">

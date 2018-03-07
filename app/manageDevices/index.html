@@ -24,7 +24,7 @@
           	<form name = "deviceAddForm" novalidate>
 						<div ng-repeat="field in fields">
 							<label  for=field.name>{{field.name}}: </label>
-							<small ng-if="field.required"><i>*This field is required</i></small>
+							<span style = "color:red" ng-if="field.required">*</span>
 							<!--show textbox-->
 				          	<input data="{{field.type}}" type="text" ng-show="showTextBox(field.type)" ng-model="aDevices[field.name]" class="form-control" ng-required=field.required>
 
@@ -65,6 +65,7 @@
 								<option ng-repeat="warehouse in warehouses" ng-if="field.name =='location'">{{warehouse.name}}</option>
 							</select>		
 						</div>
+						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
 			</form>
 			</div>
           	
@@ -97,7 +98,7 @@
 					<form name = "deviceEditForm" novalidate>
 						<div class="form-group" ng-repeat="field in fields">
 							<label  for=field.name>{{field.name}}: </label>
-							<small ng-if="field.required"><i>*This field is required</i></small><br>
+							<span style = "color:red" ng-if="field.required">*</span>
 							<!--<input id=field.name type=field.type ng-model="aDevices[field.name]" class="form-control" ng-readonly="unEditAble || field.name == 'device_id'"><br>-->
 							<!--<div ng-show="showCheckBox(field.type)" ng-repeat="options in aDevices[field.name] track by $index" style="float:left">
           					{{options}}.&nbsp;
@@ -149,6 +150,7 @@
 								<option ng-repeat="warehouse in warehouses" ng-if="field.name =='location'">{{warehouse.name}}</option>
 							</select>
 						</div>
+						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
 					</form>
 				</div>
 				<div class="modal-footer">
