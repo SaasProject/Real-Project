@@ -641,6 +641,7 @@
                             $scope.modalPic = e.target.result;
                             $scope.tempPic = e.target.result;
                             $scope.uploading = false;
+                            $scope.isDelete = false;
                         });
                     };
                     $scope.isSave = true;
@@ -695,6 +696,7 @@
             $scope.modalPic = '/nullPic.jpg';
             if($rootScope.profilePic !== ''){
                 $scope.modalPic = $rootScope.profilePic;
+                $scope.isDelete = true;
             }
             $scope.showPicFlash = false;
         }
