@@ -18,8 +18,21 @@
         service.Delete = Delete;
         service.Insert = Insert;
         service.UploadFile = UploadFile;
+        service.deleteProfilePic = deleteProfilePic;
  
         return service;
+
+        /*
+            Function name: Delete profile picture
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/03/08
+            Description: returns http update on deleting the user profile picture
+            Parameter(s): user
+            Return: http post response
+        */
+        function deleteProfilePic(user) {
+            return $http.put('/api/users/deleteProfilePic/' + user._id, user).then(handleSuccess, handleError);
+        }
 
         /*
             Function name: User App Service Upload File
@@ -27,8 +40,8 @@
             Date Modified: 2018/03/01
             Description: appends current user id and email and input file to form data and
                 sends it to controllers/user.controller.js to return correct http response
-            Parameter(s): none
-            Return: none
+            Parameter(s): input file, user scope
+            Return: http post response
         */
         function UploadFile(file, user) {
             var fd = new FormData();

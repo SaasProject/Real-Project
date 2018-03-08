@@ -15,8 +15,28 @@ router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 router.post('/upload', uploadPic);
+router.put('/deleteProfilePic/:_id', deleteProfilePic);
  
 module.exports = router;
+
+/*
+    Function name: User Controller Delete Profile Picture
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/08
+    Update Date: 2018/03/08
+    Description: current user parameters is received and sends it to backend service
+    Parameter(s): request, response
+    Return: response.status
+*/
+function deleteProfilePic(req, res) {
+    userService.deleteProfilePic(req, res)
+       .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
 
 /*
     Function name: User Controller Upload Picture

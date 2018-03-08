@@ -45,8 +45,45 @@ service.insert = insert;    // macku
 service.update = update;
 service.delete = _delete;
 service.uploadPic = uploadPic; //glenn
+service.deleteProfilePic = deleteProfilePic; //glenn
  
 module.exports = service;
+
+/*
+    Function name: User Service Delete Profile Picture
+    Author(s): Flamiano, Glenn
+    Date Modified: 2018/03/08
+    Update Date: 2018/03/08
+    Description: Deletes the user profile picture url in the database and profile picture file in the server
+    Parameter(s): none
+    Return: none
+*/
+function deleteProfilePic(req, res){
+    var deferred = Q.defer();
+
+    //update db
+    db.users.findOne({ email: req.body.email }, function (err, user) {
+        if (err) deferred.reject(err);
+ 
+        if (user) {
+            db.users.update({email: req.body.email}, {$set: { profilePicUrl: ''}}, function(err){
+                if(err) deferred.reject(err);
+                //If no errors, send it back to the client
+                fs.unlink('profile_pictures/'+user.profilePicUrl, function (err) {
+                  if (err) deferred.reject(err);
+                });
+                deferred.resolve();
+            });
+        } else {
+            // authentication failed
+            deferred.resolve();
+        }
+    });
+    deferred.resolve();
+
+    return deferred.promise;
+}
+
 
 /*
     Function name: User Service Upload Profile Picture
