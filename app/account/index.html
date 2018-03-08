@@ -39,7 +39,9 @@
             </label>
             <button class="btn btn-primary" ng-click="Submit(); resetModalButtons()" ng-disabled="!isSave">
                 <span class="glyphicon glyphicon-floppy-disk"></span> Save Changes</button>
-            <button type="button" class="btn btn-danger" ng-click="resetModalPic(); resetModalButtons()" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-danger" ng-click="deletePic(); resetModalButtons()" ng-disabled="!isDelete">
+                <span class="glyphicon glyphicon-remove"></span> Remove</button>
+            <button type="button" class="btn btn-info" ng-click="resetModalPic(); resetModalButtons()" data-dismiss="modal">Cancel</button>
         <!--</form>-->
         <br>
     </div>

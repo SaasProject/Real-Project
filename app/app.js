@@ -216,7 +216,7 @@
 
                     //get user profile pic
                     $rootScope.profilePic = '/' + user.profilePicUrl;
-                    if(user.profilePicUrl == undefined){
+                    if(user.profilePicUrl == undefined || user.profilePicUrl == ''){
                         $rootScope.profilePic = '';
                     }
                 }

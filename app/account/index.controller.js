@@ -31,6 +31,7 @@
         $scope.confirmPassword = {};
 		$scope.isUser = false;
         $scope.showPicFlash = false;
+        $scope.isDelete = false;
 
         /*
             Function name: Initialize Profile Picture
@@ -43,6 +44,7 @@
         $scope.modalPic = '/nullPic.jpg';
         if($rootScope.profilePic !== ''){
             $scope.modalPic = $rootScope.profilePic;
+            $scope.isDelete = true;
         }
         $scope.tempPic = '';
         $scope.profilePicUrl = $rootScope.profilePic;
@@ -592,6 +594,7 @@
                 $scope.profilePicUrl = $scope.tempPic;
                 $rootScope.profilePic = $scope.profilePicUrl;
                 $scope.tempPic = '';
+                $scope.isDelete = true;
             })
             .catch(function (error) {
                 FlashService.Error(error);
@@ -652,6 +655,32 @@
                 $scope.showPicFlash = true;
             }
             
+        }
+
+        /*
+            Function name: Remove Profile Picture
+            Author(s): Flamiano, Glenn
+            Date Modified: 2018/03/08
+            Update date: 2018/03/08
+            Description: Remove profile picture in the server and database
+            Parameter(s): none
+            Return: none
+        */
+        $scope.deletePic = function(){
+            if (confirm("Are you sure to delete your profile picture?")){
+                UserService.deleteProfilePic(vm.user)
+                .then(function(res) {
+                    FlashService.Success('Profile Picture Deleted');
+                    $scope.profilePicUrl = '';
+                    $rootScope.profilePic = '';
+                    $scope.modalPic = '/nullPic.jpg';
+                })
+                .catch(function (error) {
+                    FlashService.Error(error);
+                });
+                $('#myModal').modal('hide');
+                $scope.isDelete = false;
+            }
         }
 
         /*
