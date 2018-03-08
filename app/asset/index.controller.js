@@ -296,9 +296,6 @@
         // get realtime changes
         socket.on('assetChange', function(){
             getAllAssets();
-            $scope.searchColumn = "";
-            $scope.searchDate = null;
-            $scope.search = {};
         });
 
         /*
