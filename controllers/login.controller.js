@@ -7,6 +7,7 @@ var nodemailer = require('nodemailer');
 router.get('/', function (req, res) {
     // log user out
     delete req.session.token;
+    delete req.session.user;
  
     // move success message into local variable so it only appears once (single read)
     var viewData = { success: req.session.success };
@@ -38,8 +39,8 @@ router.post('/', function (req, res) {
             }
     
             // save JWT token in the session to make it available to the angular app
-            req.session.token = body.token;
-    
+            req.session.token = body.token.token;
+            req.session.user = body.token.user;
             // redirect to returnUrl
             var returnUrl = req.query.returnUrl && decodeURIComponent(req.query.returnUrl) || '/';
             res.redirect(returnUrl);

@@ -799,7 +799,12 @@
 					 
                 })
                 .catch(function (error) {
-                    FlashService.Error(error);
+                    if(error.self_delete){
+                        window.location.href = '/login';
+                    }
+                    else{
+                        FlashService.Error(error);
+                    }
                 });
             }
         }

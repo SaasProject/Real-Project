@@ -217,13 +217,19 @@ function updateUser(req, res) {
  
 function deleteUser(req, res) {
     var userId = req.params._id;
- 
- 
+
     userService.delete(userId)
         .then(function () {
-            res.sendStatus(200);
+            //if the user deletes himself he should be logged out. in angular, catch this error & flag and redirect to login
+            if(req.session.user._id == userId){
+                res.status(400).send({self_delete: true});
+            }
+            else{
+                res.sendStatus(200);
+            }
         })
         .catch(function (err) {
+            console.log(err);
             res.status(400).send(err);
         });
 }
