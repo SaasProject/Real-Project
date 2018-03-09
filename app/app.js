@@ -103,11 +103,13 @@
 
                         //pathname only shows /app/ which is wrong
                         //so get fullpath first then get substring starting from pathname
-                        var fullpath = $window.location.href;
-                        var returnUrl = fullpath.substring(fullpath.indexOf($window.location.pathname));
+                        //var fullpath = $window.location.href;
+                        //var returnUrl = fullpath.substring(fullpath.indexOf($window.location.pathname));
+                        //alert('error on responseError');
 
                         //add expired query to explicitly state that the session has expired and not just trying to access via typing the address
-                        $window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
+                        //$window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
+                        location.reload();
                     }
 
                     defer.reject(rejection);
@@ -175,11 +177,14 @@
                 //inside the index.html
                 //so check the res.data for '<html>'. if found, load whole login page
                 if(res.data.indexOf('<html>') != -1){
-                        var fullpath = $window.location.href;
-                        var returnUrl = fullpath.substring(fullpath.indexOf($window.location.pathname));
+                        event.preventDefault();
+                        //var fullpath = $window.location.href;
+                        //var returnUrl = fullpath.substring(fullpath.indexOf($window.location.pathname));
+                        //alert('error on @statechange');
 
                         //add expired query to explicitly state that the session has expired and not just trying to access via typing the address
-                        $window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
+                        //$window.location.href = '/login?returnUrl=' + encodeURIComponent(returnUrl) + '&expired=true';
+                        location.reload();
                 }
             });
             
@@ -245,9 +250,21 @@
     $(function () {
         // get JWT token from server
         $.get('/app/token', function (token) {
-            window.jwtToken = token;
+            //alert(token);
+            if(token.indexOf('<html>') != -1){
+                //if user logs out then presses the browser back button, 
+                //  the response is the login page (login.ejs) (rendered under ui-view in index.html)
+                //so check the response for '<html>'. if found, load whole login page
+                //alert('error on $function');
+
+                //window.location.href = '/login';
+                location.reload();
+            }
+            else{
+                window.jwtToken = token;
  
-            angular.bootstrap(document, ['app']);
+                angular.bootstrap(document, ['app']);
+            }
         });
     });
 })();
