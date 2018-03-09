@@ -62,7 +62,7 @@ router.post('/', function (req, res) {
             }
      
             if (!response.body) {
-                return res.render('login', { error: 'email address is not registered', email: req.body.email });
+                return res.render('login', { error: 'email address is not registered', email: req.body.email, modal: true });
             }
     
            sendingMail(response.body) ;
@@ -86,7 +86,7 @@ router.post('/', function (req, res) {
                         <li>New Password: ${temp}</li>
                     </ul>
                     <h3>Message</h3>
-                    <p>Please change your password as soon as possible.</p>
+                    <p>Please change your password to your convenience.</p>
                 `;
             
                 // create reusable transporter object using the default SMTP transport
