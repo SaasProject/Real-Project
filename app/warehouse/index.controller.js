@@ -216,19 +216,21 @@
 					
 					
 					for(var i = 0; i < $scope.warehouseLength; i++) {
-						$scope.warehouses[i].quantity = 0;
+						var quantity = 0;
 					
 						for(var j = 0; j < $scope.assetsLength; j++) {
 							if($scope.assets[j].location == $scope.warehouses[i].name)
-								$scope.warehouses[i].quantity++;
+								quantity++;
 						}
+						
+						$scope.warehouses[i].quantity = quantity;
 						
 						if($scope.viewModal == true) {
 							if($scope.whouse.name == $scope.warehouses[i].name) {
 								$scope.whouse.quantity = $scope.warehouses[i].quantity;
 							}
 						}
-					}	
+					}
 				
 				});
 				/*** End of function for getting asset count ***/
@@ -239,13 +241,45 @@
         }
 		getAllWH();
 		
+		function getAssetUpdate(){
+            
+            AssetService.GetAll().then(function(assets) {
+                    $scope.assets = assets;
+                    $scope.assetsLength = Object.size(assets);
+
+                    //loop warehouse
+                    for (var i = 0; i<$scope.warehouseLength; i++){
+                        var quantity = 0;
+               
+
+                        //loop assets then filter by warehouse
+                        for (var j = 0; j<$scope.assetsLength; j++){
+                            if ($scope.assets[j].location == $scope.warehouses[i].name){
+                                quantity++;
+                            }
+                        }
+                        $scope.warehouses[i].quantity = quantity;
+						
+						if($scope.viewModal == true) {
+							if($scope.whouse.name == $scope.warehouses[i].name) {
+								$scope.whouse.quantity = $scope.warehouses[i].quantity;
+							}
+						}
+                    
+                    }
+                
+            }).catch(function(error){
+                FlashService.Error(error);
+            })
+        };
+		
 		
         // get realtime changess
         socket.on('whouseChange', function(){
             getAllWH();
         });
 		socket.on('assetChange', function(){
-            getAllWH();
+            getAssetUpdate();
         });
 
  
