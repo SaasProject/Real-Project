@@ -57,9 +57,9 @@ router.post('/', function (req, res) {
         if (err) res.json({message: err});
 
         if (results) {
-            var selectedLanguage = getEnglish();
+            var selectedLanguage = getEnglish().english;
             if(results.value == 'nihongo'){
-                selectedLanguage = getNihongo();
+                selectedLanguage = getNihongo().nihongo;
             }
 
             //start
