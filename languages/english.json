@@ -1,0 +1,58 @@
+{
+	"english" : {
+		"loginPage" : {
+			"login": "Login",
+			"email": "Email",
+			"password": "Password",
+			"loginButton": "Login",
+			"forgotPass": "Forgot Password?",
+			"forgotPassModal" : {
+				"accountHelp": "Account Help",
+				"email": "Type-in your email address to recover your account",
+				"send": "Send",
+				"close" : "Close"
+			},
+			"flash" : {
+				"atEmail": "Please include an '@' in the email address. '[email]' is missing an '@'.",
+				"wrongEmailPass": "Email or password is incorrect",
+				"emailNotReg": "Email address is not registered",
+				"emailSent": "Email sent"
+			}
+		},
+		"navBar" : {
+			"home": "Saas App",
+			"assets": "Assets",
+			"accounts": "Manage Accounts",
+			"devices": "Manage Devices",
+			"warehouses": "Manage Warehouses",
+			"fields": "Manage Fields",
+			"selectLanguage": "Select Language",
+			"selectDefaultLanguage": "Select Default Language",
+			"save" : "Save",
+			"cancel" : "Cancel",
+			"close" : "Close",
+			"account" : {
+				"accountSettings": "Account Settings",
+				"changePassword": "Change Password",
+				"changeDefaultLanguage": "Change Default Language",
+				"logout": "Log Out"
+			}
+		},
+		"accountSettings" : {
+			"buttons": {
+				"changeProfilePicture" : "Change Profile Picture",
+				"saveUser" : "Save",
+				"browse" : "Browse",
+				"saveChanges" : "Save Changes",
+				"remove" : "Remove",
+				"cancel" : "Cancel"
+			},
+			"labels": {
+				"settings" : "Settings",
+				"modalTitle" : "Update Profile Picture",
+				"requiredLabel1" : "Fields marked with an asterisk(",
+				"requiredLabel2" : ") are required."
+			}
+		}
+	}
+}

@@ -128,8 +128,10 @@
         Parameter(s): $http, $rootScope, $window, UserService, $state (dependencies)
         Return: none
     */
-    function run($http, $rootScope, $window, UserService, $state) {
+    function run($http, $rootScope, $window, UserService, LanguageService, $state) {
         //initialize
+        $rootScope.user = {};
+        $rootScope.selectedLanguage = {};
         $rootScope.greet = false;
 		$rootScope.changePasswordModal = false;
 
@@ -191,10 +193,53 @@
             //change active tab for the nav bar
             $rootScope.activeTab = toState.data.activeTab;
         });
+
+        //get languages
+        LanguageService.getEnglishLanguage()
+            .then(function(res) {
+                $rootScope.englishLanguage = res;
+            })
+            .catch(function (error) {
+                FlashService.Error(error);
+            });
+
+        LanguageService.getNihongoLanguage()
+            .then(function(res) {
+                $rootScope.nihongoLanguage = res;
+            })
+            .catch(function (error) {
+                FlashService.Error(error);
+            });
+
+        //get default language
+        LanguageService.getDefaultLanguage()
+            .then(function(res) {
+                console.log(res);
+                $rootScope.defaultLanguage = res;
+            })
+            .catch(function (error) {
+                FlashService.Error(error);
+            });
       
         //execute when loaded
         getUserInfos();
-  
+
+        $rootScope.changeLanguage = function(option) {
+            if(option == 'nihongo'){
+                $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
+                $rootScope.hiUser = "ようこそ "+$rootScope.user.firstName+"さん!";
+            } else if (option == 'english') {
+                $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
+                $rootScope.hiUser = "Hi "+$rootScope.user.firstName+"!";
+            }
+            //save selected language to database
+            UserService.saveLanguage(option, $rootScope.user);
+        }
+
+        $rootScope.changeDefaultLanguage = function(option) {
+            //save selected default language to database
+            LanguageService.saveDefaultLanguage($rootScope.user, option);
+        }
 
         /*
             Function name: getUserInfos
@@ -210,7 +255,22 @@
             // get current user
             UserService.GetCurrent().then(function (user) {
                 var str = user._id;
+                $rootScope.user = user;
                 $rootScope.fName = user.firstName;
+
+                //get language settings from current user
+                var setLanguage = user.setLanguage;
+                if(setLanguage == undefined){
+                    setLanguage = $rootScope.defaultLanguage.value;
+                }
+
+                if(setLanguage == 'nihongo'){
+                    $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
+                    $rootScope.hiUser = "ようこそ "+user.firstName+"さん!";
+                } else if (setLanguage == 'english') {
+                    $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
+                    $rootScope.hiUser = "Hi "+user.firstName+"!";
+                }
 
                 if (user.firstName == null){
                     $rootScope.initials = "new";

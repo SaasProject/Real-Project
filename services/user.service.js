@@ -6,6 +6,7 @@ var Q = require('q');
 var mongo = require('mongoskin');
 var db = mongo.db(config.connectionString, { native_parser: true });
 var multer = require('multer');
+var fs=require('fs');
 db.bind('users');
 
 var fs = require('fs');
@@ -46,8 +47,32 @@ service.update = update;
 service.delete = _delete;
 service.uploadPic = uploadPic; //glenn
 service.deleteProfilePic = deleteProfilePic; //glenn
+service.saveLanguage = saveLanguage; //glenn
  
 module.exports = service;
+
+function saveLanguage(req, res){
+    var deferred = Q.defer();
+
+    //update db
+    db.users.findOne({ email: req.body.email }, function (err, user) {
+        if (err) deferred.reject(err);
+ 
+        if (user) {
+            db.users.update({email: req.body.email}, {$set: { setLanguage: req.body.option}}, function(err){
+                if(err) deferred.reject(err);
+                //If no errors, send it back to the client
+                deferred.resolve();
+            });
+        } else {
+            // authentication failed
+            deferred.resolve();
+        }
+    });
+    deferred.resolve();
+
+    return deferred.promise;
+}
 
 /*
     Function name: User Service Delete Profile Picture

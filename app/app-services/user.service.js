@@ -19,8 +19,14 @@
         service.Insert = Insert;
         service.UploadFile = UploadFile;
         service.deleteProfilePic = deleteProfilePic;
+        service.saveLanguage = saveLanguage;
  
         return service;
+        
+        function saveLanguage(option, user){
+            user.option = option;
+            return $http.put('/api/users/saveLanguage/' + user._id, user).then(handleSuccess, handleError);
+        }
 
         /*
             Function name: Delete profile picture

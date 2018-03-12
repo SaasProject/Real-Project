@@ -15,7 +15,7 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a ui-sref = "home" class="navbar-brand">SaaS App</a>
+                    <a ui-sref = "home" class="navbar-brand">{{selectedLanguage.navBar.home}}</a>
                     
                     <button class="navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
                         <span class="icon-bar"></span>
@@ -28,15 +28,23 @@
                     <ul class="nav navbar-nav">
                     <!--    <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home"><span class="glyphicon glyphicon-home"></span> Home</a></li> -->
                         <!--added by jeremy -->
-                        <li ng-class="{active: activeTab === 'asset'}"><a ui-sref="asset"><span class="glyphicon glyphicon-list-alt"></span> Assets</a></li>  
-                        <li ng-class="{active: activeTab === 'manageUsers'}" ng-show="isAdmin"><a ui-sref="manageUsers"><span class="glyphicon glyphicon-tasks"></span> Manage Accounts</a></li>    
-                        <li ng-class="{active: activeTab === 'manageDevices'}" ng-show="isAdmin"><a ui-sref="manageDevices"><span class="glyphicon glyphicon-hdd"></span> Manage Devices</a></li>
-                        <li ng-class="{active: activeTab === 'manageWarehouses'}" ng-show="isAdmin"><a ui-sref="manageWarehouses"><span class="glyphicon glyphicon-home"></span> Manage Warehouses</a></li>
-						<li ng-class="{active: activeTab === 'fields'}" ng-show="isAdmin"><a ui-sref="fields"><span class="glyphicon glyphicon-th-list"></span> Manage Fields</a></li>                       
+                        <li ng-class="{active: activeTab === 'asset'}"><a ui-sref="asset"><span class="glyphicon glyphicon-list-alt"></span> {{selectedLanguage.navBar.assets}}</a></li>  
+                        <li ng-class="{active: activeTab === 'manageUsers'}" ng-show="isAdmin"><a ui-sref="manageUsers"><span class="glyphicon glyphicon-tasks"></span> {{selectedLanguage.navBar.accounts}}</a></li>    
+                        <li ng-class="{active: activeTab === 'manageDevices'}" ng-show="isAdmin"><a ui-sref="manageDevices"><span class="glyphicon glyphicon-hdd"></span> {{selectedLanguage.navBar.devices}}</a></li>
+                        <li ng-class="{active: activeTab === 'manageWarehouses'}" ng-show="isAdmin"><a ui-sref="manageWarehouses"><span class="glyphicon glyphicon-home"></span> {{selectedLanguage.navBar.warehouses}}</a></li>
+						<li ng-class="{active: activeTab === 'fields'}" ng-show="isAdmin"><a ui-sref="fields"><span class="glyphicon glyphicon-th-list"></span> {{selectedLanguage.navBar.fields}}</a></li>
+                                         
                     </ul>
                     
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-show="greet" class="noselect navbar-text hidden-xs">Hi {{fName}}!</li>
+                        <li>
+                            <select class="form-control center-height" ng-model="selLanguage" ng-change="changeLanguage(selLanguage)">
+                                <option value="" selected="selected" hidden hidden>{{selectedLanguage.navBar.selectLanguage}}</option>
+                                <option value="english">English</option>
+                                <option value="nihongo">日本語</option>
+                            </select>               
+                        </li>
+                        <li ng-show="greet" class="noselect navbar-text hidden-xs">{{hiUser}}</li>
                     <!--    <li ng-class="{active: activeTab === 'account'}"><a style="padding-top: 10px;" class="a50px" ui-sref="account"><div class="avatar-circle" ng-style="bgColor"><span class="initials noselect" data-toggle="tooltip" title="View Account">{{initials}}</div></a></li> -->
 						<li class = "dropdown"><a style="padding-top: 10px; padding-right:25px" class="a50px dropdown-toggle" data-toggle = "dropdown" href = "#">
 
@@ -47,10 +55,11 @@
 
                             <span class = "caret" style="position:absolute; margin-top:-15px; margin-left:35px;"></span></a>
 							<ul class = "dropdown-menu">
-								<li><a ui-sref="account">Account Settings</a></li>
-								<li><a href = "#" data-toggle = "modal" data-target = "#pwModal">Change Password</a></li>
+								<li><a ui-sref="account">{{selectedLanguage.navBar.account.accountSettings}}</a></li>
+								<li><a href = "#" data-toggle = "modal" data-target = "#pwModal">{{selectedLanguage.navBar.account.changePassword}}</a></li>
+                                <li><a href = "#" data-toggle = "modal" data-target = "#langModal" ng-show="isAdmin">{{selectedLanguage.navBar.account.changeDefaultLanguage}}</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href = "/login"><span class="glyphicon glyphicon-log-out" ng-click="logout()" data-toggle="tooltip" title="Log Out"></span> Log Out</a></li>
+								<li><a href = "/login"><span class="glyphicon glyphicon-log-out" ng-click="logout()" data-toggle="tooltip" title="Log Out"></span> {{selectedLanguage.navBar.account.logout}}</a></li>
 							</ul>
 						</li>
                     </ul>
@@ -101,7 +110,34 @@
       </div>
 	</div>
 
- 
+    <!-- Modal for Change Default Language -->
+    <div class="modal fade" id="langModal" role="dialog" ng-controller = "Account.IndexController as vm">
+      <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Change Language</h4>
+        </div>
+        
+        <div class="modal-body">
+            <select class="form-control" ng-model="selDefaultLanguage" ng-change="changeDefaultLanguage(selDefaultLanguage)">
+                <option value="" selected="selected" hidden hidden>{{selectedLanguage.navBar.selectLanguage}}</option>
+                <option value="english">English</option>
+                <option value="nihongo">日本語</option>
+            </select>
+        </div>
+            
+        <div class="modal-footer">
+            <!--<button type = "submit" class="btn btn-primary" ng-click="">{{selectedLanguage.texts.save}}</button>-->
+            <button type="button" class="btn btn-danger"  data-dismiss="modal" ng-click = "closeModal()">{{selectedLanguage.navBar.close}}</button> 
+        </div>
+        
+      </div>
+      
+      </div>
+    </div>
+
     <!-- main -->
     
     <main class="container-fluid" ui-view></main>
@@ -138,7 +174,8 @@
 	<!-- added by glenn -->
 	<script src="manageUsers/index.controller.js"></script>
     <script src="manageDevices/index.controller.js"></script>
-    <script src="app-services/device.service.js"></script> 
+    <script src="app-services/device.service.js"></script>
+    <script src="app-services/language.service.js"></script> 
 
     <!-- added by jeremy -->
     <script src="app-services/asset.service.js"></script>

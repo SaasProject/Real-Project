@@ -38,6 +38,7 @@ app.use('/app', require('./controllers/app.controller'));
 app.use('/api/users', require('./controllers/api/users.controller'));
 app.use('/api/devices', require('./controllers/api/devices.controller'));
 app.use('/api/warehouses',require('./controllers/api/warehouse.controller'));
+app.use('/api/languages',require('./controllers/api/language.controller'));
  
 //added by jeremy
 app.use('/api/assets', require('./controllers/api/assets.controller'));

@@ -16,8 +16,19 @@ router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 router.post('/upload', uploadPic);
 router.put('/deleteProfilePic/:_id', deleteProfilePic);
+router.put('/saveLanguage/:_id', saveLanguage);
  
 module.exports = router;
+
+function saveLanguage(req, res) {
+    userService.saveLanguage(req, res)
+       .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
 
 /*
     Function name: User Controller Delete Profile Picture
