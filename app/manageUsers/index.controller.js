@@ -670,11 +670,12 @@
             }else{
                 if(forDataBase===requiredTextField){
                     $scope.showAddFlash = false;
+                    $scope.aUsers.preferedLanguage = $rootScope.selectedLanguage;
                     UserService.Insert($scope.aUsers)
                         .then(function () {
                                 initController();
                                 $('#myModal').modal('hide');
-                                FlashService.Success('User Added');
+                                FlashService.Success($rootScope.selectedLanguage.manageAccounts.flashMessages.userAdded);
                                 resetModalFlash();
                                 resetAUsers();
                             }).catch(function (error) {
@@ -759,13 +760,14 @@
             }else{
                 if(forDataBase===requiredTextField){
                     delete $scope.aUsers.password;
+                    console.log($scope.aUsers);
                     UserService.Update($scope.aUsers)
                         .then(function () {
                             initController();
                             $scope.btnchc = "Edit";
                             $scope.shw = false;
                             $('#editModal').modal('hide');
-                            FlashService.Success('User updated');
+                            FlashService.Success($rootScope.selectedLanguage.manageAccounts.flashMessages.userUpdated);
                         }).catch(function (error) {
                             FlashService.Error(error);
                         }); 
@@ -786,27 +788,30 @@
 		vm.deleteUser = function(index) {
 			
 			
-			 var toDel = filterIndexById($scope.allUsers, index);
-        
+			var toDel = filterIndexById($scope.allUsers, index);
 
-            if (confirm("Are you sure to delete this user?")){
-				
-             UserService.Delete(toDel._id)
-                 .then(function () {
-					resetModalFlash();
-                    FlashService.Success('User Deleted');
-                    socket.emit('userChange');
-					 
-                })
-                .catch(function (error) {
-                    if(error.self_delete){
-                        window.location.href = '/login';
-                    }
-                    else{
-                        FlashService.Error(error);
-                    }
-                });
-            }
+                if (confirm($rootScope.selectedLanguage.manageAccounts.flashMessages.confirmMessage)){deleteUserino();}
+    				
+                
+                function deleteUserino(){
+
+                 UserService.Delete(toDel._id)
+                     .then(function () {
+    					resetModalFlash();
+                        FlashService.Success($rootScope.selectedLanguage.manageAccounts.flashMessages.userDeleted);
+                        socket.emit('userChange');
+    					 
+                    })
+                    .catch(function (error) {
+                        if(error.self_delete){
+                            window.location.href = '/login';
+                        }
+                        else{
+                            FlashService.Error(error);
+                        }
+                    });
+                }
+            
         }
 
 

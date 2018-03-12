@@ -1,5 +1,20 @@
 {
 	"nihongo" : {
+		"commons" : {
+			"search" : "検索",
+			"itemsPerPage" : "各ページの項目数表示",
+			"viewDetails" : "詳細を表示",
+			"delete" : "削除",
+			"edit" : "編集",
+			"save" : "保存",
+			"close" : "閉じる",
+			"cancel" : "キャンセル",
+			"requiredLabel1" : "「",
+			"requiredLabel2" : "」有り場合、必要です",
+			"add" : "追加",
+			"fmrequiredFields" : "必要なフィールドを入力してください",
+			"confirm" : "確認"
+		},
 		"loginPage" : {
 			"login": "ログイン",
 			"email": "メール",
@@ -54,24 +69,25 @@
 				"requiredLabel2" : "）の付いたフィールドは必須です。"
 			}
 		},
-		"manageDevices" : {
+		"manageAccounts" : {
 			"buttons": {
 				"createNewUser" : "新しいユーザー追加",
-				"addUser" : "ユーザーの追加",
-				"close" : "閉じる",
-				"edit" : "編集",
-				"save" : "保存",
-				"cancel" : "キャンセル"
+				"addUser" : "ユーザーの追加"
 			},
 			"labels": {
 				"navTitle" : "ユーザーのアカウント",
 				"modalTitleAdd" : "ユーザーの追加",
-				"modalTitleUpdate" : "ユーザーの更新",
-				"search" : "検索",
-				"itemsPerPage" : "各ページの項目数表示",
-				"requiredLabel1" : "「",
-				"requiredLabel2" : "」有り場合、必要です",
-				"confirm" : "確認"
+				"modalTitleUpdate" : "ユーザーの更新"
+			},
+			"flashMessages" : {
+				"emIAT1" : "“",
+				"emIAT2" : "” メールが存在している",
+				"userAdded" : "ユーザーが追加された",
+				"userUpdated" : "ユーザーが更新された",
+				"confirmMessage" : "ユーザーを削除する？",
+				"userDeleted" : "ユーザーが削除された",
+				"oldPasswordIsIncorrect" : "古いパスワードが間違っています",
+				"passwordChangedSuccessfully" : "パスワードは正常に変更されました"
 			}
 		}
 	}

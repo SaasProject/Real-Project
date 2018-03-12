@@ -1,5 +1,20 @@
 {
 	"english" : {
+		"commons" : {
+			"search" : "Search",
+			"itemsPerPage" : "Items Per Page",
+			"viewDetails" : "View Details",
+			"delete" : "Delete",
+			"edit" : "Edit",
+			"save" : "Save",
+			"close" : "Close",
+			"cancel" : "Cancer",
+			"requiredLabel1" : "Fields marked with an asterisk(",
+			"requiredLabel2" : ") are required.",
+			"add" : "Add",
+			"fmrequiredFields" : "Please fill up all the required fields",
+			"confirm" : "Confirm"
+		},
 		"loginPage" : {
 			"login": "Login",
 			"email": "Email",
@@ -54,24 +69,25 @@
 				"requiredLabel2" : ") are required."
 			}
 		},
-		"manageDevices" : {
+		"manageAccounts" : {
 			"buttons": {
 				"createNewUser" : "Create New User",
-				"addUser" : "Add User",
-				"close" : "Close",
-				"edit" : "Edit",
-				"save" : "Save",
-				"cancel" : "Cancel"
+				"addUser" : "Add User"
 			},
 			"labels": {
 				"navTitle" : "Manage User Accounts",
 				"modalTitleAdd" : "Add User",
-				"modalTitleUpdate" : "Update User",
-				"search" : "Search",
-				"itemsPerPage" : "Items Per Page",
-				"requiredLabel1" : "Fields marked with an asterisk(",
-				"requiredLabel2" : ") are required.",
-				"confirm" : "Confirm"
+				"modalTitleUpdate" : "Update User"
+			},
+			"flashMessages" : {
+				"emIAT1" : "Email “",
+				"emIAT2" : "” is already taken",
+				"userAdded" : "User Added",
+				"userUpdated" : "User Updated",
+				"confirmMessage" : "Are you sure you want to delete this user ?",
+				"userDeleted" : "User Deleted",
+				"oldPasswordIsIncorrect" : "Old Password is incorrect",
+				"passwordChangedSuccessfully" : "Password Changed Successfully"
 			}
 		}
 	}

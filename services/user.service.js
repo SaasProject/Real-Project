@@ -264,7 +264,7 @@ function insert(userParam){
  
             if (user) {
                 // email already exists
-                deferred.reject('Email "' + userParam.email + '" is already taken');
+                deferred.reject(userParam.preferedLanguage.manageAccounts.flashMessages.emIAT1 + '"' + userParam.email + '"' + userParam.preferedLanguage.manageAccounts.flashMessages.emIAT2);
             } else {
                 insertUser();
             }
@@ -293,6 +293,7 @@ function insert(userParam){
  
 function update(_id, userParam) {
     var deferred = Q.defer();
+    //console.log(userParam);
  
     // validation
     db.users.findById(_id, function (err, user) {
@@ -307,7 +308,7 @@ function update(_id, userParam) {
 						if (user && bcrypt.compareSync(userParam.oldPassword, user.hash)){
 							updateUser();
 						}else{
-							deferred.reject('Old password is incorrect');
+							deferred.reject(userParam.preferedLanguage.manageAccounts.flashMessages.oldPasswordIsIncorrect);
 						}
 					}
 					else{

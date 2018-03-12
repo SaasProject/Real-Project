@@ -531,10 +531,12 @@
 						if(vm.user.password != vm.user.confirmPassword) {
 							FlashService.Error("Confirm Password doesn't match");
 						} else {
+                            //console.log(vm.user);
+                            vm.user.preferedLanguage = $rootScope.selectedLanguage;
                             UserService.Update(vm.user)
                                 .then(function () {
 								//	$('#pwModal').modal('hide');
-									FlashService.Success("Password Changed");
+									FlashService.Success($rootScope.selectedLanguage.manageAccounts.flashMessages.passwordChangedSuccessfully);
 									initController();
 							
                                 })

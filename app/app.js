@@ -214,7 +214,7 @@
         //get default language
         LanguageService.getDefaultLanguage()
             .then(function(res) {
-                console.log(res);
+                //console.log(res);
                 $rootScope.defaultLanguage = res;
             })
             .catch(function (error) {
