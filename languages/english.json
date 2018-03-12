@@ -45,7 +45,7 @@
 			"cancel" : "Cancel",
 			"close" : "Close",
 			"account" : {
-				"accountSettings": "Account Settings",
+				"accountSettings": "Settings",
 				"changePassword": "Change Password",
 				"logout": "Log Out"
 			}

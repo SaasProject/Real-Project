@@ -45,7 +45,7 @@
 			"cancel" : "取消",
 			"close" : "閉じる",
 			"account" : {
-				"accountSettings": "アカウント設定",
+				"accountSettings": "設定",
 				"changePassword": "パスワード変更",
 				"logout": "ログアウト"
 			}
