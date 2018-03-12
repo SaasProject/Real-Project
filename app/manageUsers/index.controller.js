@@ -652,7 +652,7 @@
                 if($scope.fields[h].required==true){
                     requiredTextField++;
                     if($scope.aUsers[$scope.fields[h].name]===undefined){
-                        FlashService.Error("Please input all the required the fields");
+                        FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                         break;
                     }else{
                         forDataBase++;
@@ -660,13 +660,13 @@
                 }
             }
             if(!checkEmails()){
-                FlashService.Error("Please Input valid email");
+                FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
             }else if(!checkNumbers()){
-                FlashService.Error("Please Input numbers only to number fields");
+                FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
             }else if(!checkPasswords()){
-                FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                FlashService.Error($rootScope.selectedLanguage.commons.containPass);
             }else if(!checkConfirmPasswords()){
-                FlashService.Error("Confirm password/s does not match");
+                FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
             }else{
                 if(forDataBase===requiredTextField){
                     $scope.showAddFlash = false;
@@ -742,7 +742,7 @@
                 if($scope.fields[h].required==true){
                     requiredTextField++;
                     if($scope.aUsers[$scope.fields[h].name]===undefined){
-                        FlashService.Error("Please input all the required the fields");
+                        FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                     }else{
                         forDataBase++;
                     }
@@ -750,13 +750,13 @@
             }
 
             if(!checkEmails()){
-                FlashService.Error("Please Input valid email");
+                FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
             }else if(!checkNumbers()){
-                FlashService.Error("Please Input numbers only to number fields");
+                FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
             }else if(!checkPasswords()){
-                FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                FlashService.Error($rootScope.selectedLanguage.commons.containPass);
             }else if(!checkConfirmPasswords()){
-                FlashService.Error("Confirm password/s does not match");
+                FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
             }else{
                 if(forDataBase===requiredTextField){
                     delete $scope.aUsers.password;
