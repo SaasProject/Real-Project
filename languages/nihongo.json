@@ -37,19 +37,16 @@
 		"navBar" : {
 			"home": "Saasアプ",
 			"assets": "資産",
-			"accounts": "アカウント管理",
-			"devices": "端末管理",
-			"warehouses": "倉庫管理",
-			"fields": "フィールド管理",
-			"selectLanguage": "言語を選択する",
-			"selectDefaultLanguage": "デフォルト言語を選択する",
+			"accounts": "アカウント",
+			"devices": "デバイス",
+			"warehouses": "ウエアハウス",
+			"fields": "フィールド",
 			"save" : "更新",
 			"cancel" : "取消",
 			"close" : "閉じる",
 			"account" : {
 				"accountSettings": "アカウント設定",
 				"changePassword": "パスワード変更",
-				"changeDefaultLanguage": "デフォルト言語を変更する",
 				"logout": "ログアウト"
 			}
 		},
@@ -58,7 +55,7 @@
 				"changeProfilePicture" : "プロフィール画像を変更",
 				"saveUser" : "更新",
 				"browse" : "ブラウズ",
-				"saveChanges" : "変更内容を保存",
+				"saveChanges" : "更新",
 				"remove" : "除去する",
 				"cancel" : "取消"
 			},
@@ -66,7 +63,10 @@
 				"settings" : "設定",
 				"modalTitle" : "プロフィール画像を更新する",
 				"requiredLabel1" : "アスタリスク（",
-				"requiredLabel2" : "）の付いたフィールドは必須です。"
+				"requiredLabel2" : "）の付いたフィールドは必須です。",
+				"languagePreference" : "言語の設定",
+				"changeDefaultLanguage": "デフォルト言語を変更する",
+				"selectLanguage": "言語を選択する"
 			}
 		},
 		"manageAccounts" : {

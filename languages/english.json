@@ -41,15 +41,12 @@
 			"devices": "Manage Devices",
 			"warehouses": "Manage Warehouses",
 			"fields": "Manage Fields",
-			"selectLanguage": "Select Language",
-			"selectDefaultLanguage": "Select Default Language",
 			"save" : "Save",
 			"cancel" : "Cancel",
 			"close" : "Close",
 			"account" : {
 				"accountSettings": "Account Settings",
 				"changePassword": "Change Password",
-				"changeDefaultLanguage": "Change Default Language",
 				"logout": "Log Out"
 			}
 		},
@@ -66,7 +63,10 @@
 				"settings" : "Settings",
 				"modalTitle" : "Update Profile Picture",
 				"requiredLabel1" : "Fields marked with an asterisk(",
-				"requiredLabel2" : ") are required."
+				"requiredLabel2" : ") are required.",
+				"languagePreference" : "Language Preference",
+				"changeDefaultLanguage": "Change Default Language",
+				"selectLanguage": "Select Language"
 			}
 		},
 		"manageAccounts" : {

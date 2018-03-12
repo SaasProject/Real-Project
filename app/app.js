@@ -227,7 +227,7 @@
         $rootScope.changeLanguage = function(option) {
             if(option == 'nihongo'){
                 $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
-                $rootScope.hiUser = "ようこそ "+$rootScope.user.firstName+"さん!";
+                $rootScope.hiUser = "こんにちは, "+$rootScope.user.firstName+"さん!";
             } else if (option == 'english') {
                 $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
                 $rootScope.hiUser = "Hi "+$rootScope.user.firstName+"!";
@@ -266,7 +266,7 @@
 
                 if(setLanguage == 'nihongo'){
                     $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
-                    $rootScope.hiUser = "ようこそ "+user.firstName+"さん!";
+                    $rootScope.hiUser = "こんにちは, "+user.firstName+"さん!";
                 } else if (setLanguage == 'english') {
                     $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
                     $rootScope.hiUser = "Hi "+user.firstName+"!";

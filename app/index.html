@@ -37,13 +37,6 @@
                     </ul>
                     
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <select class="form-control center-height" ng-model="selLanguage" ng-change="changeLanguage(selLanguage)">
-                                <option value="" selected="selected" hidden hidden>{{selectedLanguage.navBar.selectLanguage}}</option>
-                                <option value="english">English</option>
-                                <option value="nihongo">日本語</option>
-                            </select>               
-                        </li>
                         <li ng-show="greet" class="noselect navbar-text hidden-xs">{{hiUser}}</li>
                     <!--    <li ng-class="{active: activeTab === 'account'}"><a style="padding-top: 10px;" class="a50px" ui-sref="account"><div class="avatar-circle" ng-style="bgColor"><span class="initials noselect" data-toggle="tooltip" title="View Account">{{initials}}</div></a></li> -->
 						<li class = "dropdown"><a style="padding-top: 10px; padding-right:25px" class="a50px dropdown-toggle" data-toggle = "dropdown" href = "#">
@@ -57,7 +50,6 @@
 							<ul class = "dropdown-menu">
 								<li><a ui-sref="account">{{selectedLanguage.navBar.account.accountSettings}}</a></li>
 								<li><a href = "#" data-toggle = "modal" data-target = "#pwModal">{{selectedLanguage.navBar.account.changePassword}}</a></li>
-                                <li><a href = "#" data-toggle = "modal" data-target = "#langModal" ng-show="isAdmin">{{selectedLanguage.navBar.account.changeDefaultLanguage}}</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href = "/login"><span class="glyphicon glyphicon-log-out" ng-click="logout()" data-toggle="tooltip" title="Log Out"></span> {{selectedLanguage.navBar.account.logout}}</a></li>
 							</ul>
@@ -109,34 +101,6 @@
       
       </div>
 	</div>
-
-    <!-- Modal for Change Default Language -->
-    <div class="modal fade" id="langModal" role="dialog" ng-controller = "Account.IndexController as vm">
-      <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Change Language</h4>
-        </div>
-        
-        <div class="modal-body">
-            <select class="form-control" ng-model="selDefaultLanguage" ng-change="changeDefaultLanguage(selDefaultLanguage)">
-                <option value="" selected="selected" hidden hidden>{{selectedLanguage.navBar.selectLanguage}}</option>
-                <option value="english">English</option>
-                <option value="nihongo">日本語</option>
-            </select>
-        </div>
-            
-        <div class="modal-footer">
-            <!--<button type = "submit" class="btn btn-primary" ng-click="">{{selectedLanguage.texts.save}}</button>-->
-            <button type="button" class="btn btn-danger"  data-dismiss="modal" ng-click = "closeModal()">{{selectedLanguage.navBar.close}}</button> 
-        </div>
-        
-      </div>
-      
-      </div>
-    </div>
 
     <!-- main -->
     

@@ -142,3 +142,15 @@ p:hover {
 #imgFileModal {
 	margin: 20px;
 }
+
+.accountSettingsAdmin {
+	width:100%; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.accountSettingsUser {
+	width:70%; 
+	margin-left: auto; 
+	margin-right: auto;
+}
