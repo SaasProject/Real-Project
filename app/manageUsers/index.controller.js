@@ -49,7 +49,7 @@
             };
         });
  
-    function Controller(UserService, $scope, FlashService, FieldsService, socket) {
+    function Controller(UserService, $scope, FlashService, FieldsService, socket, $rootScope) {
         var vm = this;
  
         vm.user = [];

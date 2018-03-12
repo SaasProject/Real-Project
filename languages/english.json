@@ -53,6 +53,26 @@
 				"requiredLabel1" : "Fields marked with an asterisk(",
 				"requiredLabel2" : ") are required."
 			}
+		},
+		"manageDevices" : {
+			"buttons": {
+				"createNewUser" : "Create New User",
+				"addUser" : "Add User",
+				"close" : "Close",
+				"edit" : "Edit",
+				"save" : "Save",
+				"cancel" : "Cancel"
+			},
+			"labels": {
+				"navTitle" : "Manage User Accounts",
+				"modalTitleAdd" : "Add User",
+				"modalTitleUpdate" : "Update User",
+				"search" : "Search",
+				"itemsPerPage" : "Items Per Page",
+				"requiredLabel1" : "Fields marked with an asterisk(",
+				"requiredLabel2" : ") are required.",
+				"confirm" : "Confirm"
+			}
 		}
 	}
 }

@@ -1,4 +1,4 @@
-<h2>Manage User Accounts</h2>
+<h2>{{selectedLanguage.manageDevices.labels.navTitle}}</h2>
 
 <div style = "text-align:center" class = "spinner" ng-show = "loading"> 
         <img src="loader.gif"/>
@@ -17,7 +17,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Add Users</h4>
+          <h4 class="modal-title">{{selectedLanguage.manageDevices.labels.modalTitleAdd}}</h4>
         </div>
 		        <div class="modal-body">
 		          <!--<form name = "userAddForm" novalidate>
@@ -57,7 +57,7 @@
 			          	<input name="{{field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-required=field.required>
 
 			          	<!-- show confirm password -->
-			          	<label ng-show="showPassword(field.type)" for=field.name>Confirm {{field.name}}: </label>
+			          	<label ng-show="showPassword(field.type)" for=field.name>{{selectedLanguage.manageDevices.labels.confirm}} {{field.name}}: </label>
 			          	<input name="{{'confirm '+field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="confirmPassword[field.name]" class="form-control">
 
 			          	<!-- show text area -->
@@ -82,13 +82,13 @@
 							<option ng-repeat="option in field.options">{{option}}</option>
 						</select>
 		          	</div>
-					<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
+					<small><i>{{selectedLanguage.manageDevices.labels.requiredLabel1}}<span style = "color:red">*</span> {{selectedLanguage.manageDevices.labels.requiredLabel2}}</i></small>
 		        	<br>
 		          </form>
 		        </div><!--modal body-->
 		        <div class="modal-footer" >
-		        	<button class="btn btn-primary" ng-click="addUser()">Add User</button>
-					<button type="button" class="btn btn-danger" ng-click="vm.restart()" data-dismiss="modal">Close</button>
+		        	<button class="btn btn-primary" ng-click="addUser()">{{selectedLanguage.manageDevices.buttons.addUser}}</button>
+					<button type="button" class="btn btn-danger" ng-click="vm.restart()" data-dismiss="modal">{{selectedLanguage.manageDevices.buttons.close}}</button>
 					<br>
 				</div>
       </div>
@@ -105,7 +105,7 @@
 			<div class="modal-content">
 			
 				<div class="modal-header">
-					<h4 class="modal-title">Update User</h4>
+					<h4 class="modal-title">{{selectedLanguage.manageDevices.labels.modalTitle}}</h4>
 				</div>
         
 				<div class="modal-body">
@@ -166,7 +166,7 @@
 				          	<input name="{{field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="aUsers[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'" ng-required=field.required>
 
 				          	<!-- show confirm password -->
-				          	<label ng-show="showPassword(field.type)" for=field.name>Confirm {{field.name}}: </label>
+				          	<label ng-show="showPassword(field.type)" for=field.name>{{selectedLanguage.manageDevices.labels.confirm}} {{field.name}}: </label>
 				          	<input name="{{'confirm '+field.type}}" data="{{field.type}}" type="{{field.type=='password'?'password':'text';}}" ng-show="showPassword(field.type)" ng-model="confirmPassword[field.name]" class="form-control" ng-readonly="shw==false || field.name == 'email'">
 
 				          	<!-- show text area -->
@@ -195,14 +195,14 @@
 								<option ng-repeat="option in field.options">{{option}}</option>
 							</select>
           				</div>
-						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
+						<small><i>{{selectedLanguage.manageDevices.labels.requiredLabel1}}<span style = "color:red">*</span> {{selectedLanguage.manageDevices.labels.requiredLabel2}}</i></small>
         				<br>
           			</form>
 				</div>
 				<div class="modal-footer"> 
-					<button class = "btn btn-primary" ng-click="vm.enableEditing()" ng-hide="shw">Edit</button>
-					<button class = "btn btn-primary" ng-click="vm.updateUser()" ng-show="shw">Save</button>
-					<button type="button" class="btn btn-danger" ng-click="vm.restart()" data-dismiss="modal">Close</button>
+					<button class = "btn btn-primary" ng-click="vm.enableEditing()" ng-hide="shw">{{selectedLanguage.manageDevices.buttons.edit}}</button>
+					<button class = "btn btn-primary" ng-click="vm.updateUser()" ng-show="shw">{{selectedLanguage.manageDevices.buttons.save}}</button>
+					<button type="button" class="btn btn-danger" ng-click="vm.restart()" data-dismiss="modal">{{selectedLanguage.manageDevices.buttons.close}}</button>
 					<br>
 				</div>
 			</div>
@@ -214,7 +214,7 @@
 <div class="panel" ng-hide = "loading">
 	<div class="row">
 		<div class="col-sm-3">
-    		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="modifyDropdown(); declareSelected()">Create new user</button>		      
+    		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="modifyDropdown(); declareSelected()">{{selectedLanguage.manageDevices.buttons.createNewUser}}</button>		      
 		</div>
 	</div>
 	<div class="row">
@@ -222,11 +222,11 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-3">
-            <label for="search">Search</label>
+            <label for="search">{{selectedLanguage.manageDevices.labels.search}}</label>
             <input id="search" type="text" ng-model="search" class="form-control">           
 		</div>
 		<div class="col-sm-3">
-		    <label for="pageSize">Items per page</label>
+		    <label for="pageSize">{{selectedLanguage.manageDevices.labels.itemsPerPage}}</label>
 			<input id="pageSize" type="number" ng-model="pageSize" class="form-control" min="1" max={{vm.user.length}}> 
 		</div> 
 	</div>
