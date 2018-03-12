@@ -33,6 +33,20 @@
         $scope.showPicFlash = false;
         $scope.isDelete = false;
 
+        //show account or system settings
+        $scope.isAccountSetting = true;
+        $scope.isSystemSetting = false;
+
+        $scope.showSettings = function(option) {
+            if(option == 'system'){
+                $scope.isAccountSetting = false;
+                $scope.isSystemSetting = true;
+            } else if (option == 'account') {
+                $scope.isAccountSetting = true;
+                $scope.isSystemSetting = false;
+            }
+        }
+
         /*
             Function name: Initialize Profile Picture
             Author(s): Flamiano, Glenn

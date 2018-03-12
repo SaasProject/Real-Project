@@ -66,7 +66,8 @@
 				"requiredLabel2" : "）の付いたフィールドは必須です。",
 				"languagePreference" : "言語の設定",
 				"changeDefaultLanguage": "デフォルト言語を変更する",
-				"selectLanguage": "言語を選択する"
+				"selectLanguage": "言語を選択する",
+				"selectSetting" : "Select Setting"
 			}
 		},
 		"manageAccounts" : {

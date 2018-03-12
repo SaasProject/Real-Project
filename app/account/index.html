@@ -1,5 +1,5 @@
-<!--<div style="width:100%; margin-left: auto; margin-right: auto;">-->
-<div ng-class="{'accountSettingsAdmin' : isAdmin,  'accountSettingsUser' : !isAdmin}">
+<div style="width:100%; margin-left: auto; margin-right: auto;">
+<!--<div ng-class="{'accountSettingsAdmin' : isAdmin,  'accountSettingsUser' : !isAdmin}">-->
 <h1>{{selectedLanguage.accountSettings.labels.settings}}</h1>
 <!-- flash message div -->
 <div class="flash-message" ng-if="flash" ng-show = "!changePasswordModal">
@@ -51,8 +51,8 @@
 </div>
 </div>
 
-<div class="col-sm-4" ng-show="isAdmin">
-    <div class="panel panel-primary">
+<div class="col-sm-3">
+    <!--<div class="panel panel-primary">
         <div class="panel-heading">System Settings</div>
         <div class="panel-body">
             <label>{{selectedLanguage.accountSettings.labels.changeDefaultLanguage}}</label>
@@ -62,9 +62,23 @@
                 <option value="nihongo">日本語</option>
             </select>                         
         </div>
-    </div>
+    </div>-->
+
+    <select class="form-control" ng-model="selSettings" ng-change="showSettings(selSettings)">
+        <option value="" selected="selected" hidden hidden>{{selectedLanguage.accountSettings.labels.selectSetting}}</option>
+        <option value="system" ng-show="isAdmin">System Settings</option>
+        <option value="account">Account Settings</option>
+    </select>
 </div>
-<div ng-class="{'col-sm-8' : isAdmin, '' : !isAdmin}">
+<div class="col-sm-9" ng-show="isSystemSetting">
+    <label>{{selectedLanguage.accountSettings.labels.changeDefaultLanguage}}</label>
+    <select class="form-control" ng-model="selDefaultLanguage" ng-change="changeDefaultLanguage(selDefaultLanguage)">
+        <option value="" selected="selected" hidden hidden>{{selectedLanguage.accountSettings.labels.selectLanguage}}</option>
+        <option value="english">English</option>
+        <option value="nihongo">日本語</option>
+    </select>
+</div>
+<div class="col-sm-9" ng-show="isAccountSetting">
     <div class="row">
         <div class="col-md-4">
             <br/>
