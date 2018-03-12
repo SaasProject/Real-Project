@@ -86,8 +86,8 @@
 				"userUpdated" : "ユーザーが更新された",
 				"confirmMessage" : "ユーザーを削除する？",
 				"userDeleted" : "ユーザーが削除された",
-				"oldPasswordIsIncorrect" : "古いパスワードが間違っています",
-				"passwordChangedSuccessfully" : "パスワードは正常に変更されました"
+				"oldPasswordIsIncorrect" : "古いパスワードが間違っている。",
+				"passwordChangedSuccessfully" : "パスワードが変更された"
 			}
 		}
 	}
