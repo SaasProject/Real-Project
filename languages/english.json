@@ -13,7 +13,11 @@
 			"requiredLabel2" : ") are required.",
 			"add" : "Add",
 			"fmrequiredFields" : "Please fill up all the required fields",
-			"confirm" : "Confirm"
+			"confirm" : "Confirm",
+			"confirmPass" : "Confirm Password doesn't match.",
+			"containPass" : "Passwords should contain lowercase, uppercase, numbers and at least 8 characters",
+			"invalidEmail" : "Please Input valid email.",
+			"invalidNo" : "Please Input numbers only to number fields."
 		},
 		"loginPage" : {
 			"login": "Login",
@@ -89,6 +93,22 @@
 				"userDeleted" : "User Deleted",
 				"oldPasswordIsIncorrect" : "Old Password is incorrect",
 				"passwordChangedSuccessfully" : "Password Changed Successfully"
+			}
+		},
+		"devices" : {
+			"labels": {
+				"header" : "Warehouse Devices",
+				"add" : "Create New Device",
+				"modal_add" : "Add Device",
+				"modal_update" : "Update Device",
+				"flash_taken_1" : "Device_id “",
+				"flash_taken_2" : "” is already taken",
+				"flash_add" : "Device Added",
+				"flash_update" : "Device Updated",
+				"flash_confirm_1" : "Are you sure to delete device [",
+				"flash_confirm_2" : "] ?",
+				"flash_delete" : "Device Deleted",
+				"flash_exist" : "Device already exists"
 			}
 		}
 	}

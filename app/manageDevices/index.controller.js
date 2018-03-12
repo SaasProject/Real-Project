@@ -49,7 +49,7 @@
             };
         });
  
-    function Controller(DeviceService, $scope, FlashService, FieldsService, socket, WarehouseService) {
+    function Controller(DeviceService, $scope, FlashService, FieldsService, socket, WarehouseService, $rootScope) {
         var vm = this;
  
         vm.device = [];
@@ -618,24 +618,24 @@
                 }
             }
             if(!$scope.formValid){
-                FlashService.Error('Please Fill up all the textfields');
+                FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                 //resetADevices();
                 $scope.formValid = true;
             }else{
                 if(!checkEmails()){
-                    FlashService.Error("Please Input valid email");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                 }else if(!checkNumbers()){
-                    FlashService.Error("Please Input numbers only to number fields");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                 }else if(!checkPasswords()){
-                    FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                    FlashService.Error($rootScope.selectedLanguage.commons.caontainPass);
                 }else if(!checkConfirmPasswords()){
-                    FlashService.Error("Confirm password/s does not match");
+                    FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
                     DeviceService.addDevice($scope.aDevices)
                     .then(function () {
                         initController();
                         $('#myModal').modal('hide');
-                        FlashService.Success('Device Added');
+                        FlashService.Success($rootScope.selectedLanguage.devices.flash_add);
                         socket.emit('deviceChange');
 
                         resetADevices();
@@ -735,24 +735,24 @@
             }
 
             if(!$scope.formValid){
-                FlashService.Error('Please Fill up all the textfields');
+                FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                 //resetADevices();
                 $scope.formValid = true;
             }else{
                 if(!checkEmails()){
-                    FlashService.Error("Please Input valid email");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                 }else if(!checkNumbers()){
-                    FlashService.Error("Please Input numbers only to number fields");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                 }else if(!checkPasswords()){
-                    FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                    FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                 }else if(!checkConfirmPasswords()){
-                    FlashService.Error("Confirm password/s does not match");
+                    FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
                     DeviceService.updateDevice($scope.aDevices)
                         .then(function () {      
                             $scope.aDevices = {};
                             $('#editModal').modal('hide');
-                            FlashService.Success('Device Updated');
+                            FlashService.Success($rootScope.selectedLanguage.devices.flash_update);
                             socket.emit('deviceChange');
 
                         resetADevices();
@@ -776,7 +776,7 @@
             DeviceService.Delete(toDel._id)
                  .then(function () {
 					resetModalFlash();
-                    FlashService.Success('Device Deleted');
+                    FlashService.Success($rootScope.selectedLanguage.devices.flash_delete);
                     socket.emit('deviceChange');
 					 
                 })
@@ -788,7 +788,7 @@
 
         function errorFunction(error){
             if(error.code == 11000){
-                FlashService.Error('Device already exists');
+                FlashService.Error($rootScope.selectedLanguage.devices.flash_exist);
             }
             else if(error.name == 'ValidationError'){
                 FlashService.Error(error.message);

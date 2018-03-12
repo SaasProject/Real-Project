@@ -13,7 +13,11 @@
 			"requiredLabel2" : "」有り場合、必要です",
 			"add" : "追加",
 			"fmrequiredFields" : "必要なフィールドを入力してください",
-			"confirm" : "確認"
+			"confirm" : "確認",
+			"confirmPass" : "新しいパスワードが一致しません。もう一度入力してください。",
+			"containPass" : "パスワードには、小文字、大文字、数字、少なくとも8文字",
+			"invalidEmail" : "有効なメールアドレスを入力してください。",
+			"invalidNo" : "番号は番号フィールドにのみ入力してください。"
 		},
 		"loginPage" : {
 			"login": "ログイン",
@@ -89,6 +93,22 @@
 				"userDeleted" : "ユーザーが削除された",
 				"oldPasswordIsIncorrect" : "古いパスワードが間違っている。",
 				"passwordChangedSuccessfully" : "パスワードが変更された"
+			}
+		},
+		"devices" : {
+			"labels": {
+				"header" : "ウエアハウスのデバイス",
+				"add" : "あたらしいデバイス追加",
+				"modal_add" : "デバイスの追加",
+				"modal_update" : "デバイスの更新",
+				"flash_taken_1" : "“",
+				"flash_taken_2" : "” が存在している",
+				"flash_add" : "デバイスが追加された",
+				"flash_update" : "デバイスが更新された",
+				"flash_confirm_1" : "[",
+				"flash_confirm_2" : "]を削除する？",
+				"flash_delete" : "デバイスが削除された",
+				"flash_exist" : "デバイスは既に存在します"
 			}
 		}
 	}
