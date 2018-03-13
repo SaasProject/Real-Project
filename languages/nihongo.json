@@ -110,6 +110,22 @@
 				"flash_delete" : "デバイスが削除された",
 				"flash_exist" : "デバイスは既に存在します"
 			}
+		},
+		"warehouse" : {
+			"labels": {
+				"header" : "ウエアハウス",
+				"add" : "あたらしいウエアハウス追加",
+				"modal_add" : "ウエアハウスの追加",
+				"modal_update" : "ウエアハウスの更新",
+				"flash_taken_1" : "ウエアハウス “",
+				"flash_taken_2" : "”が存在している",
+				"flash_add" : "ウエアハウスが追加された",
+				"flash_update" : "ウエアハウスが更新された",
+				"flash_confirm_1" : "[",
+				"flash_confirm_2" : "]を削除する？",
+				"flash_delete" : "ウエアハウスが削除された",
+				"flash_exist" : "ウエアハウスが存在している"
+			}
 		}
 	}
 }

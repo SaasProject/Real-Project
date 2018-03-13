@@ -49,7 +49,7 @@
             };
         });
  
-    function Controller(WarehouseService, AssetService, $scope, FlashService, FieldsService, socket) {
+    function Controller(WarehouseService, AssetService, $scope, FlashService, FieldsService, socket, $rootScope) {
         var vm = this;
 		
 		// Scope for data
@@ -676,22 +676,22 @@
                 }
             }
             if(!$scope.formValid){
-                FlashService.Error('Please Fill up all the textfields');
+                FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                 $scope.formValid = true;
             }else{
                 if(!checkEmails()){
-                    FlashService.Error("Please Input valid email");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                 }else if(!checkNumbers()){
-                    FlashService.Error("Please Input numbers only to number fields");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                 }else if(!checkPasswords()){
-                    FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                    FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                 }else if(!checkConfirmPasswords()){
-                    FlashService.Error("Confirm password/s does not match");
+                    FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
                     WarehouseService.addWarehouse($scope.whouse)
                     .then(function () {
                         $('#myModal').modal('hide');
-                        FlashService.Success('Warehouse Added');
+                        FlashService.Success($rootScope.selectedLanguage.warehouse.labels.flash_add);
                         socket.emit('whouseChange');
 						
 						resetScope();
@@ -766,25 +766,25 @@
             }
 
             if(!$scope.formValid){
-                FlashService.Error('Please Fill up all the textfields');
+                FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                 //resetwhouse();
                 $scope.formValid = true;
             }else{
                 if(!checkEmails()){
-                    FlashService.Error("Please Input valid email");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                 }else if(!checkNumbers()){
-                    FlashService.Error("Please Input numbers only to number fields");
+                    FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                 }else if(!checkPasswords()){
-                    FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                    FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                 }else if(!checkConfirmPasswords()){
-                    FlashService.Error("Confirm password/s does not match");
+                    FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
                     WarehouseService.updateWarehouse($scope.whouse)
                         .then(function () {
 							$scope.viewModal = false;							
                             $scope.whouse = {};
                             $('#editModal').modal('hide');
-                            FlashService.Success('Warehouse Updated');
+                            FlashService.Success($rootScope.selectedLanguage.warehouse.labels.flash_update);
                             socket.emit('whouseChange');
 							
 							resetScope();
@@ -822,12 +822,12 @@
             
             var toDel = filterIndexById($scope.warehouses, index);
 
-            if (confirm("Are you sure to delete " + toDel.name + "?")){
+            if (confirm($rootScope.selectedLanguage.warehouse.labels.flash_confirm_1 + toDel.name + $rootScope.selectedLanguage.warehouse.labels.flash_confirm_2)){
 				
             WarehouseService.Delete(toDel._id)
                  .then(function () {
 					resetModalFlash();
-                    FlashService.Success('Successfully Deleted');
+                    FlashService.Success($rootScope.selectedLanguage.warehouse.labels.flash_delete);
                     socket.emit('whouseChange');
 					 
                 })
@@ -839,7 +839,7 @@
 
         function errorFunction(error){
             if(error.code == 11000){
-                FlashService.Error('Warehouse already exists');
+                FlashService.Error($rootScope.selectedLanguage.warehouse.labels.flash_exist);
             }
             else if(error.name == 'ValidationError'){
                 FlashService.Error(error.message);

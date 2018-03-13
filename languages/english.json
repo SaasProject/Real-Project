@@ -110,6 +110,22 @@
 				"flash_delete" : "Device Deleted",
 				"flash_exist" : "Device already exists"
 			}
+		},
+		"warehouse" : {
+			"labels": {
+				"header" : "Warehouses",
+				"add" : "Add New Warehouse",
+				"modal_add" : "Add Warehouse",
+				"modal_update" : "Update Warehouse",
+				"flash_taken_1" : "Warehouse “",
+				"flash_taken_2" : "” already exists",
+				"flash_add" : "Warehouse Added",
+				"flash_update" : "Warehouse Updated",
+				"flash_confirm_1" : "Are you sure to delete [",
+				"flash_confirm_2" : "] ?",
+				"flash_delete" : "Warehouse Deleted",
+				"flash_exist" : "Warehouse already exists"
+			}
 		}
 	}
 }

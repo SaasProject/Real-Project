@@ -1,4 +1,4 @@
-<h2>Warehouses</h2>
+<h2>{{selectedLanguage.warehouse.labels.header}}</h2>
 
 <div style = "text-align:center" class = "spinner" ng-show = "loading"> 
         <img src="loader.gif"/>
@@ -15,7 +15,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Add Warehouse</h4>
+          <h4 class="modal-title">{{selectedLanguage.warehouse.labels.modal_add}}</h4>
         </div>
         <div class="modal-body">
         	<div id="addModalFlash" ng-show="showAddFlash" class="flash-message" ng-if="flash">
@@ -63,13 +63,13 @@
 								<option ng-repeat="option in field.options">{{option}}</option>
 							</select>		
 						</div>
-						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
+						<small><i>{{selectedLanguage.commons.requiredLabel1}}<span style = "color:red">*</span>{{selectedLanguage.commons.requiredLabel2}}</i></small>
 			</form>
 			</div>
           	
           	<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" ng-click="addWH(AddForm.$valid)">Save</button>
-				<button type="button" class="btn btn-danger" ng-click="vm.cancelEdit()" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary" ng-click="addWH(AddForm.$valid)">{{selectedLanguage.commons.save}}</button>
+				<button type="button" class="btn btn-danger" ng-click="vm.cancelEdit()" data-dismiss="modal">{{selectedLanguage.commons.close}}</button>
 			</div>
       	</div>
       
@@ -86,7 +86,7 @@
 			
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Update Warehouse</h4>
+					<h4 class="modal-title">{{selectedLanguage.warehouse.labels.modal_update}}</h4>
 				</div>
         
 				<div class="modal-body">
@@ -147,14 +147,14 @@
 							<p class = "form-control" ng-bind = "whouse['quantity']" readonly>
 						</div>
 						
-						<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
+						<small><i>{{selectedLanguage.commons.requiredLabel1}}<span style = "color:red">*</span>{{selectedLanguage.commons.requiredLabel2}}</i></small>
 					</form>
 				</div>
 		
 				<div class="modal-footer">
-					<button id="editDeviceButton" class = "btn btn-primary" ng-click="vm.editAble()" ng-show="unEditAble">Edit</button>
-					<button class = "btn btn-primary" ng-click="vm.updateWH(EditForm.$valid)" ng-hide="unEditAble">Save</button>
-					<button class= "btn btn-danger" ng-click="vm.cancelEdit()" data-dismiss="modal">Cancel</button>
+					<button id="editDeviceButton" class = "btn btn-primary" ng-click="vm.editAble()" ng-show="unEditAble">{{selectedLanguage.commons.edit}}</button>
+					<button class = "btn btn-primary" ng-click="vm.updateWH(EditForm.$valid)" ng-hide="unEditAble">{{selectedLanguage.commons.save}}</button>
+					<button class= "btn btn-danger" ng-click="vm.cancelEdit()" data-dismiss="modal">{{selectedLanguage.commons.close}}</button>
 				</div>
 			</div>
   		</div>
@@ -163,7 +163,7 @@
 <div class="panel" ng-hide = "loading">
 	<div class="row">
 		<div class="col-sm-3">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="modifyDropdown(); declareSelected()">New Warehouse</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="modifyDropdown(); declareSelected()">{{selectedLanguage.warehouse.labels.add}}</button>
 		</div>
 	</div>
 	<div class="row">
@@ -171,11 +171,11 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-3">
-            <label for="search">Search</label>
+            <label for="search">{{selectedLanguage.commons.search}}</label>
             <input id="search" type="text" ng-model="search" class="form-control">           
 		</div>
 		<div class="col-sm-3">
-		    <label for="pageSize">Items per page</label>
+		    <label for="pageSize">{{selectedLanguage.commons.itemsPerPage}}</label>
 			<input id="pageSize" type="number" ng-model="pageSize" class="form-control" min="1" max={{warehouses.length}}> 
 		</div> 
 	</div>
@@ -193,9 +193,9 @@
 				<td class="cutOverflow" ng-repeat="field in fields">{{wh[field.name]}}</td>
 				<td class = "cutOverflow">{{wh.quantity}}</td>
 				<td>
-					<a><i class="fa fa-list-alt" aria-hidden="true" data-toggle = "modal" data-target = "#editModal" ng-click="editWH(wh._id); declareSelected()" data-toggle="tooltip" title="View Details"></i><a>
+					<a><i class="fa fa-list-alt" aria-hidden="true" data-toggle = "modal" data-target = "#editModal" ng-click="editWH(wh._id); declareSelected()" data-toggle="tooltip" title="{{selectedLanguage.commons.viewDetails}}"></i><a>
 					|
-					<a><i class="fa fa-trash" aria-hidden="true" ng-click="deleteWH(wh._id)" data-toggle="tooltip" title="Delete"></i></a>
+					<a><i class="fa fa-trash" aria-hidden="true" ng-click="deleteWH(wh._id)" data-toggle="tooltip" title="{{selectedLanguage.commons.delete}}"></i></a>
 				</td>
 			</tr>
 		</tbody>
