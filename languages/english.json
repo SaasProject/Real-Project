@@ -71,7 +71,18 @@
 				"languagePreference" : "Language Preference",
 				"changeDefaultLanguage": "Change Default Language",
 				"selectLanguage": "Select Language",
-				"selectSetting" : "Select Setting"
+				"selectSetting" : "Select Setting",
+				"accountSelect" : "Account Settings",
+				"systemSelect" : "System Settings"
+			},
+			"flashMessages" : {
+				"inputOldPassword" : "Enter Old Password",
+				"inputNewPassword" : "Enter New Password",
+				"profilePicUpdated" : "Profile Picture Updated",
+				"profilePicDeleted" : "Profile Picture Deleted",
+				"invalidImgFile" : "Only PNG files, JPG files or JPEG files are allowed.",
+				"userUpdated" : "User Updated",
+				"profilePicDeleteSure" : "Are you sure you want to delete your profile picture?"
 			}
 		},
 		"manageAccounts" : {

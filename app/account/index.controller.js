@@ -499,7 +499,7 @@
                         if($scope.fields[h].required==true){
                             requiredTextField++;
                             if($scope.aUsers[$scope.fields[h].name]===undefined){
-                                FlashService.Error("Please input all the required the fields");
+                                FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
                             }else{
                                 forDataBase++;
                             }
@@ -507,18 +507,18 @@
                     }
 
                     if(!checkEmails()){
-                        FlashService.Error("Please Input valid email");
+                        FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                     }else if(!checkNumbers()){
-                        FlashService.Error("Please Input numbers only to number fields");
+                        FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                     }else if(!checkPasswords()){
-                        FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                        FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                     }else if(!checkConfirmPasswords()){
-                        FlashService.Error("Confirm password/s does not match");
+                        FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                     }else{
                         if(forDataBase===requiredTextField){
                             UserService.Update(vm.user)
                                 .then(function () {
-                                    FlashService.Success('User updated');
+                                    FlashService.Success($rootScope.selectedLanguage.accountSettings.flashMessages.userUpdated);
 									initController();
                                 })
                                 .catch(function (error) {
@@ -534,16 +534,16 @@
 			$rootScope.changePasswordModal = true;
 			
 			if(vm.user.oldPassword === undefined) {
-				FlashService.Error("Enter Old Password");
+				FlashService.Error($rootScope.selectedLanguage.accountSettings.flashMessages.inputOldPassword);
 			} else { 
 				if(vm.user.password===undefined){
-					FlashService.Error("Enter New Password");
+					FlashService.Error($rootScope.selectedLanguage.accountSettings.flashMessages.inputNewPassword);
 				} else {
 					if(!checkPasswordChars(vm.user.password)) {
-						FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+						FlashService.Error($rootScope.selectedLanguage.commons.containPass);
 					} else {
 						if(vm.user.password != vm.user.confirmPassword) {
-							FlashService.Error("Confirm Password doesn't match");
+							FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
 						} else {
                             //console.log(vm.user);
                             vm.user.preferedLanguage = $rootScope.selectedLanguage;
@@ -605,7 +605,7 @@
             .then(function(res) {
                 $scope.uploading = false;
                 $scope.file = {};
-                FlashService.Success('Profile Picture Updated');
+                FlashService.Success($rootScope.selectedLanguage.accountSettings.flashMessages.profilePicUpdated);
                 //$scope.modalPic = $scope.tempPic;
                 $scope.profilePicUrl = $scope.tempPic;
                 $rootScope.profilePic = $scope.profilePicUrl;
@@ -684,10 +684,10 @@
             Return: none
         */
         $scope.deletePic = function(){
-            if (confirm("Are you sure to delete your profile picture?")){
+            if (confirm($rootScope.selectedLanguage.accountSettings.flashMessages.profilePicDeleteSure)){
                 UserService.deleteProfilePic(vm.user)
                 .then(function(res) {
-                    FlashService.Success('Profile Picture Deleted');
+                    FlashService.Success($rootScope.selectedLanguage.accountSettings.flashMessages.profilePicDeleted);
                     $scope.profilePicUrl = '';
                     $rootScope.profilePic = '';
                     $scope.modalPic = '/nullPic.jpg';
