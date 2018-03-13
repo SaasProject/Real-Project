@@ -82,7 +82,9 @@
 				"profilePicDeleted" : "プロフィールの写真が削除された",
 				"invalidImgFile" : "PNGファイル、JPGファイル、またはJPEGファイルのみが許可されます。",
 				"userUpdated" : "ユーザーが更新された",
-				"profilePicDeleteSure" : "プロフィール写真を削除してもよろしいですか？"
+				"profilePicDeleteSure" : "プロフィール写真を削除してもよろしいですか？",
+				"defaultLanguageChangedTo1" : "デフォルト言語が",
+				"defaultLanguageChangedTo2" : "に変更されました"
 			}
 		},
 		"manageAccounts" : {

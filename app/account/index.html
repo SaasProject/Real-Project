@@ -59,7 +59,6 @@
             </select>                         
         </div>
     </div>-->
-
     <select class="form-control" ng-model="selSettings" ng-change="showSettings(selSettings)">
         <option value="" selected="selected" hidden hidden>{{selectedLanguage.accountSettings.labels.selectSetting}}</option>
         <option value="system" ng-show="isAdmin">{{selectedLanguage.accountSettings.labels.systemSelect}}</option>
@@ -68,7 +67,10 @@
 </div>
 <div class="col-sm-9" ng-show="isSystemSetting">
     <label>{{selectedLanguage.accountSettings.labels.changeDefaultLanguage}}</label>
-    <select class="form-control" ng-model="selDefaultLanguage" ng-change="changeDefaultLanguage(selDefaultLanguage)">
+    <div id="defaultLangChangeAlert" class="alert alert-success" ng-show="showLangChangeFlash">
+      {{flashDefaultLangChanged}}
+    </div>
+    <select class="form-control" ng-model="selDefaultLanguage" ng-change="changeDefaultLanguage(selDefaultLanguage); defaultLanguageChangeSuccess(selDefaultLanguage)">
         <option value="" selected="selected" hidden hidden>{{selectedLanguage.accountSettings.labels.selectLanguage}}</option>
         <option value="english">English</option>
         <option value="nihongo">日本語</option>

@@ -37,7 +37,22 @@
         $scope.isAccountSetting = true;
         $scope.isSystemSetting = false;
 
+        $scope.showLangChangeFlash = false;
+
+        $scope.defaultLanguageChangeSuccess = function(language){
+            var lang = '';
+            if(language == 'nihongo'){
+                lang = '日本語';
+            } else if(language == 'english') {
+                lang = 'English';
+            }
+            $scope.flashDefaultLangChanged = $rootScope.selectedLanguage.accountSettings.flashMessages.defaultLanguageChangedTo1
+                +lang+$rootScope.selectedLanguage.accountSettings.flashMessages.defaultLanguageChangedTo2;
+            $scope.showLangChangeFlash = true;
+        }
+
         $scope.showSettings = function(option) {
+            $scope.showLangChangeFlash = false;
             if(option == 'system'){
                 $scope.isAccountSetting = false;
                 $scope.isSystemSetting = true;

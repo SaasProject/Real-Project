@@ -82,7 +82,9 @@
 				"profilePicDeleted" : "Profile Picture Deleted",
 				"invalidImgFile" : "Only PNG files, JPG files or JPEG files are allowed.",
 				"userUpdated" : "User Updated",
-				"profilePicDeleteSure" : "Are you sure you want to delete your profile picture?"
+				"profilePicDeleteSure" : "Are you sure you want to delete your profile picture?",
+				"defaultLanguageChangedTo1" : "Default language changed to ",
+				"defaultLanguageChangedTo2" : ""
 			}
 		},
 		"manageAccounts" : {
