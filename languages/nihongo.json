@@ -126,6 +126,78 @@
 				"flash_delete" : "ウエアハウスが削除された",
 				"flash_exist" : "ウエアハウスが存在している"
 			}
-		}
+		},
+		"assets": {
+            "labels": {
+                "asset": "資産",
+                "filter": "フィルタ",
+                "all": "全部",
+                "search1": "ここで",
+                "search2": "を探す",
+                "addModal": "資産の追加",
+                "updateModal": "資産の更新",
+                "reportModal": "カスタマイズレポートフィールド",
+                "selectColumns": "レポートに表示したいフィールドを選択してください",
+                "note1": "*何ももえらばなかったら、ぜんぶのフィールドが含まれる",
+                "note2": "*マルチフィールドを選択しながらCtrlキーを押しる"
+            },
+            "buttons": {
+                "new": "新しい",
+                "generate": "レポーとをせいせいする",
+                "today": "今日",
+                "clear": "クリア",
+                "download": "ダウンロード"
+            },
+            "flashMessages": {
+                "exists": "タッグが存在している",
+                "added": "資産が追加された",
+                "updated": "資産が更新された",
+                "confirmDelete1": "",
+                "confirmDelete2": "を削除する?",
+                "deleted": "資産が削除された"
+            }
+        },
+        "fields": {
+            "labels":{
+                "customize": "カスタマイズフィールド",
+                "user": "ユーザー",
+                "asset": "資産",
+                "rfid_scanner": "RFID スキャナー",
+                "warehouse": "ウエアハウス",
+                "addField": "ここにフィールドを追加する",
+                "required": "必要 / 不要",
+                "type": "フィールドの種類を選択",
+                "text": "テキスト",
+                "number": "数字",
+                "email": "メール",
+                "password": "パスワード",
+                "textarea": "テキストエリア",
+                "checkbox": "チェックボックス",
+                "dropdown": "ドロップダウン",
+                "radio": "ラジオボタン",
+                "date": "日付",
+                "tableName": "名",
+                "tableType": "種類",
+                "default": "デフォルト"
+            },
+            "flashMessages":{
+                "updated": "フィールドが更新された",
+                "exists": "フィールドが存在している",
+                "confirmDelete1": "",
+                "confirmDelete2": "を削除する?",
+                "deleted": "フィールドが削除された"
+            }
+        },
+        "home":{
+            "labels":{
+                "warehouses": "ウエアハウス",
+                "totalCap": "ウエアハウスの容量",
+                "totalStored": "資産合計",
+                "types": "資産の種類",
+                "latest": "最新の資産",
+                "tag": "資産のタッグ",
+                "date": "日付"
+            }
+        }
 	}
 }

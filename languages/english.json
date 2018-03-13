@@ -126,6 +126,78 @@
 				"flash_delete" : "Warehouse Deleted",
 				"flash_exist" : "Warehouse already exists"
 			}
-		}
+		},
+		"assets": {
+            "labels": {
+                "asset": "Asset",
+                "filter": "Filter",
+                "all": "all",
+                "search1": "Search",
+                "search2": "here...",
+                "addModal": "Add Modal",
+                "updateModal": "Update Modal",
+                "reportModal": "Customize Report Fields",
+                "selectColumns": "Select the columns you want to display in the report",
+                "note1": "*Not selecting anything will consider all fields",
+                "note2": "*Hold Ctrl key when selecting multiple items"
+            },
+            "buttons": {
+                "new": "New",
+                "generate": "Generate Report",
+                "today": "Today",
+                "clear": "Clear",
+                "download": "Download"
+            },
+            "flashMessages": {
+                "exists": "Tag already exists",
+                "added": "Asset Added",
+                "updated": "Asset Updated",
+                "confirmDelete1": "Are you sure you want to delete ",
+                "confirmDelete2": "?",
+                "deleted": "Asset Deleted"
+            }
+        },
+        "fields": {
+            "labels":{
+                "customize": "Customize Fields",
+                "user": "User",
+                "asset": "Asset",
+                "rfid_scanner": "RFID Scanner",
+                "warehouse": "Warehouse",
+                "addField": "Add field here",
+                "required": "Required",
+                "type": "Select type of field",
+                "text": "text",
+                "number": "number",
+                "email": "email",
+                "password": "password",
+                "textarea": "textarea",
+                "checkbox": "checkbox",
+                "dropdown": "dropdown",
+                "radio": "radio",
+                "date": "date",
+                "tableName": "Name",
+                "tableType": "Type",
+                "default": "DEFAULT"
+            },
+            "flashMessages":{
+                "updated": "Field successfully updated",
+                "exists": "Field already exists",
+                "confirmDelete1": "Are you sure you want to delete ",
+                "confirmDelete2": "?",
+                "deleted": "Field successfully deleted"
+            }
+        },
+        "home":{
+            "labels":{
+                "warehouses": "Warehouses",
+                "totalCap": "Total Warehouse Capacity",
+                "totalStored": "Total Assets Stored",
+                "types": "Asset Types",
+                "latest": "Latest Assets",
+                "tag": "Asset Tag",
+                "date": "Date"
+            }
+        }
 	}
 }
