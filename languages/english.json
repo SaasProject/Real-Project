@@ -41,10 +41,10 @@
 		"navBar" : {
 			"home": "Saas App",
 			"assets": "Assets",
-			"accounts": "Manage Accounts",
-			"devices": "Manage Devices",
-			"warehouses": "Manage Warehouses",
-			"fields": "Manage Fields",
+			"accounts": "Accounts",
+			"devices": "Devices",
+			"warehouses": "Warehouses",
+			"fields": "Fields",
 			"save" : "Save",
 			"cancel" : "Cancel",
 			"close" : "Close",
@@ -215,6 +215,14 @@
                 "latest": "Latest Assets",
                 "tag": "Asset Tag",
                 "date": "Date"
+            }
+        },
+		 "changePW":{
+            "labels":{
+                "title": "Change Password",
+                "oldPW": "Old Password",
+                "newPW": "New Password",
+                "confirmPW": "Confirm New Password"
             }
         }
 	}
