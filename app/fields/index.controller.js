@@ -44,14 +44,18 @@
 
         /*
             Function name: Enable Text Area
-            Author(s): Flamiano, Glenn
-            Date Modified: February 2018
+            Author(s): 
+                    Flamiano, Glenn
+                    Reccion, Jeremy
+            Date Modified: 03/13/2018
             Description: Show text area when dropdown, checkbox, or radio field type is selected
             Parameter(s): none
             Return: none
         */
         $scope.enableTextArea = function(){
-            selected = e.options[e.selectedIndex].text;
+            selected = e.options[e.selectedIndex].value;
+
+            console.log(selected);
             
             if(selected == 'dropdown' || selected == 'checkbox' || selected == 'radio'){
                 $scope.editable = true;
@@ -64,7 +68,7 @@
         /*
             Function name: Fields getter
             Author(s): Reccion, Jeremy
-            Date Modified: 02/26/2018
+            Date Modified: 03/13/2018
             Description: Gets array of fields in 'fields' collection by name
             Parameter(s): none
             Return: none
@@ -82,8 +86,9 @@
                 $scope.fields = response.fields;
                 $scope.id = response._id;
 			
-            }).catch(function(err){
-                alert(err.msg_error);
+            }).catch(function(){
+                //db error
+                FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.dbError);
             });
         };
 		
@@ -94,13 +99,13 @@
             update: function(e, ui) {
                 console.log($scope.fields);
 				
-				FieldsService.Update($scope.id, $scope.fields).then(function(response){
+				FieldsService.Update($scope.id, $scope.fields).then(function(){
                         //alert('sorted');
 						//FlashService.Success('Fields successfully updated');
                       
-                    }).catch(function(err){
-                        //alert(err.msg_error);
-                        FlashService.Error(err.msg_error);
+                    }).catch(function(){
+                        //db error
+                        FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.dbError);
                     });
             },
             
@@ -119,7 +124,7 @@
             Author(s): 
                         Flamiano, Glenn
                         Reccion, Jeremy
-            Date Modified: 02/26/2018
+            Date Modified: 03/13/2018
             Description: one function for adding or updating a field. add/update can be determined by $scope.index
             Parameter(s): none
             Return: Array
@@ -127,7 +132,7 @@
         $scope.addUpdateField = function(){
             //check for blank field name
             if($scope.newField.name == ""){
-                FlashService.Error("Field must not be empty");
+                FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.empty);
             }
             else{
                 if($scope.fieldOptions != ''){
@@ -146,11 +151,11 @@
                 }
                 
                 if(foundDuplicate){
-                    FlashService.Error("Field already exists");
+                    FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.exists);
                 }
                 else{
                     if($scope.editable && $scope.fieldOptions == ''){
-                        FlashService.Error("Please input option values");
+                        FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.noOptions);
                     }else{
                         $scope.newField.options = $scope.OptionsArray;
                         //for add
@@ -162,9 +167,9 @@
                             angular.copy($scope.newField, $scope.fields[$scope.index]);
                         }
                         //use Update since the fields array in the specified document will be changed
-                        FieldsService.Update($scope.id, $scope.fields).then(function(response){
+                        FieldsService.Update($scope.id, $scope.fields).then(function(){
                             //alert(response.msg_success);
-                            FlashService.Success('Fields successfully updated');
+                            FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.updated);
                             
                             //reset variables
                             $scope.newField = {
@@ -178,9 +183,9 @@
                             $scope.OptionsArray = {};
                             $scope.fieldOptions = "";
                             socket.emit('fieldsChange')
-                        }).catch(function(err){
-                            //alert(err.msg_error);
-                            FlashService.Error(err.msg_error);
+                        }).catch(function(){
+                            //db error;
+                            FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.dbError);
                         });
                     }
                 }
@@ -218,26 +223,26 @@
             Author(s): 
                         Flamiano, Glenn
                         Reccion, Jeremy
-            Date Modified: 02/26/2018
+            Date Modified: 03/13/2018
             Description: delete the field from the field array
             Parameter(s): none
             Return: Array
         */
         $scope.removeField = function(index){
-            if(confirm("Are you sure you want to delete " + $scope.fields[index].name + "?")){
+            if(confirm($rootScope.selectedLanguage.fields.flashMessages.confirmDelete1 + $scope.fields[index].name + $rootScope.selectedLanguage.fields.flashMessages.confirmDelete2)){
                 //use splice to remove from array
                 $scope.fields.splice(index, 1);
                 //reset $scope.index
                 $scope.index = -1;
-                FieldsService.Update($scope.id, $scope.fields).then(function(response){
+                FieldsService.Update($scope.id, $scope.fields).then(function(){
                     //alert(response.msg_success);
-                    FlashService.Success('Field successfully deleted');
+                    FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.updated);
                     $scope.editable = false;
                     $scope.fieldOptions = "";
                     socket.emit('fieldsChange');
-                }).catch(function(err){
-                    //alert(err.msg_error);
-                    FlashService.Error(err.msg_error);
+                }).catch(function(){
+                    //db error
+                    FlashService.Error($rootScope.selectedLanguage.fields.flashMessages.dbError);
                 });
             }
         };

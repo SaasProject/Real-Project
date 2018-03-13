@@ -29,7 +29,7 @@
             };
         });
  
-    function Controller($window, AssetService, FlashService, $scope, $interval, $filter, DeviceService, socket, FieldsService, WarehouseService, $stateParams) {
+    function Controller($window, AssetService, FlashService, $scope, $interval, $filter, DeviceService, socket, FieldsService, WarehouseService, $stateParams, $rootScope) {
  
         /* Initialization of scope variables */
 		
@@ -717,7 +717,7 @@
             Function name: Asset - add
             Author(s):  Flamiano, Glenn
                         Reccion, Jeremy
-            Date Modified: 2018/03/06
+            Date Modified: 03/13/2018
             Description: performs validation when adding an asset. Serves also has function to toggle readonly property
             Paramter(s): none
             Return: none
@@ -726,7 +726,7 @@
             
 			if($scope.type == "add"){
 				for (var i = 0; i < $scope.fieldsLength; i++){
-                    if ($scope.newAsset[$scope.fields[i].name] == undefined){
+                    if ($scope.newAsset[$scope.fields[i].name] == undefined || $scope.newAsset[$scope.fields[i].name] == ''){
                         if($scope.fields[i].required){
                             $scope.isNull = true;
                         }
@@ -757,14 +757,15 @@
                         AssetService.addAsset($scope.newAsset).then(function(){
                         //  get all assets to refresh the table
                         $('#myModal').modal('hide');
-                        FlashService.Success('Asset Added');
+                        FlashService.Success($rootScope.selectedLanguage.assets.flashMessages.added);
                         $scope.newAsset = {};
                         socket.emit('assetChange');
                         
                         resetModalFlash();
                         })
-                        .catch(function(error){
-                            FlashService.Error(error);
+                        .catch(function(){
+                            //tag exists error
+                            FlashService.Error($rootScope.selectedLanguage.assets.flashMessages.exists);
                         });
                     }
                     $scope.confirmPassword = {};
@@ -796,7 +797,7 @@
 		 $scope.saveUpdate = function(){
 			for (var i = 0; i < $scope.fieldsLength; i++){
                 //console.log($scope.newAsset[$scope.fields[i].name]);
-				if ($scope.newAsset[$scope.fields[i].name] == undefined){
+				if ($scope.newAsset[$scope.fields[i].name] == undefined || $scope.newAsset[$scope.fields[i].name] == ''){
                     if($scope.fields[i].required){
                         $scope.isNull = true;
                         break;
@@ -827,14 +828,15 @@
                         $scope.newAsset.updated_date = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");                        
                             AssetService.updateAsset($scope.newAsset).then(function(){
                             $('#myModal').modal('hide');
-                            FlashService.Success('Asset Updated');
+                            FlashService.Success($rootScope.selectedLanguage.assets.flashMessages.updated);
                             $scope.newAsset = {};
                             socket.emit('assetChange');
                             
                             resetModalFlash();
                         })
-                        .catch(function(error){
-                            FlashService.Error(error);
+                        .catch(function(){
+                            //only error in this is that the tag already exists
+                            FlashService.Error($rootScope.selectedLanguage.assets.flashMessages.exists);
                         });
                     }
                     $scope.confirmPassword = {};
@@ -888,17 +890,17 @@
         /*
             Function name: Asset - delete
             Author(s): Reccion, Jeremy
-            Date Modified: 01/29/2018
+            Date Modified: 03/13/2018
             Description: deletes asset from the database
             Paramter(s): asset (Object)
             Return: none
         */
 		$scope.deleteAsset = function(asset) {
             
-            if (confirm("Are you sure to delete asset " + asset['asset_tag'] + "?")){
+            if (confirm($rootScope.selectedLanguage.assets.flashMessages.confirmDelete1 + asset['asset_tag'] + $rootScope.selectedLanguage.assets.flashMessages.confirmDelete2)){
 				AssetService.Delete(asset._id).then(function () {
                     resetModalFlash();
-                    FlashService.Success('Asset Deleted');
+                    FlashService.Success($rootScope.selectedLanguage.assets.flashMessages.deleted);
                     socket.emit('assetChange');
                 })
                 .catch(function(error){

@@ -208,7 +208,7 @@
         /*
             Function name: Warehouse Modal information
             Author(s): Reccion, Jeremy
-            Date Modified: 02/26/2018
+            Date Modified: 03/13/2018
             Description: Gets assets per warehouse then determine other information
             Parameter(s): none
             Return: none
@@ -217,7 +217,7 @@
         //run this ALSO inside 'assetChange' event for real time update
         function getAssetsByWarehouse(){
 
-            console.log($scope.current_warehouse);
+            //console.log($scope.current_warehouse);
             //
             //getAllAssets();
             //filter by warehouse and updated_date (desc)
@@ -236,7 +236,7 @@
 
             //remove duplicates and null values, convert array to string, and append spaces after commas
             $scope.current_warehouse.asset_types = $scope.current_warehouse.asset_types.filter(function(value, index, self){
-                return (self.indexOf(value) == index && value != null);
+                return (self.indexOf(value) == index && value != null && value != '');
             }).sort().toString().replace(/,/g, ', ');
 
 
