@@ -143,20 +143,22 @@
                 "asset": "Asset",
                 "filter": "Filter",
                 "all": "all",
-                "search1": "Search",
-                "search2": "here...",
+				"search1": "Search",
+				"search2": "",
+                "search3": "here...",
                 "addModal": "Add Modal",
                 "updateModal": "Update Modal",
                 "reportModal": "Customize Report Fields",
                 "selectColumns": "Select the columns you want to display in the report",
-                "note1": "*Not selecting anything will consider all fields",
-                "note2": "*Hold Ctrl key when selecting multiple items"
+                "note1": "Not selecting anything will consider all fields",
+                "note2": "Hold Ctrl key when selecting multiple items"
             },
             "buttons": {
                 "new": "New",
                 "generate": "Generate Report",
                 "today": "Today",
-                "clear": "Clear",
+				"clear": "Clear",
+				"done": "Done",
                 "download": "Download"
             },
             "flashMessages": {
@@ -176,7 +178,8 @@
                 "rfid_scanner": "RFID Scanner",
                 "warehouse": "Warehouse",
                 "addField": "Add field here",
-                "required": "Required",
+				"required": "Required",
+				"notRequired": "Not Required",
                 "type": "Select type of field",
                 "text": "text",
                 "number": "number",
@@ -186,18 +189,20 @@
                 "checkbox": "checkbox",
                 "dropdown": "dropdown",
                 "radio": "radio",
-                "date": "date",
+				"date": "date",
+				"note1": "Enter option values separated by comma ','",
                 "tableName": "Name",
                 "tableType": "Type",
                 "default": "DEFAULT"
             },
             "flashMessages":{
-                "updated": "Field successfully updated",
-                "exists": "Field already exists",
+				"updated": "Field successfully updated",
+				"dbError": "Failed to get fields",
+				"empty": "Field must not be empty",
+				"exists": "Field already exists",
+				"noOptions":"Please input option values",
                 "confirmDelete1": "Are you sure you want to delete ",
-                "confirmDelete2": "?",
-                "deleted": "Field successfully deleted"
-            }
+                "confirmDelete2": "?"            }
         },
         "home":{
             "labels":{

@@ -144,19 +144,21 @@
                 "filter": "フィルタ",
                 "all": "全部",
                 "search1": "ここで",
-                "search2": "を探す",
+				"search2": "を",
+				"search3": "探す",
                 "addModal": "資産の追加",
                 "updateModal": "資産の更新",
                 "reportModal": "カスタマイズレポートフィールド",
                 "selectColumns": "レポートに表示したいフィールドを選択してください",
-                "note1": "*何ももえらばなかったら、ぜんぶのフィールドが含まれる",
-                "note2": "*マルチフィールドを選択しながらCtrlキーを押しる"
+                "note1": "何ももえらばなかったら、ぜんぶのフィールドが含まれる",
+                "note2": "マルチフィールドを選択しながらCtrlキーを押しる"
             },
             "buttons": {
                 "new": "新しい",
                 "generate": "レポーとをせいせいする",
                 "today": "今日",
-                "clear": "クリア",
+				"clear": "クリア",
+				"done": "完了",
                 "download": "ダウンロード"
             },
             "flashMessages": {
@@ -176,7 +178,8 @@
                 "rfid_scanner": "RFID スキャナー",
                 "warehouse": "ウエアハウス",
                 "addField": "ここにフィールドを追加する",
-                "required": "必要 / 不要",
+				"required": "必要",
+				"notRequired": "不要",
                 "type": "フィールドの種類を選択",
                 "text": "テキスト",
                 "number": "数字",
@@ -186,17 +189,20 @@
                 "checkbox": "チェックボックス",
                 "dropdown": "ドロップダウン",
                 "radio": "ラジオボタン",
-                "date": "日付",
+				"date": "日付",
+				"note1": "カンマで区切られた各のオプション値を入力してください",
                 "tableName": "名",
                 "tableType": "種類",
                 "default": "デフォルト"
             },
             "flashMessages":{
-                "updated": "フィールドが更新された",
-                "exists": "フィールドが存在している",
+				"updated": "フィールドが更新された",
+				"dbError": "フィールドをとれなかった",
+				"empty": "フィールドは空であってはいけません",
+				"exists": "フィールドが存在している",
+				"noOptions":"各のオプション値を入力してください",
                 "confirmDelete1": "",
-                "confirmDelete2": "を削除する?",
-                "deleted": "フィールドが削除された"
+                "confirmDelete2": "を削除する?"
             }
         },
         "home":{
