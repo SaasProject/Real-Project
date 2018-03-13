@@ -738,19 +738,19 @@
 
 				if($scope.isNull) {
                     $scope.showAddFlash = true;
-				    FlashService.Error('Please fill up the required textfields');
+				    FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
 				    //$scope.newAsset = {};
 				    $scope.isNull = false;
 				} else {
                     $scope.showAddFlash = true;
                     if(!checkEmails()){
-                        FlashService.Error("Please Input valid email");
+                        FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                     }else if(!checkNumbers()){
-                        FlashService.Error("Please Input numbers only to number fields");
+                        FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                     }else if(!checkPasswords()){
-                        FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                        FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                     }else if(!checkConfirmPasswords()){
-                        FlashService.Error("Confirm password/s does not match");
+                        FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                     }else{
                         $scope.newAsset.created_date = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
                         $scope.newAsset.updated_date = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");                        
@@ -810,20 +810,20 @@
 			
 			if($scope.isNull) {
                     $scope.showAddFlash = true;
-					FlashService.Error('Please fill up the required textfields');
+					FlashService.Error($rootScope.selectedLanguage.commons.fmrequiredFields);
 					//$scope.newAsset = {};
 					$scope.isNull = false;
 					
 			} else {
                     $scope.showAddFlash = true;
                     if(!checkEmails()){
-                        FlashService.Error("Please Input valid email");
+                        FlashService.Error($rootScope.selectedLanguage.commons.invalidEmail);
                     }else if(!checkNumbers()){
-                        FlashService.Error("Please Input numbers only to number fields");
+                        FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                     }else if(!checkPasswords()){
-                        FlashService.Error("Passwords should contain lowercase, uppercase, numbers and at least 8 characters");
+                        FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                     }else if(!checkConfirmPasswords()){
-                        FlashService.Error("Confirm password/s does not match");
+                        FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                     }else{
                         $scope.newAsset.updated_date = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");                        
                             AssetService.updateAsset($scope.newAsset).then(function(){
