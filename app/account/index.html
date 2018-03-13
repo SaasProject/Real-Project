@@ -1,10 +1,6 @@
 <div style="width:100%; margin-left: auto; margin-right: auto;">
 <!--<div ng-class="{'accountSettingsAdmin' : isAdmin,  'accountSettingsUser' : !isAdmin}">-->
 <h1>{{selectedLanguage.accountSettings.labels.settings}}</h1>
-<!-- flash message div -->
-<div class="flash-message" ng-if="flash" ng-show = "!changePasswordModal">
-    <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
-</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -15,7 +11,7 @@
       <h4 class="modal-title">{{selectedLanguage.accountSettings.labels.modalTitle}}<h4>
     </div>
     <div id="imgFileModal" class="alert alert-danger" ng-show="showPicFlash">
-      Only PNG and JPG/JPEG files are allowed.
+      {{selectedLanguage.accountSettings.flashMessages.invalidImgFile}}.
     </div>
     <div class="modal-body">
         <div class="cropTableRow">
@@ -66,8 +62,8 @@
 
     <select class="form-control" ng-model="selSettings" ng-change="showSettings(selSettings)">
         <option value="" selected="selected" hidden hidden>{{selectedLanguage.accountSettings.labels.selectSetting}}</option>
-        <option value="system" ng-show="isAdmin">System Settings</option>
-        <option value="account">Account Settings</option>
+        <option value="system" ng-show="isAdmin">{{selectedLanguage.accountSettings.labels.systemSelect}}</option>
+        <option value="account">{{selectedLanguage.accountSettings.labels.accountSelect}}</option>
     </select>
 </div>
 <div class="col-sm-9" ng-show="isSystemSetting">
@@ -79,6 +75,10 @@
     </select>
 </div>
 <div class="col-sm-9" ng-show="isAccountSetting">
+    <!-- flash message div -->
+    <div class="flash-message" ng-if="flash" ng-show = "!changePasswordModal">
+        <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <br/>
@@ -151,7 +151,7 @@
                     </select>
                 </div>
     			
-    			<small><i>{{selectedLanguage.accountSettings.labels.requiredLabel1}}</i><span style = "color:red">*</span><i>{{selectedLanguage.accountSettings.labels.requiredLabel2}}</i></small>
+    			<small><i>{{selectedLanguage.commons.requiredLabel1}}</i><span style = "color:red">*</span><i>{{selectedLanguage.commons.requiredLabel2}}</i></small>
                
     		   <br>
                 <div class="form-group" >

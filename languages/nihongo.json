@@ -71,7 +71,18 @@
 				"languagePreference" : "言語の設定",
 				"changeDefaultLanguage": "デフォルト言語を変更する",
 				"selectLanguage": "言語を選択する",
-				"selectSetting" : "Select Setting"
+				"selectSetting" : "設定を選択",
+				"accountSelect" : "アカウント設定",
+				"systemSelect" : "システム設定"
+			},
+			"flashMessages" : {
+				"inputOldPassword" : "古いパスワードを入力してください",
+				"inputNewPassword" : "新しいパスワードを入力してください",
+				"profilePicUpdated" : "プロフィールの写真が更新された",
+				"profilePicDeleted" : "プロフィールの写真が削除された",
+				"invalidImgFile" : "PNGファイル、JPGファイル、またはJPEGファイルのみが許可されます。",
+				"userUpdated" : "ユーザーが更新された",
+				"profilePicDeleteSure" : "プロフィール写真を削除してもよろしいですか？"
 			}
 		},
 		"manageAccounts" : {
