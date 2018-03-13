@@ -36,6 +36,7 @@ function getAllDevices(){
 }
 
 function addDevice(deviceParam){
+    console.log(deviceParam);
 
     var deferred = Q.defer();
 
@@ -45,8 +46,10 @@ function addDevice(deviceParam){
             if (err) deferred.reject(err);
  
             if (device) {
-                deferred.reject('Device_id "' + deviceParam['device_id'] + '" is already taken');
+                deferred.reject(deviceParam['msg1'] + deviceParam['device_id'] + deviceParam['msg2']);
             } else {
+                deviceParam = _.omit(deviceParam, 'msg1');
+                deviceParam = _.omit(deviceParam, 'msg2');
                 insertDevice();
             }
     });

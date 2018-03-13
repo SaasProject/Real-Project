@@ -631,11 +631,13 @@
                 }else if(!checkConfirmPasswords()){
                     FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
+                    $scope.aDevices.msg1 = $rootScope.selectedLanguage.devices.labels.flash_taken_1;
+                    $scope.aDevices.msg2 = $rootScope.selectedLanguage.devices.labels.flash_taken_2;
                     DeviceService.addDevice($scope.aDevices)
                     .then(function () {
                         initController();
                         $('#myModal').modal('hide');
-                        FlashService.Success($rootScope.selectedLanguage.devices.flash_add);
+                        FlashService.Success($rootScope.selectedLanguage.devices.labels.flash_add);
                         socket.emit('deviceChange');
 
                         resetADevices();
@@ -752,7 +754,7 @@
                         .then(function () {      
                             $scope.aDevices = {};
                             $('#editModal').modal('hide');
-                            FlashService.Success($rootScope.selectedLanguage.devices.flash_update);
+                            FlashService.Success($rootScope.selectedLanguage.devices.labels.flash_update);
                             socket.emit('deviceChange');
 
                         resetADevices();
@@ -771,12 +773,12 @@
             
             var toDel = filterIndexById($scope.allDevices, index);
 
-            if (confirm("Are you sure to delete device " + toDel.device_id + "?")){
+            if (confirm($rootScope.selectedLanguage.devices.labels.flash_confirm_1 + toDel.device_id + $rootScope.selectedLanguage.devices.labels.flash_confirm_2)){
 				
             DeviceService.Delete(toDel._id)
                  .then(function () {
 					resetModalFlash();
-                    FlashService.Success($rootScope.selectedLanguage.devices.flash_delete);
+                    FlashService.Success($rootScope.selectedLanguage.devices.labels.flash_delete);
                     socket.emit('deviceChange');
 					 
                 })
@@ -788,7 +790,7 @@
 
         function errorFunction(error){
             if(error.code == 11000){
-                FlashService.Error($rootScope.selectedLanguage.devices.flash_exist);
+                FlashService.Error($rootScope.selectedLanguage.devices.labels.flash_exist);
             }
             else if(error.name == 'ValidationError'){
                 FlashService.Error(error.message);

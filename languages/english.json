@@ -105,7 +105,7 @@
 				"flash_taken_2" : "” is already taken",
 				"flash_add" : "Device Added",
 				"flash_update" : "Device Updated",
-				"flash_confirm_1" : "Are you sure to delete device [",
+				"flash_confirm_1" : "Are you sure to delete [",
 				"flash_confirm_2" : "] ?",
 				"flash_delete" : "Device Deleted",
 				"flash_exist" : "Device already exists"
