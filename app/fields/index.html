@@ -1,38 +1,38 @@
 <div class="col-sm-6">
 	<div class="panel panel-primary">
-        <div class="panel-heading"><h4>Customize Fields</h4></div>
+        <div class="panel-heading"><h4>{{selectedLanguage.fields.labels.customize}}</h4></div>
         <div class="panel-body">
 			<div class="form-inline">
 				<select id = "name" ng-model="name" class="form-control" ng-click="getAllFields()">
-					<option value="user">User</option>
-					<option value="asset">Asset</option>
-					<option value="rfid_scanner">RFID Scanner</option>
-					<option value="warehouse">Warehouse</option>
+					<option value="user">{{selectedLanguage.fields.labels.user}}</option>
+					<option value="asset">{{selectedLanguage.fields.labels.asset}}</option>
+					<option value="rfid_scanner">{{selectedLanguage.fields.labels.rfid_scanner}}</option>
+					<option value="warehouse">{{selectedLanguage.fields.labels.warehouse}}</option>
 				</select>
 			</div>
 			<br>
 			<form ng-submit="addUpdateField()">
-				<input type="text" class="form-control" placeholder="Add field here" ng-model="newField.name" ng-required="true"><br>
+				<input type="text" class="form-control" placeholder="{{selectedLanguage.fields.labels.addField}}" ng-model="newField.name" ng-required="true"><br>
 				<input type="checkbox" class="form-check-input" id="exampleCheck1" ng-model="newField.required">
-				<label class="form-check-label" for="exampleCheck1">Required</label><br><br>
-				<label class="form-check-label" for="typeDropdown">Select type of field</label>
+				<label class="form-check-label" for="exampleCheck1">{{selectedLanguage.fields.labels.required}}</label><br><br>
+				<label class="form-check-label" for="typeDropdown">{{selectedLanguage.fields.labels.type}}</label>
 				<select id="inputType" class="form-control" ng-model="newField.type" ng-change="enableTextArea()" id="typeDropdown">
-					<option>text</option>
-					<option>number</option>
-					<option>email</option>
-					<option>password</option>
-					<option>textarea</option>
-					<option>checkbox</option>
-					<option>dropdown</option>
-					<option>radio</option>
-					<option>date</option>
+					<option value="text">{{selectedLanguage.fields.labels.text}}</option>
+					<option value="number">{{selectedLanguage.fields.labels.number}}</option>
+					<option value="email">{{selectedLanguage.fields.labels.email}}</option>
+					<option value="password">{{selectedLanguage.fields.labels.password}}</option>
+					<option value="textarea">{{selectedLanguage.fields.labels.textarea}}</option>
+					<option value="checkbox">{{selectedLanguage.fields.labels.checkbox}}</option>
+					<option value="dropdown">{{selectedLanguage.fields.labels.dropdown}}</option>
+					<option value="radio">{{selectedLanguage.fields.labels.radio}}</option>
+					<option value="date">{{selectedLanguage.fields.labels.date}}</option>
 				</select><br>
 				<div id="textAreaField" ng-show="editable">
-					Enter option values separated by comma ','<br>
+					{{selectedLanguage.fields.labels.note1}}<br>
 			    	<textarea id="fieldValues" rows="4" cols="50" ng-model="fieldOptions"></textarea>
 				</div>
 				<br>
-				<button class="btn btn-success" type="submit">Save</button>
+				<button class="btn btn-success" type="submit">{{selectedLanguage.commons.save}}</button>
 			</form>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 <div class="col-sm-6">
 
 	<div class="panel panel-success">
-        <div class="panel-heading"><h4>{{name}}</h4></div>
+        <div class="panel-heading"><h4>{{selectedLanguage.fields.labels[name]}}</h4></div>
         <div class="panel-body">
 			<div class="flash-message" ng-if="flash" ng-show = "!changePasswordModal">
 		        <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
@@ -51,8 +51,8 @@
 				<table class="table table-borderless">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Type</th>
+							<th>{{selectedLanguage.fields.labels.tableName}}</th>
+							<th>{{selectedLanguage.fields.labels.tableType}}</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -64,19 +64,19 @@
 								{{field.name}}
 							</td>
 							<td class="col-sm-3">
-								{{field.type}}
+								{{selectedLanguage.fields.labels[field.type]}}
 							</td>
 							<td class="col-sm-3">
-								{{field.required == true? "required" : "not required"}}
+								{{field.required == true? selectedLanguage.fields.labels.required : selectedLanguage.fields.labels.notRequired}}
 							</td>
 							<td class="col-sm-3">
 								<div class="pull-right" ng-if="isRemovable(field.name)">
-									<a style = "cursor:pointer"><i class="fa fa-list-alt" aria-hidden="true" ng-click="editField($index)" data-toggle="tooltip" title="Edit"></i><a>
+									<a style = "cursor:pointer"><i class="fa fa-list-alt" aria-hidden="true" ng-click="editField($index)" data-toggle="tooltip" title="{{selectedLanguage.commons.edit}}"></i><a>
 										|
-									<a style = "cursor:pointer"><i class="fa fa-trash" aria-hidden="true" ng-click="removeField($index)" data-toggle="tooltip" title="Delete"></i></a>
+									<a style = "cursor:pointer"><i class="fa fa-trash" aria-hidden="true" ng-click="removeField($index)" data-toggle="tooltip" title="{{selectedLanguage.commons.delete}}"></i></a>
 								</div>
 								<div class="pull-right" ng-if="!isRemovable(field.name)">
-									DEFAULT	
+									{{selectedLanguage.fields.labels.default}}	
 								</div>
 							</td>
 						</tr>

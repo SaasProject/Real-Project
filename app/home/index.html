@@ -8,7 +8,7 @@
         <div class="row">
             <div class="panel-group col-sm-7" style="table-layout: fixed;">
                 <div class="panel panel-primary">
-                <div class="panel-heading"><h4>Warehouses</h4></div>
+                <div class="panel-heading"><h4>{{selectedLanguage.home.labels.warehouses}}</h4></div>
                 <div class="panel-body" style="max-height: 70vh; overflow-y: scroll;">
                     <table class="table table-striped">
                         <thead></thead>
@@ -40,25 +40,25 @@
                         <big>
                         <tbody>
                             <tr>
-                                <td><b>Total Warehouse Capacity</b></td>
+                                <td><b>{{selectedLanguage.home.labels.totalCap}}</b></td>
                                 <td>{{current_warehouse.capacity}}</td>
                             </tr>
                             <tr>
-                                <td><b>Total Assets Stored</b></td>
+                                <td><b>{{selectedLanguage.home.labels.totalStored}}</b></td>
                                 <td>{{current_warehouse.quantity}}</td>
                             </tr>
                             <tr>
-                                <td><b>Asset Types</b></td>
+                                <td><b>{{selectedLanguage.home.labels.types}}</b></td>
                                 <td>{{current_warehouse.asset_types}}</td>
                             </tr>
                         </tbody>
                         </big>
                     </table>
-                    <big><b>Latest Assets </b></big>
+                    <big><b>{{selectedLanguage.home.labels.latest}} </b></big>
                     <table class="table table-striped">
                         <thead>
-                            <th style="text-align: center">Asset Tag</th>
-                            <th style="text-align: center">Date</th>
+                            <th style="text-align: center">{{selectedLanguage.home.labels.tag}}</th>
+                            <th style="text-align: center">{{selectedLanguage.home.labels.date}}</th>
                         </thead>
                         <tbody style="text-align: center"> 
                             <tr ng-repeat="asset in latest_assets">
@@ -69,7 +69,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="closeModal()">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="closeModal()">{{selectedLanguage.commons.close}}</button>
                 </div>
             </div>
         </div>

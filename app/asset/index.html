@@ -15,7 +15,7 @@
             <!-- Modal content-->
             <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{type == 'add' ? 'Add Asset' : 'Update Asset'}}</h4>
+                <h4 class="modal-title">{{type == 'add' ? selectedLanguage.assets.labels.addModal : selectedLanguage.assets.labels.updateModal}}</h4>
             </div>
             <div class="modal-body">
                 <div ng-show="showAddFlash" class="{{'alert alert-' + flash.type}}">
@@ -76,14 +76,14 @@
                         
 					</div>
 					
-					<small><i>Fields marked with an asterisk(<span style = "color:red">*</span>) are required.</i></small>
+					<small><i>{{selectedLanguage.commons.requiredLabel1}}<span style = "color:red">*</span>{{selectedLanguage.commons.requiredLabel2}}</i></small>
                 
 			</div>
 					<div class = "modal-footer">
-                     <button class="btn btn-primary" ng-click="addOrUpdateAsset()" ng-if = "type == 'add'">Add</button>
-					<button class="btn btn-primary" ng-click="addOrUpdateAsset()" ng-if = "type != 'add' && readOnly">Edit</button>
-					<button class="btn btn-primary" ng-if = "type != 'add' && !readOnly" ng-click="saveUpdate()">Save</button>
-                    <button type="button" class="btn btn-danger" ng-click="restart()" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" ng-click="addOrUpdateAsset()" ng-if = "type == 'add'">{{selectedLanguage.commons.add}}</button>
+					<button class="btn btn-primary" ng-click="addOrUpdateAsset()" ng-if = "type != 'add' && readOnly">{{selectedLanguage.commons.edit}}</button>
+					<button class="btn btn-primary" ng-if = "type != 'add' && !readOnly" ng-click="saveUpdate()">{{selectedLanguage.commons.save}}</button>
+                    <button type="button" class="btn btn-danger" ng-click="restart()" data-dismiss="modal">{{selectedLanguage.commons.close}}</button>
 					</div>
                 </form>
            
@@ -97,24 +97,24 @@
             <!-- Modal content-->
             <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Customize Report Fields</h4>
+                <h4 class="modal-title">{{selectedLanguage.assets.labels.reportModal}}</h4>
             </div>
             <div class="modal-body">
-                Select the columns you want to display in the report
+                {{selectedLanguage.assets.labels.selectColumns}}
                 <form>
 					<select ng-model="reportColumns" class="form-control" multiple>
                         <option ng-repeat="field in fields">{{field.name}}</option>
                     </select>
                 </form>
                 <br>
-                <small>*Not selecting anything will consider all fields</small>  <br>
-                <small>*Hold <b>Ctrl</b> key when selecting multiple items</small>  <br>
+                <small>*{{selectedLanguage.assets.labels.note1}}</small>  <br>
+                <small>*{{selectedLanguage.assets.labels.note2}}</small>  <br>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success" ng-csv="getFilteredAssets()" csv-header="getColumns()" csv-column-order="getColumns()" filename="{{setFilename()}}.csv" data-dismiss="modal">
-                    <span class="glyphicon glyphicon-download-alt"></span> Download
+                    <span class="glyphicon glyphicon-download-alt"></span> {{selectedLanguage.assets.buttons.download}}
                 </button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{{selectedLanguage.commons.close}}</button>
             </div>
             </div>
         </div>
@@ -123,14 +123,14 @@
     <div class="row" ng-hide = "loading">
         <div class="col-sm-4">
             <div class="panel panel-success">
-                <div class="panel-heading">Asset</div>
+                <div class="panel-heading">{{selectedLanguage.assets.labels.asset}}</div>
                 <div class="panel-body">
                     <div class="form-inline">    
                         <button type="addButton" class="btn btn-info" ng-click="resetModal(); declareSelected()" data-toggle="modal" data-target="#myModal">
-                        <span class="glyphicon glyphicon-plus"></span> New
+                        <span class="glyphicon glyphicon-plus"></span> {{selectedLanguage.assets.buttons.new}}
                         </button>
                         <button type="reportButton" class="btn btn-success" data-toggle="modal" data-target="#reportFilterModal" ng-click="resetReportColumns()">
-                            Generate Report
+                            {{selectedLanguage.assets.buttons.generate}}
                         </button>
                     </div>                           
                 </div>
@@ -138,23 +138,23 @@
         </div>
         <div class="col-sm-8">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Filter</div>
+                    <div class="panel-heading">{{selectedLanguage.assets.labels.filter}}</div>
                     <div class="panel-body">
                         <div class="form-inline">
                             <select class="form-control" ng-model="searchColumn" ng-change="search = {}">
-                                <option value="">all</option>
+                                <option value="">{{selectedLanguage.assets.labels.all}}</option>
                                 <option ng-repeat="field in fields">{{field.name}}</option>
                             </select>
-                            <input type ng-model="search[(searchColumn != '') ? searchColumn : '$']" class="form-control" placeholder="Search {{searchColumn}} here..."/>     
+                            <input type ng-model="search[(searchColumn != '') ? searchColumn : '$']" class="form-control" placeholder="{{selectedLanguage.assets.labels.search1}} {{searchColumn}}{{searchColumn == '' ? '' : selectedLanguage.assets.labels.search2}} {{selectedLanguage.assets.labels.search3}}"/>     
                             
                             <div class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup ng-model="searchDate" is-open="opened" placeholder="YYYY-MM-DD" close-text="Close"/>
+                                <input type="text" class="form-control" uib-datepicker-popup ng-model="searchDate" is-open="opened" placeholder="YYYY-MM-DD" clear-text="{{selectedLanguage.assets.buttons.clear}}" current-text="{{selectedLanguage.assets.buttons.clear}}" close-text="{{selectedLanguage.assets.buttons.done}}"/>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-primary" ng-click="opened = true"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
                             </div>
 
-                            <label for="pageSize">Items per page: </label>
+                            <label for="pageSize">{{selectedLanguage.commons.itemsPerPage}}:</label>
                             <input id="pageSize" type="number" ng-model="pageSize" class="form-control" min="1" max="{{filtered_assets.length}}" />                     
                         </div>                            
                     </div>
@@ -181,14 +181,14 @@
                         <td ng-repeat="field in fields" ng-if="field.name != '_id'" class="cutOverflow">{{(!$parent.asset[field.name]) ? ($parent.asset[field.name] = '') : $parent.asset[field.name]}}</td>                        
                          <td>{{asset['updated_date']}}</td>
                         <td>
-                            <a><i class="fa fa-list-alt" aria-hidden="true" ng-click="editModal(asset); declareSelected()" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="View Details"></i><a>
+                            <a><i class="fa fa-list-alt" aria-hidden="true" ng-click="editModal(asset); declareSelected()" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="{{selectedLanguage.commons.viewDetails}}"></i><a>
                             |
-                            <a><i class="fa fa-trash" aria-hidden="true" ng-click="deleteAsset(asset)" data-toggle="tooltip" title="Delete"></i></a>                           
+                            <a><i class="fa fa-trash" aria-hidden="true" ng-click="deleteAsset(asset)" data-toggle="tooltip" title="{{selectedLanguage.commons.delete}}"></i></a>                           
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <ul uib-pagination total-items="filtered_assets.length" ng-model="currentPage" items-per-page="pageSize" boundary-links="true" max-size="3" force-ellipses="true"></ul>
+            <ul uib-pagination total-items="filtered_assets.length" ng-model="currentPage" items-per-page="pageSize" boundary-links="true" max-size="3" force-ellipses="true" first-text="<<" previous-text="<" next-text=">" last-text=">>"></ul>
         </div>
     </div>
 </div>
