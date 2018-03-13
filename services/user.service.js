@@ -133,9 +133,6 @@ function uploadPic(req, res){
                     if (err) deferred.reject(err);
              
                     if (user) {
-                        fs.unlink('profile_pictures/'+user.profilePicUrl, function (err) {
-                          if (err) deferred.reject(err);
-                        });
                         db.users.update({email: req.body.email}, {$set: { profilePicUrl: req.file.filename}}, function(err){
                             if(err) deferred.reject(err);
                             //If no errors, send it back to the client
