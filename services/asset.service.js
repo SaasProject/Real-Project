@@ -66,7 +66,7 @@ function addAsset(assetParam){
             if (err) deferred.reject(err);
  
             if (asset) {
-                deferred.reject('Tag already exists');
+                deferred.reject();
             } else {
                 //if no duplicates, insert to database
                  db.assets.insert(assetParam, function(err){

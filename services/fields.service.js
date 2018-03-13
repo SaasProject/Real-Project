@@ -24,7 +24,7 @@ function getAll(name){
     //query with 'name' to get the specific document that its own fields array
     db.fields.findOne({"name": name}, function(err, fields){
         //reject means error status is sent as response
-        if(err) deferred.reject({msg_error: 'Failed to get fields'});
+        if(err) deferred.reject();
         //resolve means ok status is sent as response
         deferred.resolve(fields);
     });
@@ -51,9 +51,9 @@ function update(id, updated_fields){
     db.fields.update({_id: mongo.helper.toObjectID(id)}, {$set: {fields: updated_fields}}, function(err){
         if(err) {
             console.log(err);
-            deferred.reject({msg_error: 'Failed to get fields'});
+            deferred.reject();
         }
-        deferred.resolve({msg_success: 'Successfully updated fields'});
+        deferred.resolve();
     });
 
     return deferred.promise;
