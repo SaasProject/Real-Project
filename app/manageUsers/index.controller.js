@@ -760,7 +760,7 @@
             }else{
                 if(forDataBase===requiredTextField){
                     delete $scope.aUsers.password;
-                    console.log($scope.aUsers);
+                    //console.log($scope.aUsers);
                     UserService.Update($scope.aUsers)
                         .then(function () {
                             initController();
