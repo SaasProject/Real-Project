@@ -10,6 +10,7 @@
  
         service.Success = Success;
         service.Error = Error;
+        service.Reset = Reset;
  
         initService();
  

@@ -80,6 +80,9 @@
                 required: false,
                 type: "text"
             };
+
+            //$rootScope.flash.show = false;
+            FlashService.Reset();
             
             FieldsService.GetAll($scope.name).then(function(response){
                 //console.log(response);
@@ -169,7 +172,7 @@
                         //use Update since the fields array in the specified document will be changed
                         FieldsService.Update($scope.id, $scope.fields).then(function(){
                             //alert(response.msg_success);
-                            FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.updated);
+                            FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.added);
                             
                             //reset variables
                             $scope.newField = {
@@ -236,7 +239,7 @@
                 $scope.index = -1;
                 FieldsService.Update($scope.id, $scope.fields).then(function(){
                     //alert(response.msg_success);
-                    FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.updated);
+                    FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.deleted);
                     $scope.editable = false;
                     $scope.fieldOptions = "";
                     socket.emit('fieldsChange');
