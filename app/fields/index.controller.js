@@ -169,7 +169,7 @@
                         //use Update since the fields array in the specified document will be changed
                         FieldsService.Update($scope.id, $scope.fields).then(function(){
                             //alert(response.msg_success);
-                            FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.updated);
+                            FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.added);
                             
                             //reset variables
                             $scope.newField = {
@@ -236,7 +236,7 @@
                 $scope.index = -1;
                 FieldsService.Update($scope.id, $scope.fields).then(function(){
                     //alert(response.msg_success);
-                    FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.updated);
+                    FlashService.Success($rootScope.selectedLanguage.fields.flashMessages.deleted);
                     $scope.editable = false;
                     $scope.fieldOptions = "";
                     socket.emit('fieldsChange');
@@ -246,6 +246,19 @@
                 });
             }
         };
+
+        /*
+            Function name: reset flash message
+            Author(s): Reccion, Jeremy
+            Date Modified: 03/14/2018
+            Description: removes the flash message when a change in the dropdown occurs
+            Paramter(s): field (String)
+            Return: boolean
+        */
+        $scope.resetFlash = function(){
+            //$rootScope.flash.show = false;
+            FlashService.Reset();
+        }
 
         /*
             Function name: Removable field logic
