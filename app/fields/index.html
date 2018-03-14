@@ -3,7 +3,7 @@
         <div class="panel-heading"><h4>{{selectedLanguage.fields.labels.customize}}</h4></div>
         <div class="panel-body">
 			<div class="form-inline">
-				<select id = "name" ng-model="name" class="form-control" ng-click="getAllFields()">
+				<select id = "name" ng-model="name" class="form-control" ng-click="getAllFields()" ng-change="resetFlash()">
 					<option value="user">{{selectedLanguage.fields.labels.user}}</option>
 					<option value="asset">{{selectedLanguage.fields.labels.asset}}</option>
 					<option value="rfid_scanner">{{selectedLanguage.fields.labels.rfid_scanner}}</option>

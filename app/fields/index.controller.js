@@ -80,9 +80,6 @@
                 required: false,
                 type: "text"
             };
-
-            //$rootScope.flash.show = false;
-            FlashService.Reset();
             
             FieldsService.GetAll($scope.name).then(function(response){
                 //console.log(response);
@@ -249,6 +246,19 @@
                 });
             }
         };
+
+        /*
+            Function name: reset flash message
+            Author(s): Reccion, Jeremy
+            Date Modified: 03/14/2018
+            Description: removes the flash message when a change in the dropdown occurs
+            Paramter(s): field (String)
+            Return: boolean
+        */
+        $scope.resetFlash = function(){
+            //$rootScope.flash.show = false;
+            FlashService.Reset();
+        }
 
         /*
             Function name: Removable field logic
