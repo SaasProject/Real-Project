@@ -627,7 +627,7 @@
                 }else if(!checkNumbers()){
                     FlashService.Error($rootScope.selectedLanguage.commons.invalidNo);
                 }else if(!checkPasswords()){
-                    FlashService.Error($rootScope.selectedLanguage.commons.caontainPass);
+                    FlashService.Error($rootScope.selectedLanguage.commons.containPass);
                 }else if(!checkConfirmPasswords()){
                     FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{

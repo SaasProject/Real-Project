@@ -128,7 +128,7 @@
         Parameter(s): $http, $rootScope, $window, UserService, $state (dependencies)
         Return: none
     */
-    function run($http, $rootScope, $window, UserService, LanguageService, $state) {
+    function run($http, $rootScope, $window, UserService, LanguageService, $state, socket) {
         //initialize
         $rootScope.user = {};
         $rootScope.selectedLanguage = {};
@@ -225,6 +225,11 @@
         getUserInfos();
 
         $rootScope.changeLanguage = function(option) {
+            changeLang(option);
+            socket.emit('languageChange', option);
+        }
+
+        function changeLang(option){
             if(option == 'nihongo'){
                 $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
                 $rootScope.hiUser = "こんにちは, "+$rootScope.user.firstName+"さん!";
@@ -235,6 +240,10 @@
             //save selected language to database
             UserService.saveLanguage(option, $rootScope.user);
         }
+
+        socket.on('languageChange', function(option){
+            changeLang(option);
+        });
 
         $rootScope.changeDefaultLanguage = function(option) {
             //save selected default language to database
