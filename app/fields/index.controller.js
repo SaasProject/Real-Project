@@ -55,7 +55,7 @@
         $scope.enableTextArea = function(){
             selected = e.options[e.selectedIndex].value;
 
-            console.log(selected);
+            //console.log(selected);
             
             if(selected == 'dropdown' || selected == 'checkbox' || selected == 'radio'){
                 $scope.editable = true;
