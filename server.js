@@ -60,6 +60,9 @@ io.on('connection', function(socket){
     socket.on('fieldsChange', function(){
         io.emit('fieldsChange');
     });
+    socket.on('languageChange', function(option){
+        io.emit('languageChange', option);
+    });
     socket.on('whouseChange', function(){
          io.emit('whouseChange');
     });
