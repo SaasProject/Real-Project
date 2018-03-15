@@ -111,7 +111,7 @@
             UserService.GetCurrent().then(function (user) {
                 vm.user = user;
                 $scope.aUsers = user;
-                //$scope.profilePicUrl = $rootScope.profilePic;
+                $scope.profilePicUrl = $rootScope.profilePic;
 
                 angular.forEach($scope.fields, function(value, key){
                     //initialize if the dropdown is required
