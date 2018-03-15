@@ -691,6 +691,8 @@
                 }else if(!checkConfirmPasswords()){
                     FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
+					$scope.whouse.flash = $rootScope.selectedLanguage.warehouse.labels.flash_taken;
+					
                     WarehouseService.addWarehouse($scope.whouse)
                     .then(function () {
                         $('#myModal').modal('hide');
