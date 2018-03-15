@@ -96,6 +96,7 @@ var server = http.listen(3000, function () {
     server1.on('connection', function(socket) { 
         socket = new JsonSocket(socket); 
         socket.on('message', function(message) {
+            socket.on('error', ()=> {});
 
             var displayDate;
             var start = new Date();
