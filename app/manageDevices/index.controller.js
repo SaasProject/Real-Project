@@ -528,6 +528,9 @@
                 
                 //validation for password
                 if(currentField.type == 'password'){
+                    if($scope.aDevices[currentField.name] == ''){
+                        $scope.confirmPassword[currentField.name] = '';
+                    }
                     if($scope.aDevices[currentField.name] != $scope.confirmPassword[currentField.name]){
                         allValid = false;
                     }

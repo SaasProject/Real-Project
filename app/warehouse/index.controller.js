@@ -579,6 +579,9 @@
                 
                 //validation for password
                 if(currentField.type == 'password'){
+                    if($scope.whouse[currentField.name] == ''){
+                        $scope.confirmPassword[currentField.name] = '';
+                    }
                     if($scope.whouse[currentField.name] != $scope.confirmPassword[currentField.name]){
                         allValid = false;
                     }

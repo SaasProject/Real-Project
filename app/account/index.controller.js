@@ -414,6 +414,9 @@
                 
                 //validation for password
                 if(currentField.type == 'password'){
+                    if($scope.aUsers[currentField.name] == ''){
+                        $scope.confirmPassword[currentField.name] = '';
+                    }
                     if($scope.aUsers[currentField.name] != $scope.confirmPassword[currentField.name]){
                         allValid = false;
                     }
