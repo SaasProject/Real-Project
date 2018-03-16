@@ -647,7 +647,12 @@
                         resetModalFlash();
                     })
                     .catch(function (error) {
-                        errorFunction(error);
+                        if(error.exists){
+                            FlashService.Error($rootScope.selectedLanguage.devices.labels.flash_taken_1 + " " + $scope.aDevices.device_id + " " + $rootScope.selectedLanguage.devices.labels.flash_taken_2);
+                        }
+                        else{
+                            errorFunction(error);
+                        }
                     });
                 }  
             }

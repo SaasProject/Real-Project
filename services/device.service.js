@@ -46,7 +46,7 @@ function addDevice(deviceParam){
             if (err) deferred.reject(err);
  
             if (device) {
-                deferred.reject(deviceParam['msg1'] + deviceParam['device_id'] + deviceParam['msg2']);
+                deferred.reject({exists: true});
             } else {
                 deviceParam = _.omit(deviceParam, 'msg1');
                 deviceParam = _.omit(deviceParam, 'msg2');

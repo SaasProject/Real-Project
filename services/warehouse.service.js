@@ -43,7 +43,7 @@ function addWarehouse(whouseParam){
             if (err) deferred.reject(err);
  
             if (warehouse) {
-                deferred.reject(whouseParam['name'] + whouseParam['flash']);
+                deferred.reject({exists: true});
             } else {
 				whouseParam = _.omit(whouseParam, 'flash');
                 insertWarehouse();
