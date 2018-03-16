@@ -261,7 +261,7 @@ function insert(userParam){
  
             if (user) {
                 // email already exists
-                deferred.reject(userParam.preferedLanguage.manageAccounts.flashMessages.emIAT1 + '"' + userParam.email + '"' + userParam.preferedLanguage.manageAccounts.flashMessages.emIAT2);
+                deferred.reject({error:true});
             } else {
                 insertUser();
             }
@@ -305,7 +305,7 @@ function update(_id, userParam) {
 						if (user && bcrypt.compareSync(userParam.oldPassword, user.hash)){
 							updateUser();
 						}else{
-							deferred.reject(userParam.preferedLanguage.manageAccounts.flashMessages.oldPasswordIsIncorrect);
+							deferred.reject({error:true});
 						}
 					}
 					else{
