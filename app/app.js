@@ -200,7 +200,6 @@
                 $rootScope.englishLanguage = res;
             })
             .catch(function (error) {
-                FlashService.Error(error);
             });
 
         LanguageService.getNihongoLanguage()
@@ -208,7 +207,6 @@
                 $rootScope.nihongoLanguage = res;
             })
             .catch(function (error) {
-                FlashService.Error(error);
             });
 
         //get default language
@@ -218,7 +216,6 @@
                 $rootScope.defaultLanguage = res;
             })
             .catch(function (error) {
-                FlashService.Error(error);
             });
       
         //execute when loaded
@@ -266,6 +263,7 @@
                 var str = user._id;
                 $rootScope.user = user;
                 $rootScope.fName = user.firstName;
+                $rootScope.dropLangSel = '';
 
                 //get language settings from current user
                 var setLanguage = user.setLanguage;
@@ -276,9 +274,11 @@
                 if(setLanguage == 'nihongo'){
                     $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
                     $rootScope.hiUser = "こんにちは, "+user.firstName+"さん!";
+                    $rootScope.dropLangSel = '日本語';
                 } else if (setLanguage == 'english') {
                     $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
                     $rootScope.hiUser = "Hi "+user.firstName+"!";
+                    $rootScope.dropLangSel = 'English';
                 }
 
                 if (user.firstName == null){
