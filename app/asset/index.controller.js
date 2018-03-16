@@ -763,9 +763,14 @@
                         
                         resetModalFlash();
                         })
-                        .catch(function(){
-                            //tag exists error
-                            FlashService.Error($rootScope.selectedLanguage.assets.flashMessages.exists);
+                        .catch(function(error){
+                            //tag exists 
+                            if(error.exists){
+                                FlashService.Error($rootScope.selectedLanguage.assets.flashMessages.exists);
+                            }
+                            else{
+                                FlashService.Error(error);
+                            }
                         });
                     }
                     $scope.confirmPassword = {};
@@ -834,9 +839,14 @@
                             
                             resetModalFlash();
                         })
-                        .catch(function(){
-                            //only error in this is that the tag already exists
-                            FlashService.Error($rootScope.selectedLanguage.assets.flashMessages.exists);
+                        .catch(function(error){
+                            //tag exists 
+                            if(error.exists){
+                                FlashService.Error($rootScope.selectedLanguage.assets.flashMessages.exists);
+                            }
+                            else{
+                                FlashService.Error(error);
+                            }
                         });
                     }
                     $scope.confirmPassword = {};
