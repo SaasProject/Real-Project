@@ -579,6 +579,9 @@
                 
                 //validation for password
                 if(currentField.type == 'password'){
+                    if($scope.whouse[currentField.name] == ''){
+                        $scope.confirmPassword[currentField.name] = '';
+                    }
                     if($scope.whouse[currentField.name] != $scope.confirmPassword[currentField.name]){
                         allValid = false;
                     }
@@ -688,6 +691,8 @@
                 }else if(!checkConfirmPasswords()){
                     FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
                 }else{
+					$scope.whouse.flash = $rootScope.selectedLanguage.warehouse.labels.flash_taken;
+					
                     WarehouseService.addWarehouse($scope.whouse)
                     .then(function () {
                         $('#myModal').modal('hide');

@@ -353,14 +353,12 @@ function _delete(_id) {
 
         //console.log(user.profilePicUrl);
 
-        fs.unlink('profile_pictures/'+user.profilePicUrl, function (err) {
-          if (err) deferred.reject(err);
-        });
+        fs.unlink('profile_pictures/'+user.profilePicUrl, function (err) {});
 
         db.users.remove(
         { _id: mongo.helper.toObjectID(_id) },
         function (err) {
-            if (err) deferred.reject(err);
+            if (err){};
  
             deferred.resolve();
         });
