@@ -660,7 +660,6 @@
             Return: none
         */
         $scope.photoChanged = function(files) {
-            console.log('photochanged executed');
             var fileName = document.getElementById("profileImg").value;
             if (splitByLastDot(fileName)[1] == "jpeg" || splitByLastDot(fileName)[1] == "JPEG" 
                 || splitByLastDot(fileName)[1] == "jpg" || splitByLastDot(fileName)[1] == "JPG"
