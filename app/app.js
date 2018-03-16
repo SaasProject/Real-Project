@@ -140,25 +140,12 @@
 
         //added by glenn
         //get current user and set details to rootScope
-        $http.get('/api/users/isAdmin').success(function(response){
+        /* $http.get('/api/users/isAdmin').success(function(response){
             //response is true if user is admin from api/users.controller.js
-            //console.log(response);
-            if(response){
-
-                // Determine if user is admin
-                if(true){
-                    // User can manage users
-                    $rootScope.isAdmin = true;
-                } else {
-
-                    //User cannot manage users
-                    $rootScope.isAdmin = false;
-                }
-            }
-            else{
-                return false;
-            }
-        });
+            console.log('first time');
+            $rootScope.isAdmin = response.data;
+            //console.log($rootScope.isAdmin);
+        }); */
  
         //added by jeremy
         // update active tab on state change
@@ -166,11 +153,21 @@
             //console.log($rootScope.isAdmin);
             //console.log(toState);
             //restrict 'Users' when accessing states other than the specified and redirect to login page
-            if(!$rootScope.isAdmin && (toState.name != 'asset' && toState.name != 'home' && toState.name != 'account')){
-                event.preventDefault();
-                //alert('Unauthorized');
-                $state.transitionTo('home');
-            }
+
+
+            $http.get('/api/users/isAdmin').then(function(response){
+                //response is true if user is admin from api/users.controller.js
+                $rootScope.isAdmin = response.data;
+                //console.log($rootScope.isAdmin);
+
+                //need to place code here. putting it outside will not work
+                if(!$rootScope.isAdmin && (toState.name != 'asset' && toState.name != 'home' && toState.name != 'account')){
+                    event.preventDefault();
+                    //alert('Unauthorized');
+                    $state.transitionTo('home');
+                }
+                
+            });
 
             //get token from server every route change to determine if session in server is still alive
             $http.get('/app/token').then(function(res){
@@ -180,6 +177,7 @@
                 //so check the res.data for '<html>'. if found, load whole login page
                 if(res.data.indexOf('<html>') != -1){
                         event.preventDefault();
+                        //alert('oi');
                         //var fullpath = $window.location.href;
                         //var returnUrl = fullpath.substring(fullpath.indexOf($window.location.pathname));
                         //alert('error on @statechange');
