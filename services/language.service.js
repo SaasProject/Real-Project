@@ -7,12 +7,22 @@ var fs=require('fs');
 
 var service = {};
 
+service.getSpecificLanguage = getSpecificLanguage;
 service.saveDefaultLanguage = saveDefaultLanguage;
-service.getEnglishLanguage = getEnglishLanguage;
-service.getNihongoLanguage = getNihongoLanguage;
 service.getDefaultLanguage = getDefaultLanguage;
 
 module.exports = service;
+
+function getSpecificLanguage(req, res) {
+    var deferred = Q.defer();
+    
+    var file=fs.readFileSync(__dirname + '/../languages/'+req.query.option+'.json', 'utf8');
+    var languages=JSON.parse(file);
+
+    deferred.resolve(languages);
+    
+    return deferred.promise;
+}
 
 function saveDefaultLanguage(req, res){
 	var deferred = Q.defer();
@@ -21,28 +31,6 @@ function saveDefaultLanguage(req, res){
         //If no errors, send it back to the client
         deferred.resolve();
     });
-    return deferred.promise;
-}
-
-function getEnglishLanguage(req, res) {
-    var deferred = Q.defer();
-    
-    var file=fs.readFileSync(__dirname + '/../languages/english.json', 'utf8');
-    var languages=JSON.parse(file);
-
-    deferred.resolve(languages);
-    
-    return deferred.promise;
-}
-
-function getNihongoLanguage(req, res) {
-    var deferred = Q.defer();
-    
-    var file=fs.readFileSync(__dirname + '/../languages/nihongo.json', 'utf8');
-    var languages=JSON.parse(file);
-
-    deferred.resolve(languages);
-    
     return deferred.promise;
 }
 

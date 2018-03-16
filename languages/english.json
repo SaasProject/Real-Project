@@ -17,7 +17,9 @@
 			"confirmPass" : "Confirm Password doesn't match.",
 			"containPass" : "Passwords should contain lowercase, uppercase, numbers and at least 8 characters",
 			"invalidEmail" : "Please Input valid email.",
-			"invalidNo" : "Please Input numbers only to number fields."
+			"invalidNo" : "Please Input numbers only to number fields.",
+			"hiUser1" : "Hi ",
+			"hiUser2" : "!"
 		},
 		"loginPage" : {
 			"login": "Login",

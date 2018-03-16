@@ -5,29 +5,14 @@ var router = express.Router();
 var languageService = require('services/language.service');
  
 // routes
-router.get('/getEnglishLanguage', getEnglishLanguage);
-router.get('/getNihongoLanguage', getNihongoLanguage);
+router.get('/getSpecificLanguage', getSpecificLanguage);
 router.get('/getDefaultLanguage', getDefaultLanguage);
 router.post('/saveDefaultLanguage', saveDefaultLanguage);
 
 module.exports = router;
 
-function getEnglishLanguage(req, res) {
-    languageService.getEnglishLanguage(req, res)
-        .then(function (language) {
-            if (language) {
-                res.send(language);
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-}
-
-function getNihongoLanguage(req, res) {
-    languageService.getNihongoLanguage(req, res)
+function getSpecificLanguage(req, res) {
+    languageService.getSpecificLanguage(req, res)
         .then(function (language) {
             if (language) {
                 res.send(language);
