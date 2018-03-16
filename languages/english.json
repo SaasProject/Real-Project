@@ -198,7 +198,7 @@
                 "default": "DEFAULT"
             },
             "flashMessages":{
-				"updated": "Field successfully added",
+				"added": "Field successfully added",
 				"deleted": "Field successfully deleted",
 				"dbError": "Failed to get fields",
 				"empty": "Field must not be empty",
