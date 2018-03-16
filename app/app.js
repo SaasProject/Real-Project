@@ -200,7 +200,6 @@
                 $rootScope.englishLanguage = res;
             })
             .catch(function (error) {
-                FlashService.Error(error);
             });
 
         LanguageService.getNihongoLanguage()
@@ -208,7 +207,6 @@
                 $rootScope.nihongoLanguage = res;
             })
             .catch(function (error) {
-                FlashService.Error(error);
             });
 
         //get default language
@@ -218,7 +216,6 @@
                 $rootScope.defaultLanguage = res;
             })
             .catch(function (error) {
-                FlashService.Error(error);
             });
       
         //execute when loaded
