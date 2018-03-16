@@ -564,16 +564,19 @@
 							FlashService.Error($rootScope.selectedLanguage.commons.confirmPass);
 						} else {
                             //console.log(vm.user);
-                            vm.user.preferedLanguage = $rootScope.selectedLanguage;
+                            //vm.user.preferedLanguage = $rootScope.selectedLanguage;
                             UserService.Update(vm.user)
                                 .then(function () {
 								//	$('#pwModal').modal('hide');
 									FlashService.Success($rootScope.selectedLanguage.manageAccounts.flashMessages.passwordChangedSuccessfully);
 									initController();
-							
                                 })
                                 .catch(function (error) {
+                                    if(error.error===true){
+                                    FlashService.Error($rootScope.selectedLanguage.manageAccounts.flashMessages.oldPasswordIsIncorrect);
+                                }else{
                                     FlashService.Error(error);
+                                }
                                 });
                         
 						}

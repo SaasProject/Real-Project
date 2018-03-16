@@ -673,7 +673,7 @@
             }else{
                 if(forDataBase===requiredTextField){
                     $scope.showAddFlash = false;
-                    $scope.aUsers.preferedLanguage = $rootScope.selectedLanguage;
+                    //$scope.aUsers.preferedLanguage = $rootScope.selectedLanguage;
                     UserService.Insert($scope.aUsers)
                         .then(function () {
                                 initController();
@@ -682,8 +682,13 @@
                                 resetModalFlash();
                                 resetAUsers();
                             }).catch(function (error) {
-                                $scope.showAddFlash = true;
-                                FlashService.Error(error);
+                                if(error.error===true){
+                                    $scope.showAddFlash = true;
+                                    FlashService.Error($rootScope.selectedLanguage.manageAccounts.flashMessages.emIAT1+" "+$scope.aUsers.email+" "+$rootScope.selectedLanguage.manageAccounts.flashMessages.emIAT2);
+                                }else{
+                                     $scope.showAddFlash = true;
+                                    FlashService.Error(error);
+                                }
                             });
                             initController();
                              
