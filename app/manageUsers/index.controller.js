@@ -673,6 +673,8 @@
             }else{
                 if(forDataBase===requiredTextField){
                     $scope.showAddFlash = false;
+                    $scope.aUsers.setLanguage = $rootScope.defaultLanguage.value;
+                    //console.log($scope.aUsers);
                     UserService.Insert($scope.aUsers)
                         .then(function () {
                                 initController();
@@ -691,7 +693,7 @@
                             });
                             initController();
                              
-                        
+                     
                 }
             }
         };
