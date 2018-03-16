@@ -194,31 +194,34 @@
             $rootScope.activeTab = toState.data.activeTab;
         });
 
-        //get languages
-        LanguageService.getEnglishLanguage()
-            .then(function(res) {
-                $rootScope.englishLanguage = res;
-            })
-            .catch(function (error) {
-            });
+        function getLanguages(){
+            //get languages
+            LanguageService.getEnglishLanguage()
+                .then(function(res) {
+                    $rootScope.englishLanguage = res;
+                })
+                .catch(function (error) {
+                });
 
-        LanguageService.getNihongoLanguage()
-            .then(function(res) {
-                $rootScope.nihongoLanguage = res;
-            })
-            .catch(function (error) {
-            });
+            LanguageService.getNihongoLanguage()
+                .then(function(res) {
+                    $rootScope.nihongoLanguage = res;
+                })
+                .catch(function (error) {
+                });
 
-        //get default language
-        LanguageService.getDefaultLanguage()
-            .then(function(res) {
-                //console.log(res);
-                $rootScope.defaultLanguage = res;
-            })
-            .catch(function (error) {
-            });
+            //get default language
+            LanguageService.getDefaultLanguage()
+                .then(function(res) {
+                    //console.log(res);
+                    $rootScope.defaultLanguage = res;
+                })
+                .catch(function (error) {
+                });
+        }
       
         //execute when loaded
+        getLanguages();
         getUserInfos();
 
         $rootScope.changeLanguage = function(option) {
@@ -230,9 +233,11 @@
             if(option == 'nihongo'){
                 $rootScope.selectedLanguage = $rootScope.nihongoLanguage.nihongo;
                 $rootScope.hiUser = "こんにちは, "+$rootScope.user.firstName+"さん!";
+                $rootScope.dropLangSel = '日本語';
             } else if (option == 'english') {
                 $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
                 $rootScope.hiUser = "Hi "+$rootScope.user.firstName+"!";
+                $rootScope.dropLangSel = 'English';
             }
             //save selected language to database
             UserService.saveLanguage(option, $rootScope.user);
@@ -245,6 +250,11 @@
         $rootScope.changeDefaultLanguage = function(option) {
             //save selected default language to database
             LanguageService.saveDefaultLanguage($rootScope.user, option);
+            if(option == 'nihongo'){
+                $rootScope.dropDefLangSel = '日本語';
+            } else if (option == 'english') {
+                $rootScope.dropDefLangSel = 'English';
+            }
         }
 
         /*
@@ -264,6 +274,7 @@
                 $rootScope.user = user;
                 $rootScope.fName = user.firstName;
                 $rootScope.dropLangSel = '';
+                $rootScope.dropDefLangSel = '';
 
                 //get language settings from current user
                 var setLanguage = user.setLanguage;
@@ -279,6 +290,14 @@
                     $rootScope.selectedLanguage = $rootScope.englishLanguage.english;
                     $rootScope.hiUser = "Hi "+user.firstName+"!";
                     $rootScope.dropLangSel = 'English';
+                } else {
+                    $rootScope.dropLangSel = $rootScope.selectedLanguage.accountSettings.labels.selectLanguage;
+                }
+
+                if($rootScope.defaultLanguage.value == 'nihongo'){
+                    $rootScope.dropDefLangSel = '日本語';
+                }else if($rootScope.defaultLanguage.value == 'english'){
+                    $rootScope.dropDefLangSel = 'English';
                 }
 
                 if (user.firstName == null){
